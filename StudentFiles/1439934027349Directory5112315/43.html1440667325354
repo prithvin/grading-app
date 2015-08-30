@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta charset="UTF-8">
+
+<!-- changed doctype etc to allow css3 and html5 - mplato 7-2013
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="< ? php print $language->language; ?>" xml:lang="< ? php print $language->language; ?>" dir="< ? php print $language->dir; ?>">
+<head>-->
+<title>CSE Course Placement Advice | Computer Science and Engineering</title>
+<!--<meta name="ver" content="zp6-1.24"/>
+<meta http-equiv="X-UA-Compatible" content="edge" />-->
+
+
+<link rel="shortcut icon" href="/sites/cse/files/cse/zeropoint_favicon.png" type="image/x-icon" />
+
+<!-- added web fonts - mplato 7-2013 -->
+<link href='http://fonts.googleapis.com/css?family=Muli' rel='stylesheet' type='text/css'>
+<!--<link href='http://fonts.googleapis.com/css?family=Archivo+Narrow' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Carrois+Gothic' rel='stylesheet' type='text/css'>-->
+
+<!--[if lte IE 6]>
+<link type="text/css" rel="stylesheet" media="all" href="/sites/cse.ucsd.edu/themes/zeropoint/css/ie6.css" />
+<![endif]-->
+<!--[if IE 7]>
+<link type="text/css" rel="stylesheet" media="all" href="/sites/cse.ucsd.edu/themes/zeropoint/css/ie7.css" />
+<![endif]-->
+<link type="text/css" rel="stylesheet" media="all" href="/sites/cse/files/cse/css/css_f292058d4d923b881def001dea5f11cd.css" />
+<link type="text/css" rel="stylesheet" media="print" href="/sites/cse/files/cse/css/css_13353bb5e41d76e5e2ca87d721fac738.css" />
+<script type="text/javascript" src="/sites/cse/files/cse/js/js_c3639d5ffc1c2d88e8c193c2424ff788.js"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, { "basePath": "/", "googleanalytics": { "trackOutgoing": 1, "trackMailto": 1, "trackDownload": 1, "trackDownloadExtensions": "7z|aac|arc|arj|asf|asx|avi|bin|csv|doc|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls|xml|z|zip" } });
+//--><!]]>
+</script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery(document).ready(function(){
+    jQuery.preloadCssImages();
+  });
+  
+//--><!]]>
+</script>
+<script type="text/javascript"> </script>
+</head>
+
+<body class="layout-left-main not-admin not-logged-in not-front full-node node-type-sa_page nid-43 section-node page-node-43 layout-fixed l-m-fix1 lg-en">
+<div id="skip-nav"><a href="#main">Skip to Content</a></div>
+
+<div id="bg1"><div id="bg2">
+
+<div id="top_bg" class="page0">
+<div class="sizer0">
+<div id="topex" class="expander0">
+<div id="top_left">
+<div id="top_right">
+<div id="headimg">
+
+<div id="above" class="clearfix">
+  </div>
+
+<div id="header" class="clearfix">
+  <div id="top-elements">
+              <div id="user_links"></div>
+          <div id="banner"><!-- block --> 
+<div class="block-wrapper odd block_1">
+  <div id="block-block-10" class="block block-block ">
+        <div class="content"><p><a href="http://jacobsschool.ucsd.edu" target="_blank"><img alt="" src="/sites/cse/files/cse/JacobsLogo_horizontal.png" /></a></p>
+</div>
+  </div>
+</div>
+<!-- /block --> 
+<!-- block --> 
+<div class="block-wrapper even block_2">
+  <div id="block-google_cse-0" class="block block-google_cse ">
+              <h2 class="title">Search</h2>
+          <div class="content"><form action="/search/google"  accept-charset="UTF-8" method="get" id="google-cse-searchbox-form">
+<div><input type="hidden" name="cx" id="edit-cx" value="006561586824222171553:nmmwlmf0myk"  />
+<input type="hidden" name="cof" id="edit-cof" value="FORID:11"  />
+<div class="form-item" id="edit-query-wrapper">
+ <input type="text" maxlength="128" name="query" id="edit-query" size="15" value="" title="Enter the terms you wish to search for." class="form-text" />
+</div>
+<input type="submit" name="op" id="edit-sa" value="Search"  class="form-submit" />
+<input type="hidden" name="form_build_id" id="form-5fa59f77b5a0c49664a36ee1c103f5b6" value="form-5fa59f77b5a0c49664a36ee1c103f5b6"  />
+<input type="hidden" name="form_id" id="edit-google-cse-searchbox-form" value="google_cse_searchbox_form"  />
+
+</div></form>
+</div>
+  </div>
+</div>
+<!-- /block --> 
+</div>
+      </div><!-- /top-elements -->
+  <div id="logo">
+		      <a href="/" title="Home">
+        <img src="/sites/cse/files/cse/CSELogo_full.gif" alt="Home" />
+      </a>
+    	<style type="text/css">
+	.giving_link {
+		margin-top: 35px;
+		margin-right: 20px;
+		float: right;
+		text-align: right;
+	}
+	.giving_link h4 {
+		font-family: proxima-nova, Helvetica, Arial, sans-serif;
+	}
+	.giving_link_button {
+		display: block;
+	}
+	.giving_link_button a {
+		-webkit-tap-highlight-color: rgb(255, 94, 153);
+		background-attachment: scroll;
+		background-clip: border-box;
+		background-color: rgb(219, 123, 15);
+		background-image: -webkit-gradient(linear, 0% 100%, 0% 0%, color-stop(0.4, rgba(255, 255, 255, 0)), to(rgba(255, 255, 255, 0.4)));
+		background-origin: padding-box;
+		background-size: auto;
+		border-bottom-color: rgb(217, 116, 11);
+		border-bottom-left-radius: 3px;
+		border-bottom-right-radius: 3px;
+		border-bottom-style: solid;
+		border-bottom-width: 1px;
+		border-top-color: rgb(255, 220, 180);
+		border-top-left-radius: 3px;
+		border-top-right-radius: 3px;
+		border-top-style: solid;
+		border-top-width: 1px;
+		box-shadow: rgba(255, 255, 255, 0.498039) 0px 1px 1px 0px, rgba(0, 0, 0, 0.498039) 0px -1px 2px 0px;
+		color: rgb(1, 102, 145);
+		cursor: auto;
+		display: inline-block;
+		font-family: proxima-nova, Helvetica, Arial, sans-serif;
+		font-size: 16px;
+		height: 30px;
+		margin-bottom: 0px;
+		margin-left: 0px;
+		margin-right: 0px;
+		margin-top: 15px;
+		padding-bottom: 0px;
+		padding-left: 0px;
+		padding-right: 0px;
+		padding-top: 0px;
+		position: relative;
+		text-align: center;
+		text-decoration: none;
+		transition-delay: 0s, 0s;
+		transition-duration: 0.1s, 0.1s;
+		transition-property: background, -webkit-box-shadow;
+		transition-timing-function: ease-in, ease-in;
+		vertical-align: baseline;
+		width: 115px;
+		z-index: 1000;
+		zoom: 1;
+	}
+	.giving_link_button a span {
+		border-bottom-color: rgb(255, 255, 255);
+		border-bottom-style: none;
+		border-bottom-width: 0px;
+		border-image-outset: 0px;
+		border-image-repeat: stretch;
+		border-image-slice: 100%;
+		border-image-source: none;
+		border-image-width: 1;
+		border-left-color: rgb(255, 255, 255);
+		border-left-style: none;
+		border-left-width: 0px;
+		border-right-color: rgb(255, 255, 255);
+		border-right-style: none;
+		border-right-width: 0px;
+		border-top-color: rgb(255, 255, 255);
+		border-top-style: none;
+		border-top-width: 0px;
+		color: rgb(255, 255, 255);
+		cursor: auto;
+		display: inline;
+		font-family: Georgia, Times, serif;
+		font-size: 20px;
+		font-style: italic;
+		font-weight: bold;
+		height: auto;
+		line-height: 15px;
+		margin-bottom: 0px;
+		margin-left: 0px;
+		margin-right: 0px;
+		margin-top: 0px;
+		outline-color: rgb(255, 255, 255);
+		outline-style: none;
+		outline-width: 0px;
+		padding-bottom: 0px;
+		padding-left: 0px;
+		padding-right: 0px;
+		padding-top: 0px;
+		position: relative;
+		text-align: center;
+		text-shadow: rgba(0, 0, 0, 0.498039) 0px -1px 1px, rgba(255, 255, 255, 0.498039) 0px 1px 1px;
+		top: 5px;
+		vertical-align: baseline;
+		width: auto;
+		zoom: 1;
+	}
+	</style>
+	  <div class="giving_link">
+		  <div class="giving_link_button">
+			  <a href="http://cse.ucsd.edu/node/185"><span>giving</span></a>
+		  </div>
+		  <h4>Give Online</h4>
+		  <a href="https://giveto.ucsd.edu/?txtFundNo=2955" target="_blank">CSE Tutor Fund</a><br />
+		  <a href="https://giveto.ucsd.edu/?txtFundNo=2388" target="_blank">CSE Teaching Endowment Fund</a>
+	  </div>
+  </div> <!-- /logo -->
+  <div id="name-and-slogan">
+		      </div> <!-- /name-and-slogan -->
+
+<div class="brclear"></div>
+
+
+<div id="navlinks" class="navleft"><ul class="menu"><li class="expanded first"><a href="/node/1">About CSE</a><ul class="menu"><li class="leaf first"><a href="/node/1" title="Department Overview">Department Overview</a></li>
+<li class="expanded"><a href="/node/2642" title="CSE Colloquium and Distinguished Lecture Series">CSE Colloquium / DLS</a><ul class="menu"><li class="leaf first"><a href="/node/2642" title="CSE Colloquium and Distinguished Lecture Series, 2014-2015">2014-2015</a></li>
+<li class="leaf"><a href="/node/2305">2013-2014</a></li>
+<li class="leaf"><a href="/node/2304">2012-2013</a></li>
+<li class="leaf"><a href="/node/78" title="Distinguished Lecturer Series and Colloquia">2011-2012</a></li>
+<li class="leaf last"><a href="/dls_colloquia_archive" title="Distinguished Lecturer Series and Colloquia Archive">Archive</a></li>
+</ul></li>
+<li class="leaf"><a href="/chair_message" title="A Message from the Chair">Chair&#039;s Message</a></li>
+<li class="leaf"><a href="/node/23">Awards &amp; Accomplishments</a></li>
+<li class="leaf"><a href="/node/11" title="Directions and Parking">Directions &amp; Parking</a></li>
+<li class="leaf"><a href="/contact">Contact CSE</a></li>
+<li class="leaf"><a href="/news">CSE News</a></li>
+<li class="collapsed"><a href="/newsletter" title="CSE Newsletters">CSE Newsletters</a></li>
+<li class="expanded"><a href="/node/14" title="The Computer Science and Engineering Building (EBU3B)">Our Building</a><ul class="menu"><li class="leaf first last"><a href="/node/174" title="CSE Building Additional Renderings">Additional Renderings</a></li>
+</ul></li>
+<li class="leaf last"><a href="/sitemap">Site Map</a></li>
+</ul></li>
+<li class="expanded"><a href="/node/3">CSE People</a><ul class="menu"><li class="leaf first"><a href="/node/3" title="CSE People">Overview</a></li>
+<li class="leaf"><a href="/cse_directory" title="CSE Personnel Directory">CSE Directory</a></li>
+<li class="leaf"><a href="/faculty_profile" title="Faculty">Faculty Profiles</a></li>
+<li class="leaf"><a href="/node/17" title="Researchers and Visiting Scholars">Researchers &amp; Postdocs</a></li>
+<li class="leaf"><a href="/node/1914" title="Staff">Staff</a></li>
+<li class="expanded"><a href="/node/21" title="Graduating PhDs">Graduating PhDs</a><ul class="menu"><li class="leaf first"><a href="/node/2545" title="Graduating PhDs in 2014-2015">2014-2015</a></li>
+<li class="leaf"><a href="/node/2260" title="Graduating PhDs in 2013-2014">2013-2014</a></li>
+<li class="leaf"><a href="/node/2157" title="Graduating PhDs in 2012-2013">2012-2013</a></li>
+<li class="leaf"><a href="/node/2063" title="Graduating PhDs in 2011-2012">2011-2012</a></li>
+<li class="leaf"><a href="/node/175" title="Graduating PhDs in 2010-2011">2010-2011</a></li>
+<li class="leaf"><a href="/node/176" title="Graduating PhDs in 2009-2010">2009-2010</a></li>
+<li class="leaf"><a href="/node/177" title="Graduating PhDs in 2008-2009">2008-2009</a></li>
+<li class="leaf"><a href="/node/178" title="Graduating PhDs in 2007-2008">2007-2008</a></li>
+<li class="leaf"><a href="/node/179" title="Graduating PhDs in 2006-2007">2006-2007</a></li>
+<li class="leaf"><a href="/node/180" title="Graduating PhDs in 2005-2006">2005-2006</a></li>
+<li class="leaf"><a href="/node/181" title="Graduating PhDs in 2004-2005">2004-2005</a></li>
+<li class="leaf last"><a href="/node/182" title="Graduating PhDs in 2003-2004">2003-2004</a></li>
+</ul></li>
+<li class="expanded last"><a href="/alumni" title="UCSD CSE Alumni">CSE Alumni</a><ul class="menu"><li class="leaf first"><a href="/node/183" title="CSE Alumni Board Members">Board Members</a></li>
+<li class="expanded"><a href="/node/184" title="CSE Alumni Advisory Board">Board Information</a><ul class="menu"><li class="leaf first"><a href="/node/187" title="UCSD CSE Alumni Board Mandate">Mission Statement</a></li>
+<li class="leaf"><a href="/node/188" title="Become a Board Member">Become a Member</a></li>
+<li class="leaf"><a href="/node/190" title="Upcoming Meetings">Upcoming Meetings</a></li>
+<li class="leaf last"><a href="/node/189" title="January 2011 Meeting Minutes">Past Meeting Minutes</a></li>
+</ul></li>
+<li class="expanded"><a href="/node/185" title="Give Now">Giving to CSE</a><ul class="menu"><li class="leaf first last"><a href="/inspiringimaginations" title="Inspiring Imaginations">Inspiring Imaginations Initiative</a></li>
+</ul></li>
+<li class="leaf"><a href="/alumni_survey" title="CSE Alumni Survey">Alumni Survey</a></li>
+<li class="leaf last"><a href="/node/2859" title="CSE Alumni Quarterly">CSE Alumni Quarterly</a></li>
+</ul></li>
+</ul></li>
+<li class="expanded"><a href="/node/4">Faculty &amp; Research</a><ul class="menu"><li class="expanded first"><a href="/node/4" title="Faculty &amp; Research">Faculty &amp; Research Overview</a><ul class="menu"><li class="leaf first"><a href="http://ai.ucsd.edu/" target="_blank">Artificial Intelligence</a></li>
+<li class="leaf"><a href="/bioinformatics" title="Bioinfomatics">Bioinformatics</a></li>
+<li class="expanded"><a href="/arch" title="Computer Architecture">Computer Architecture</a><ul class="menu"><li class="leaf first"><a href="/arch_alumni">Alumni Archive</a></li>
+<li class="leaf last"><a href="/arch_publications">Publications Archive</a></li>
+</ul></li>
+<li class="leaf"><a href="http://www.db.ucsd.edu/" target="_blank">Databases &amp; Information Management</a></li>
+<li class="leaf"><a href="/ess" title="Embedded Systems and Software">Embedded Systems &amp; Software</a></li>
+<li class="leaf"><a href="/high_performance_computing" title="High-Performance Computing">High-Performance Computing</a></li>
+<li class="leaf"><a href="http://cseweb.ucsd.edu/groups/progsys/" target="_blank">Programming Systems</a></li>
+<li class="leaf"><a href="http://cryptosec.ucsd.edu/" target="_blank">Security &amp; Cryptography</a></li>
+<li class="leaf"><a href="/software_engineering" title="Software Engineering">Software Engineering</a></li>
+<li class="leaf"><a href="http://sysnet.ucsd.edu/" title="Systems and Networking" target="_blank">Systems &amp; Networking</a></li>
+<li class="expanded"><a href="/theory" title="Algorithms and Complexity">Theory</a><ul class="menu"><li class="leaf first"><a href="/theory_publications">Publications Archive</a></li>
+<li class="leaf"><a href="/theory_lab" title="Algorithms and Complexity - Lab">Lab</a></li>
+<li class="leaf"><a href="/theory_reading_group" title="Theory Reading Group">Theory Reading Group</a></li>
+<li class="leaf last"><a href="/theory_seminar" title="Theory Seminar (Spring 2012)">Theory Seminar</a></li>
+</ul></li>
+<li class="leaf"><a href="http://ubicomp.ucsd.edu/" target="_blank">Ubiquitous Computing</a></li>
+<li class="leaf"><a href="/vlsicad_computer_aided_design" title="VLSI/CAD (Computer-Aided Design)">VLSI/CAD (Computer-Aided Design)</a></li>
+<li class="expanded last"><a href="http://viscomp.ucsd.edu">Visual Computing</a><ul class="menu"><li class="leaf first"><a href="http://graphics.ucsd.edu/" target="_blank">Computer Graphics</a></li>
+<li class="leaf last"><a href="http://vision.ucsd.edu/" target="_blank">Computer Vision</a></li>
+</ul></li>
+</ul></li>
+<li class="leaf"><a href="/node/23" title="CSE Faculty Accomplishments and Awards">Awards &amp; Accomplishments</a></li>
+<li class="expanded"><a href="/node/24" title="Associated Centers and Research Units">Associated Centers</a><ul class="menu"><li class="leaf first last"><a href="/centers">Associated Centers</a></li>
+</ul></li>
+<li class="leaf"><a href="/faculty_profile">Faculty Research Profiles</a></li>
+<li class="expanded last"><a href="/node/26" title="Technical Reports">Technical Reports</a><ul class="menu"><li class="leaf first"><a href="/node/191" title="Help on Searching Technical Reports">Search Help</a></li>
+<li class="leaf last"><a href="/node/192" title="How to Submit a Technical Report">Submission Help</a></li>
+</ul></li>
+</ul></li>
+<li class="expanded"><a href="/grad">Graduate Education</a><ul class="menu"><li class="leaf first"><a href="/grad" title="Graduate Studies in CSE at UCSD">Graduate Studies</a></li>
+<li class="expanded"><a href="/node/27" title="Graduate Degree Programs">Degree Programs</a><ul class="menu"><li class="leaf first"><a href="/node/1963" title="Doctoral Programs in Computer Science and Engineering">PhD</a></li>
+<li class="collapsed"><a href="/node/2834" title="MS (default page, example)">MS Program</a></li>
+<li class="leaf"><a href="/node/2021" title="Master of Advanced Studies (MAS)">Master of Advanced Studies (MAS)</a></li>
+<li class="leaf"><a href="/node/59">BS/MS-Combined</a></li>
+<li class="leaf last"><a href="/node/236" title="University-wide Doctoral Program Requirements">University-wide Requirements</a></li>
+</ul></li>
+<li class="expanded"><a href="/node/28" title="UCSD CSE Graduate Admissions">Admissions</a><ul class="menu"><li class="leaf first"><a href="/node/193" title="CSE Graduate Application Checklist">Application Checklist</a></li>
+<li class="leaf"><a href="/node/195" title="Graduate Admissions FAQ">Admissions FAQ</a></li>
+<li class="leaf last"><a href="/node/59" title="Bachelor&#039;s/Master&#039;s Program">BS/MS - Combined</a></li>
+</ul></li>
+<li class="expanded"><a href="/node/29" title="Graduate Courses">Courses</a><ul class="menu"><li class="leaf first"><a href="/graduate_courses">Course Descriptions</a></li>
+<li class="leaf"><a href="/node/2820" title="2015-2016 CSE Graduate Course Offerings">2015-2016 Schedule</a></li>
+<li class="leaf"><a href="/node/2754" title="2015-2016 Courses and Preparation by Course">2015/16 Course Information</a></li>
+<li class="leaf"><a href="/node/2835" title="Advice on CSE Graduate Course Preparation by Speciality">CSE Graduate Course Preparation</a></li>
+<li class="collapsed last"><a href="/node/2523" title="2014 - 2015 CSE Graduate Course Offerings">2014-2015 Schedule</a></li>
+</ul></li>
+<li class="expanded"><a href="/node/30" title="CSE Graduate Student Advising">Advising</a><ul class="menu"><li class="expanded first"><a href="/node/199" title="Information for New CSE Graduate Students">New Student Info</a><ul class="menu"><li class="leaf first"><a href="/node/207" title="Summary of Course Requirements for Computer Engineering">PhD CE Requirements Summary</a></li>
+<li class="leaf"><a href="/node/206" title="Summary of Course Requirements for Computer Science">PhD CS Requirements Summary</a></li>
+<li class="leaf"><a href="/node/208" title="M.S. Degree Requirements Summary">2014 M.S. Summary</a></li>
+<li class="leaf"><a href="/node/198" title="Pre-Approved Concentraton Areas and Courses for MS, Computer Science">2014 MS CS Concentrations</a></li>
+<li class="leaf"><a href="/node/209" title="Master&#039;s Computer Engineering - Approved Concentration Courses">2014 MS CE Concentrations</a></li>
+<li class="leaf"><a href="/node/212" title="Summary of Course Requirements for MS Computer Science (2002-2008)">2002-2008 MS CS Requirements</a></li>
+<li class="leaf last"><a href="/node/211" title="Summary of Course Requirements for MS Computer Engineering (2002-2008)">2002-2008 MS CE Requirements</a></li>
+</ul></li>
+<li class="expanded last"><a href="/node/196" title="CSE Graduate Exams Information">Exams</a><ul class="menu"><li class="expanded first"><a href="/node/215" title="Research Examination Overview">PhD Research Examination</a><ul class="menu"><li class="leaf first"><a href="/node/216" title="Research Examination Guidelines and Policies">Guidelines &amp; Policies</a></li>
+<li class="leaf"><a href="/node/217" title="Sample Research Exams">Sample Exams</a></li>
+<li class="leaf"><a href="/node/237" title="Research Examination Overview (Prior to Fall 2001">Pre-Fall 2001 Overview</a></li>
+<li class="leaf last"><a href="/node/238" title="Information on the Modified Research Exam Effective Spring 1998 (Prior to Fall 2001)">Pre-Fall 2001 Modified Exam</a></li>
+</ul></li>
+<li class="leaf last"><a href="/node/218" title="M.S. Project Presentations and Reports for Comprehensive Exam">2014 MS Project Presentation Examples</a></li>
+</ul></li>
+</ul></li>
+<li class="expanded"><a href="/node/31" title="Financial Support, Cost of Study and Student Housing">Financial Opportunities</a><ul class="menu"><li class="expanded first"><a href="/node/202" title="Teaching Assistantships">Teaching Assistantships</a><ul class="menu"><li class="leaf first last"><a href="/node/228" title="Applying for Teaching Assistantship">Apply</a></li>
+</ul></li>
+<li class="leaf"><a href="/node/227" title="Graduate Student Researcher Positions">Research Assistantships</a></li>
+<li class="leaf last"><a href="/node/201" title="Scholarships and Fellowships for Graduate Students">Scholarships and Fellowships</a></li>
+</ul></li>
+<li class="expanded"><a href="/node/32" title="Resources for Graduate Students">Resources</a><ul class="menu"><li class="leaf first"><a href="/node/203" title="Quick Reference Guide for CSE Graduate Students">Quick Reference Guide</a></li>
+<li class="expanded last"><a href="/node/230" title="Internship Placement Statistics">Internship Placement Statistics</a><ul class="menu"><li class="leaf first"><a href="/node/231" title="Internship Placement Statistics 2010">2010</a></li>
+<li class="leaf"><a href="/node/232" title="Internship Placement Statistics 2009">2009</a></li>
+<li class="leaf last"><a href="/node/233" title="Internship Placement Statistics 2008">2008</a></li>
+</ul></li>
+</ul></li>
+<li class="expanded"><a href="/node/33" title="CSE Graduate Student Life">Graduate Student Life</a><ul class="menu"><li class="leaf first"><a href="/node/214" title="WIC@UCSD: Women in Computing">Women in Computing</a></li>
+<li class="leaf last"><a href="/node/213" title="ChezBob Questions and Answers">ChezBob Q&amp;A</a></li>
+</ul></li>
+<li class="leaf last"><a href="/node/2201" title="CSE Student Affairs Office Hours">CSE Student Affairs Office Hours</a></li>
+</ul></li>
+<li class="expanded active-trail"><a href="/ugrad">Undergraduate Education</a><ul class="menu"><li class="collapsed first"><a href="/ugrad" title="Undergraduate Studies in CSE at UCSD">Undergraduate Studies</a></li>
+<li class="collapsed"><a href="/node/41" title="Undergraduate Admissions">Admissions</a></li>
+<li class="collapsed"><a href="/node/44" title="Undergraduate Advising">Advising</a></li>
+<li class="collapsed"><a href="/node/35" title="Undergraduate Degree Programs">Degree Programs</a></li>
+<li class="collapsed"><a href="/node/40" title="CSE Honors Program">CSE Honors Program</a></li>
+<li class="expanded active-trail"><a href="/node/42" title="Undergraduate Courses">Courses</a><ul class="menu"><li class="leaf first"><a href="/node/2757" title="Course Updates FA15">FA15 Course Updates</a></li>
+<li class="leaf"><a href="/node/2771" title="Summer 2015 Course Updates">SU15 Course Updates</a></li>
+<li class="leaf active-trail"><a href="/node/43" title="CSE Course Advisory Exam" class="active">CSE Course Placement Advice</a></li>
+<li class="leaf"><a href="/node/2012" title="Prerequisites for CSE Undergraduate Classes">Prerequisites for CSE Ugrad Courses</a></li>
+<li class="leaf"><a href="/node/2348" title="Enrolling in CSE Courses">Enrolling in CSE Courses</a></li>
+<li class="leaf"><a href="/node/2692" title="Concurrent Enrollment">Concurrent Enrollment</a></li>
+<li class="leaf"><a href="/undergrad_courses">Course Descriptions</a></li>
+<li class="leaf last"><a href="/node/2836" title="2015-2016 Undergraduate Course Offerings">2015-2016 Undergraduate Course Offerings</a></li>
+</ul></li>
+<li class="collapsed"><a href="/node/45" title="Financial Support, Cost of Study and Student Housing for Undergraduates">Financial Opportunities</a></li>
+<li class="collapsed"><a href="/node/47" title="Resources for Undergraduate Students">Research, Internships and Career Opportunities</a></li>
+<li class="collapsed"><a href="/node/46" title="Student Life in CSE">Student Life in CSE</a></li>
+<li class="collapsed last"><a href="/node/39" title="CSE Graduated Undergraduates">CSE Alumni</a></li>
+</ul></li>
+<li class="expanded"><a href="/node/7">Administration</a><ul class="menu"><li class="leaf first"><a href="/node/7" title="Messages from the Chair and MSO">Messages from Chair &amp; MSO</a></li>
+<li class="expanded"><a href="/node/48" title="Academic Affairs">Academic Affairs</a><ul class="menu"><li class="collapsed first"><a href="/node/277" title="Academic Appointment and Review">Academic Appointment &amp; Review</a></li>
+<li class="collapsed last"><a href="/node/276" title="Visiting Scholars">Visiting Scholars</a></li>
+</ul></li>
+<li class="expanded"><a href="/node/49" title="Financial Affairs">Financial Affairs</a><ul class="menu"><li class="collapsed first"><a href="/node/293" title="Contract and Grant (Extramural Fund) Administration">Contract &amp; Grants</a></li>
+<li class="collapsed"><a href="/node/294" title="Other Fund Administration">Fund Administration</a></li>
+<li class="collapsed"><a href="/node/295" title="Expenditures">Expenditures</a></li>
+<li class="collapsed last"><a href="/node/296" title="Travel">Travel</a></li>
+</ul></li>
+<li class="expanded"><a href="/node/50" title="Human Resources (Personnel/Payroll)">Human Resources</a><ul class="menu"><li class="collapsed first"><a href="/node/333" title="Personnel">Personnel</a></li>
+<li class="collapsed"><a href="/node/336" title="Payroll">Payroll</a></li>
+<li class="collapsed"><a href="/node/337" title="Benefits">Benefits</a></li>
+<li class="collapsed last"><a href="/node/338" title="Recruitment">Recruitment</a></li>
+</ul></li>
+<li class="expanded"><a href="/computing-support" title="Computing Support">Computing Support</a><ul class="menu"><li class="leaf first"><a href="/node/1971" title="Computing Support for Prospective Students">Prospective Students</a></li>
+<li class="leaf"><a href="/node/1972" title="Computing Support for Undergraduate Students">Undergraduate Students</a></li>
+<li class="collapsed"><a href="/node/1974" title="Computing Support for Graduate Students">Graduate Students</a></li>
+<li class="leaf"><a href="/node/2010" title="Non-CSE Students Taking CSE Classes">Non-CSE Students</a></li>
+<li class="leaf"><a href="/node/2011" title="Computing Support for Faculty">Faculty</a></li>
+<li class="leaf"><a href="/node/1973" title="Computing Support for Staff">Staff</a></li>
+<li class="leaf last"><a href="/node/1996" title="Policy">Policy</a></li>
+</ul></li>
+<li class="expanded"><a href="/node/52" title="Facilities &amp; Other Administration">Facilities</a><ul class="menu"><li class="leaf first"><a href="/node/364" title="Maintenance and Housekeeping">Maintenance &amp; Housekeeping</a></li>
+<li class="leaf"><a href="/node/365" title="Telephones - Quick Tips">Telephones</a></li>
+<li class="leaf"><a href="/node/366" title="Keys and Security">Keys &amp; Security</a></li>
+<li class="leaf"><a href="/node/367" title="Emergency Action Plan">Emergency Plan</a></li>
+<li class="leaf"><a href="/node/368" title="Parking">Parking</a></li>
+<li class="collapsed last"><a href="/node/369" title="CSE Common Area Rooms">Common Areas</a></li>
+</ul></li>
+<li class="leaf"><a href="/node/54" title="Resources for New Employees">Resources for New Employees</a></li>
+<li class="leaf"><a href="/node/55" title="Resources for Current Faculty">Resources for Current Faculty</a></li>
+<li class="leaf last"><a href="/node/56" title="Resources for Current Staff">Resources for Current Staff</a></li>
+</ul></li>
+<li class="leaf last"><a href="/contact" title="Contact Information">Contact CSE</a></li>
+</ul></div>
+</div> <!-- /header -->
+
+</div>
+</div><!-- /top_right -->
+</div><!-- /top_left -->
+</div><!-- /expander0 -->
+</div><!-- /sizer0 -->
+</div><!-- /page0 -->
+
+<div id="body_bg" class="page0">
+<div class="sizer0">
+<div class="expander0">
+<div id="body_left">
+<div id="body_right">
+
+  <div class="navleft"></div>
+
+  <div id="breadcrumb">
+    <div class="breadcrumb"><a href="/">Home</a> &raquo; <a href="/ugrad">Undergraduate Education</a> &raquo; <a href="/node/42" title="Undergraduate Courses">Courses</a> &raquo; CSE Course Placement Advice</div>  </div>
+
+
+<div id="middlecontainer">
+  <div id="wrapper">
+    <div class="outer">
+      <div class="float-wrap">
+        <div class="colmain">
+          <div id="main">
+                                    <h1 class="title">CSE Course Placement Advice</h1>            <div class="tabs"></div>
+                                    <!-- node --> 
+<div id="node-43" class="node odd full-node node-type-sa_page">
+  
+  
+  <div class="meta">
+      </div>
+
+  
+  
+  <div class="content">
+    <p class="rteright"><em>Updated May 6, 2014</em></p>
+<p><span style="font-family: arial, sans-serif; font-size: 12.727272033691406px;">Students new to computer science at UCSD often ask which course to enroll in first. &nbsp;The following suggestions are rough guidelines based on prior experiences with our students:</span></p>
+<ul>
+<li>
+		<span style="font-family: arial, sans-serif; font-size: 12.727272033691406px;">Students who have significant prior programming experience (for instance, a score of 4 or 5 on the CS AP&nbsp;</span><span class="il" style="font-family: arial, sans-serif; font-size: 12.727272033691406px;">exam</span><span style="font-family: arial, sans-serif; font-size: 12.727272033691406px;">; or a high-school programming course; or a course in a community college) are advised to begin with CSE 11.</span></li>
+<li>
+		<span style="font-family: arial, sans-serif; font-size: 12.727272033691406px;">Students who have not had significant prior programming experience, but are comfortable with using computers, are advised to begin with CSE 8A.</span></li>
+<li>
+		<span style="font-family: arial, sans-serif; font-size: 12.727272033691406px;">The remaining students are advised to begin with CSE 3.</span></li>
+</ul>
+<p><span style="font-family: arial, sans-serif; font-size: 12.727272033691406px;">Again, these are merely suggestions. It is up to the individual to determine a suitable starting point in CSE. A good strategy is to pick a starting course according to the above rubric, but to change it as early as possible if it turns out to be too elementary or too difficult.</span></p>
+<h3>
+	<span style="font-family: arial, sans-serif; font-size: 12.727272033691406px;">Course Descriptions</span></h3>
+<ul>
+<li>
+		<a href="/cse3">CSE 3 - Fluency in Information Technology</a></li>
+<li>
+		<a href="/cse8A">CSE 8A - Introduction to Computer Science Programming: Java Language</a></li>
+<li>
+		<a href="/cse11">CSE 11 - Introduction to Computer Science and object-Oriented Programming: Java Language</a></li>
+<li>
+		For students who have completed the equivalent of CSE 11 at another institution: &nbsp;<a href="/cse12">CSE 12 - Data Structures and Object-Oriented Design</a>&nbsp;(CSE 15L must be taken the same quarter as CSE 12)</li>
+</ul>
+<h3>
+	<strong>Note: For Cognitive Science Majors:</strong></h3>
+<ul>
+<li>
+		<u><font color="#800080">CSE 7 - Introduction to Programming with MATLAB:</font></u> Cognitive Science majors must take the Advisory Exam available at the <a href="http://www.cogsci.ucsd.edu/undergraduate-study/home/" target="_blank">Cognitive Science Department </a>for placement in CSE 7. Questions for this exam should be directed to Thanh Maxwell at <a href="mailto:tmaxwell@ucsd.edu">tmaxwell@ucsd.edu</a> or 858-534-6771.</li>
+</ul>
+<p>&nbsp;</p>
+  </div>
+
+  
+  </div>
+<!-- /node-43 --> 
+                                  </div>
+        </div> <!-- /colmain -->
+                  <div class="colleft">
+            <div id="sidebar-left"><!-- block --> 
+<div class="block-wrapper odd block_1">
+  <div id="block-local_menu-0" class="block block-local_menu themed-block">
+              <div class="block-icon pngfix"></div>
+          <h2 class="title">Undergraduate Education</h2>
+          <div class="content"><ul class="menu"><li class="collapsed first"><a href="/ugrad" title="Undergraduate Studies in CSE at UCSD">Undergraduate Studies</a></li>
+<li class="collapsed"><a href="/node/41" title="Undergraduate Admissions">Admissions</a></li>
+<li class="collapsed"><a href="/node/44" title="Undergraduate Advising">Advising</a></li>
+<li class="collapsed"><a href="/node/35" title="Undergraduate Degree Programs">Degree Programs</a></li>
+<li class="collapsed"><a href="/node/40" title="CSE Honors Program">CSE Honors Program</a></li>
+<li class="expanded active-trail"><a href="/node/42" title="Undergraduate Courses">Courses</a><ul class="menu"><li class="leaf first"><a href="/node/2757" title="Course Updates FA15">FA15 Course Updates</a></li>
+<li class="leaf"><a href="/node/2771" title="Summer 2015 Course Updates">SU15 Course Updates</a></li>
+<li class="leaf active-trail"><a href="/node/43" title="CSE Course Advisory Exam" class="active">CSE Course Placement Advice</a></li>
+<li class="leaf"><a href="/node/2012" title="Prerequisites for CSE Undergraduate Classes">Prerequisites for CSE Ugrad Courses</a></li>
+<li class="leaf"><a href="/node/2348" title="Enrolling in CSE Courses">Enrolling in CSE Courses</a></li>
+<li class="leaf"><a href="/node/2692" title="Concurrent Enrollment">Concurrent Enrollment</a></li>
+<li class="leaf"><a href="/undergrad_courses">Course Descriptions</a></li>
+<li class="leaf  last"><a href="/node/2836" title="2015-2016 Undergraduate Course Offerings">2015-2016 Undergraduate Course Offerings</a></li>
+</ul></li>
+<li class="collapsed"><a href="/node/45" title="Financial Support, Cost of Study and Student Housing for Undergraduates">Financial Opportunities</a></li>
+<li class="collapsed"><a href="/node/47" title="Resources for Undergraduate Students">Research, Internships and Career Opportunities</a></li>
+<li class="collapsed"><a href="/node/46" title="Student Life in CSE">Student Life in CSE</a></li>
+<li class="collapsed  last"><a href="/node/39" title="CSE Graduated Undergraduates">CSE Alumni</a></li>
+</ul></div>
+  </div>
+</div>
+<!-- /block --> 
+<!-- block --> 
+<div class="block-wrapper even block_2">
+  <div id="block-menu-menu-resources" class="block block-menu themed-block">
+              <div class="block-icon pngfix"></div>
+          <h2 class="title">Resources for</h2>
+          <div class="content"><ul class="menu"><li class="leaf first"><a href="/node/2066">Undergraduate Students - Program FAQs</a></li>
+<li class="leaf"><a href="/node/62" title="Resources for Prospective Students">Prospective Students</a></li>
+<li class="collapsed"><a href="/node/63" title="Resources for Prospective Faculty and Staff">Prospective Faculty &amp; Staff</a></li>
+<li class="leaf"><a href="/node/76" title="Career Connections">Career Connections</a></li>
+<li class="leaf last"><a href="/alumni">Alumni</a></li>
+</ul></div>
+  </div>
+</div>
+<!-- /block --> 
+</div>
+          </div>
+                <br class="brclear" />
+      </div> <!-- /float-wrap -->
+            <br class="brclear" />
+    </div><!-- /outer -->
+  </div><!-- /wrapper -->
+</div>
+
+<div id="bar"></div>
+
+
+
+</div><!-- /body_right -->
+</div><!-- /body_left -->
+</div><!-- /expander0 -->
+</div><!-- /sizer0 -->
+</div><!-- /page0 -->
+
+<div class="eopage">
+<div id="bottom_bg" class="page0">
+<div class="sizer0">
+<div class="expander0">
+<div id="bottom_left">
+<div id="bottom_right">
+
+<div id="footer-wrapper" class="clearfix">
+  <div id="footer">
+    <div id="below"><!-- block --> 
+<div class="block-wrapper odd block_1">
+  <div id="block-menu_block-1" class="block block-menu_block ">
+              <h2 class="title">footer menu</h2>
+          <div class="content"><div class="menu-block-1 menu-name-primary-links parent-mlid-0 menu-level-1">
+  <ul class="menu"><li class="expanded first menu-mlid-1086"><a href="/node/1">About CSE</a><ul class="menu"><li class="leaf first menu-mlid-675"><a href="/node/1" title="Department Overview">Department Overview</a></li>
+<li class="leaf menu-mlid-6898 has-children"><a href="/node/2642" title="CSE Colloquium and Distinguished Lecture Series">CSE Colloquium / DLS</a></li>
+<li class="leaf menu-mlid-676"><a href="/chair_message" title="A Message from the Chair">Chair&#039;s Message</a></li>
+<li class="leaf menu-mlid-2047"><a href="/node/23">Awards &amp; Accomplishments</a></li>
+<li class="leaf menu-mlid-820"><a href="/node/11" title="Directions and Parking">Directions &amp; Parking</a></li>
+<li class="leaf menu-mlid-1097"><a href="/contact">Contact CSE</a></li>
+<li class="leaf menu-mlid-1148"><a href="/news">CSE News</a></li>
+<li class="leaf menu-mlid-7946 has-children"><a href="/newsletter" title="CSE Newsletters">CSE Newsletters</a></li>
+<li class="leaf menu-mlid-823 has-children"><a href="/node/14" title="The Computer Science and Engineering Building (EBU3B)">Our Building</a></li>
+<li class="leaf last menu-mlid-1984"><a href="/sitemap">Site Map</a></li>
+</ul></li>
+<li class="expanded menu-mlid-1087"><a href="/node/3">CSE People</a><ul class="menu"><li class="leaf first menu-mlid-780"><a href="/node/3" title="CSE People">Overview</a></li>
+<li class="leaf menu-mlid-824"><a href="/cse_directory" title="CSE Personnel Directory">CSE Directory</a></li>
+<li class="leaf menu-mlid-825"><a href="/faculty_profile" title="Faculty">Faculty Profiles</a></li>
+<li class="leaf menu-mlid-826"><a href="/node/17" title="Researchers and Visiting Scholars">Researchers &amp; Postdocs</a></li>
+<li class="leaf menu-mlid-5460"><a href="/node/1914" title="Staff">Staff</a></li>
+<li class="leaf menu-mlid-830 has-children"><a href="/node/21" title="Graduating PhDs">Graduating PhDs</a></li>
+<li class="leaf last menu-mlid-831 has-children"><a href="/alumni" title="UCSD CSE Alumni">CSE Alumni</a></li>
+</ul></li>
+<li class="expanded menu-mlid-1088"><a href="/node/4">Faculty &amp; Research</a><ul class="menu"><li class="leaf first menu-mlid-781 has-children"><a href="/node/4" title="Faculty &amp; Research">Faculty &amp; Research Overview</a></li>
+<li class="leaf menu-mlid-832"><a href="/node/23" title="CSE Faculty Accomplishments and Awards">Awards &amp; Accomplishments</a></li>
+<li class="leaf menu-mlid-833 has-children"><a href="/node/24" title="Associated Centers and Research Units">Associated Centers</a></li>
+<li class="leaf menu-mlid-2064"><a href="/faculty_profile">Faculty Research Profiles</a></li>
+<li class="leaf last menu-mlid-835 has-children"><a href="/node/26" title="Technical Reports">Technical Reports</a></li>
+</ul></li>
+<li class="expanded menu-mlid-1089"><a href="/grad">Graduate Education</a><ul class="menu"><li class="leaf first menu-mlid-782"><a href="/grad" title="Graduate Studies in CSE at UCSD">Graduate Studies</a></li>
+<li class="leaf menu-mlid-836 has-children"><a href="/node/27" title="Graduate Degree Programs">Degree Programs</a></li>
+<li class="leaf menu-mlid-837 has-children"><a href="/node/28" title="UCSD CSE Graduate Admissions">Admissions</a></li>
+<li class="leaf menu-mlid-838 has-children"><a href="/node/29" title="Graduate Courses">Courses</a></li>
+<li class="leaf menu-mlid-839 has-children"><a href="/node/30" title="CSE Graduate Student Advising">Advising</a></li>
+<li class="leaf menu-mlid-840 has-children"><a href="/node/31" title="Financial Support, Cost of Study and Student Housing">Financial Opportunities</a></li>
+<li class="leaf menu-mlid-841 has-children"><a href="/node/32" title="Resources for Graduate Students">Resources</a></li>
+<li class="leaf menu-mlid-842 has-children"><a href="/node/33" title="CSE Graduate Student Life">Graduate Student Life</a></li>
+<li class="leaf last menu-mlid-7186"><a href="/node/2201" title="CSE Student Affairs Office Hours">CSE Student Affairs Office Hours</a></li>
+</ul></li>
+<li class="expanded menu-mlid-1090 active-trail"><a href="/ugrad" class="active-trail">Undergraduate Education</a><ul class="menu"><li class="leaf first menu-mlid-783 has-children"><a href="/ugrad" title="Undergraduate Studies in CSE at UCSD">Undergraduate Studies</a></li>
+<li class="leaf menu-mlid-850 has-children"><a href="/node/41" title="Undergraduate Admissions">Admissions</a></li>
+<li class="leaf menu-mlid-853 has-children"><a href="/node/44" title="Undergraduate Advising">Advising</a></li>
+<li class="leaf menu-mlid-844 has-children"><a href="/node/35" title="Undergraduate Degree Programs">Degree Programs</a></li>
+<li class="leaf menu-mlid-849 has-children"><a href="/node/40" title="CSE Honors Program">CSE Honors Program</a></li>
+<li class="leaf menu-mlid-851 has-children active-trail"><a href="/node/42" title="Undergraduate Courses" class="active-trail">Courses</a></li>
+<li class="leaf menu-mlid-854 has-children"><a href="/node/45" title="Financial Support, Cost of Study and Student Housing for Undergraduates">Financial Opportunities</a></li>
+<li class="leaf menu-mlid-856 has-children"><a href="/node/47" title="Resources for Undergraduate Students">Research, Internships and Career Opportunities</a></li>
+<li class="leaf menu-mlid-855 has-children"><a href="/node/46" title="Student Life in CSE">Student Life in CSE</a></li>
+<li class="leaf last menu-mlid-848 has-children"><a href="/node/39" title="CSE Graduated Undergraduates">CSE Alumni</a></li>
+</ul></li>
+<li class="expanded menu-mlid-1091"><a href="/node/7">Administration</a><ul class="menu"><li class="leaf first menu-mlid-784"><a href="/node/7" title="Messages from the Chair and MSO">Messages from Chair &amp; MSO</a></li>
+<li class="leaf menu-mlid-857 has-children"><a href="/node/48" title="Academic Affairs">Academic Affairs</a></li>
+<li class="leaf menu-mlid-858 has-children"><a href="/node/49" title="Financial Affairs">Financial Affairs</a></li>
+<li class="leaf menu-mlid-859 has-children"><a href="/node/50" title="Human Resources (Personnel/Payroll)">Human Resources</a></li>
+<li class="leaf menu-mlid-5918 has-children"><a href="/computing-support" title="Computing Support">Computing Support</a></li>
+<li class="leaf menu-mlid-861 has-children"><a href="/node/52" title="Facilities &amp; Other Administration">Facilities</a></li>
+<li class="leaf menu-mlid-863"><a href="/node/54" title="Resources for New Employees">Resources for New Employees</a></li>
+<li class="leaf menu-mlid-864"><a href="/node/55" title="Resources for Current Faculty">Resources for Current Faculty</a></li>
+<li class="leaf last menu-mlid-865"><a href="/node/56" title="Resources for Current Staff">Resources for Current Staff</a></li>
+</ul></li>
+<li class="leaf last menu-mlid-785"><a href="/contact" title="Contact Information">Contact CSE</a></li>
+</ul></div>
+</div>
+  </div>
+</div>
+<!-- /block --> 
+<!-- block --> 
+<div class="block-wrapper even block_2">
+  <div id="block-block-8" class="block block-block ">
+        <div class="content"><div id="footer-logo">
+	<p><a href="http://www,ucsd.edu" target="_blank"><img alt="" src="/sites/cse/files/cse/UCSanDiego.png" style="width: 160px; height: 34px; border-width: 0px; border-style: solid;" /></a></p>
+</div>
+<div id="footer-text">
+	<p>All Content Copyright &copy; 2015&nbsp;Regents of the University of California. All rights reserved.<br />
+		Official Web page of the University of California, San Diego.<br />
+		<a href="/cse/?q=user">Login</a></p>
+</div>
+<p>&nbsp;</p>
+</div>
+  </div>
+</div>
+<!-- /block --> 
+</div>    <div class="legal">
+      Copyright &copy; 2015 <a href="/"></a>.       <div id="brand"></div>
+    </div>
+  </div>
+</div> <!-- /footer-wrapper -->
+
+<div id="belowme">
+</div>
+
+</div><!-- /bottom_right -->
+</div><!-- /bottom_left -->
+</div><!-- /expander0 -->
+</div><!-- /sizer0 -->
+</div><!-- /page0 -->
+</div>
+
+</div></div><!-- /bg# -->
+
+<script type="text/javascript" src="/sites/cse/files/cse/js/js_1465300dd7399cbd5e0d1359ae522752.js"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, { "googleCSE": { "language": "en" } });
+//--><!]]>
+</script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+var _gaq = _gaq || [];_gaq.push(["_setAccount", "UA-9709862-9"]);_gaq.push(["_trackPageview"]);(function() {var ga = document.createElement("script");ga.type = "text/javascript";ga.async = true;ga.src = ("https:" == document.location.protocol ? "https://ssl" : "http://www") + ".google-analytics.com/ga.js";var s = document.getElementsByTagName("script")[0];s.parentNode.insertBefore(ga, s);})();
+//--><!]]>
+</script>
+<div class="by"><a href="http://www.radut.net">sa_page | about seo</a></div></body>
+</html>

@@ -1,0 +1,40 @@
+#!/usr/bin/env node
+var debug = require('debug')('JavaGradingApp');
+var app = require('../app');
+
+var https = require('https');
+var fs = require('fs');
+var hskey = fs.readFileSync('hacksparrow-key.pem');
+var hscert = fs.readFileSync('hacksparrow-cert.pem')
+var forceSSL = require('express-force-ssl');
+
+
+
+var options = {
+    key: hskey,
+    cert: hscert
+};
+
+
+var secureServer = https.createServer(options, app).listen(4834);
+
+
+
+app.set('port', 3000);
+
+
+
+var server = app.listen(app.get('port'), function() {
+  console.log('Express server listening on port ' + server.address().port);
+});
+
+
+app.use(forceSSL);
+
+app.disable('x-powered-by');
+
+
+
+
+
+ 
