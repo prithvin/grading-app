@@ -58,7 +58,7 @@ function runProgram (directorydata, rootdirectory, res, req, rundata, runvm) {
 		console.log(containernum.trim());
 		console.log("Container Number above");
 		storeFilesInDir("/var/lib/docker/aufs/mnt/" + containernum.trim() + "/", data, directorydata, 0, rootdirectory, res, function (portnum) {
-			if (runvm) {
+			if (runvm == true) {
 				console.log("RUNNING VIRTUAL MACHINE");
 				cmd = "docker exec -t " +  containernum.trim() + " bash -c \"export DISPLAY=:1 && xterm -e \'cd FileSystem && " + rundata + ";bash\'\""
 				console.log(cmd);
@@ -72,7 +72,17 @@ function runProgram (directorydata, rootdirectory, res, req, rundata, runvm) {
 										
 				});
 			}
-			
+			else {
+				// Save json file here
+				cmd = "docker exec -t " +  containernum.trim() + " node app.js";
+				exec(cmd, function(error, stdout, stderr) {
+					console.log(error);
+					console.log(stdout + stderr);
+					console.log(portnum);
+					// res.send the results file	
+				});
+
+			}
 		});
 
 	   	req.session["" + data] = new Date();
@@ -139,7 +149,7 @@ function storeFilesInDir(maindir, portnum, directorydata, x, rootdirectory, res,
 	}
 }
 function findOpenPort (exec, port, callback) {
-	var cmd = "docker run -td -p " + port + ":6080 javaapp";
+	var cmd = "docker run -td -p " + port + ":6080 javaapp2";
 	exec(cmd, function(error, stdout, stderr) {
 	 	if(stderr == "") {
 	 		callback(port, stdout);

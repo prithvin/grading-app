@@ -1,0 +1,3 @@
+$("#selectinputtype").on("change", function () {
+
+});
