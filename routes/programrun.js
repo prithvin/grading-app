@@ -73,15 +73,54 @@ function runProgram (directorydata, rootdirectory, res, req, rundata, runvm) {
 				});
 			}
 			else {
-				// Save json file here
-				cmd = "docker exec -t " +  containernum.trim() + " node app.js";
-				exec(cmd, function(error, stdout, stderr) {
-					console.log(error);
-					console.log(stdout + stderr);
-					console.log(portnum);
-					// res.send the results file	
-				});
+				var obj = {};
+				obj.FileName = runvm.FileName;
+				obj.Commands =  runvm.CompileInput
+				obj.AdvancedInput = runvm.AdvancedInput;
+				obj.Data = [];
+				for (var x = 0; x < runvm.TextToFind.length; x++) {
+					if (obj.AdvancedInput == true) {
+						var index = false;
+						if (runvm.UseIndexOf[x].trim().toLowerCase() == "true")
+							index = true;
+						obj.Data.push({
+							Text: runvm.TextToFind[x],
+							ReturnText: runvm.TextToReturn[x],
+							UseIndexOf: index,
+							RepeatHowMany: parseInt(runvm.NumRepeats[x]),
+							HowManyRepeatedSoFar: 0
+						})
+					}
+					else {
+						obj.Data.push({
+							Text: runvm.TextToFind[x],
+							ReturnText: null,
+							UseIndexOf: null,
+							RepeatHowMany: null,
+							HowManyRepeatedSoFar: null
+						});
+					}
+				}
+				var str = JSON.stringify(obj);
 
+				var mypath = path.join("/var/lib/docker/aufs/mnt/" + containernum.trim() + "/jsoninput");
+				fs.outputFile(mypath, str, function (err) {
+						 console.log(err) // => null
+						 cmd = "docker exec -t " +  containernum.trim() + " node app.js";
+					exec(cmd, [], {timeout: 10000},  function(error, stdout, stderr) {
+						console.log(error);
+						console.log(stdout + stderr);
+						 fs.readFile(path.join("/var/lib/docker/aufs/mnt/" + containernum.trim() + "/outputfile"), 'utf8', function (err, data) {
+						    res.send(data); // => hello!
+						  })
+
+						// res.send the results file	
+					});
+				});
+				// Save json file here
+				// Make sure to have timeout for command below
+
+			
 			}
 		});
 
@@ -188,6 +227,43 @@ router.post('/openvmemulator' , function (req, res) {
 	}
 });
 
+
+
+router.post('/openregemulator' , function (req, res) {
+	var directorydata = req.body.DirectoryData;
+	var classroomid = req.body.ClassRoomId;
+	var jsondata = req.body.JsonData;
+
+
+	if (jsondata.AdvancedInput == null) {
+		res.send("Error, please send all required parameters");
+	}
+	else if (jsondata.AdvancedInput == true) {
+		if (jsondata.TextToFind.length != jsondata.TextToReturn.length || jsondata.TextToReturn.length != jsondata.UseIndexOf.length || jsondata.UseIndexOf.length != jsondata.NumRepeats.length) {
+			res.send("Error. Some paramters not inputted correctly");
+		}
+	}
+	
+	else if (directorydata == null) {
+		res.send("Please send all required parameters");
+	}
+	else if (req.session.UserId == null) {
+		res.send("Please login to continue");
+	}
+	else {
+		users.findOne({_id : req.session.UserId}, function (err, data) {
+			if (err) {
+				console.log(err);
+			}
+			
+			var flatty = flattifyFileSystem(data.FileSystem[classroomid].Data, ["FileSystem"]);
+			for (var x = 0;x < directorydata.length; x++) {
+				directorydata[x].Directory = flatty[directorydata[x].UnderscoreID];
+			}
+			runProgram(directorydata, data.FileSystemRoot, res, req, null, jsondata);
+		});
+	}
+});
 
 
 function mergeJSON (json1, json2){

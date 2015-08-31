@@ -1,3 +1,16 @@
+.inputcompstyle {
+	width:100%;
+
+	-webkit-appearance:none;
+	-moz-appearance:  none;
+	appearance:none;
+	border-radius:0px !IMPORTANT;
+    background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png) no-repeat right #ddd;
+    -webkit-appearance: none;
+    background-position-x: 98%;
+}
+
+
 .demo-card-square.mdl-card {
   width: 320px;
   height: 320px;

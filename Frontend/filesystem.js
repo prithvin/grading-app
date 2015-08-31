@@ -111,6 +111,34 @@ $("#compile").on("click", function (ev) {
 					}
 				});
 			})
+			$("#testforinput").on("click", function () {
+				$("#loadingbox").show();
+				var advinput = false;
+				if($( "#selectinputtype option:selected" ).text() == "Advanced Input") 
+					advinput = true;
+				var objinputdata = {
+					CompileInput: $("#inputspecinputcomptext").val().split("\n").join(" && ").trim(),
+					FileName: $("#inputspecinputfilename").val().trim(),
+					AdvancedInput: advinput,
+					TextToFind:  $('.texttofind').map(function(){return $.trim($(this).val());}).get(),
+					TextToReturn: $('.texttoreturn').map(function(){return $.trim($(this).val());}).get(),
+					UseIndexOf: $('.useindexof').map(function(){return $.trim($(this).is(':checked'));}).get(),
+					NumRepeats:  $('.numrepeats').map(function(){return $.trim($(this).val());}).get()
+				};
+				$.ajax({
+					type: "POST",
+					url: "http://104.131.135.237:3000/programrun/openregemulator",
+					data: {DirectoryData: obj, JsonData: objinputdata, ClassRoomId: "666f6f2d6261722d71757578"},
+					success: function (response) {
+						$("#loadingbox").hide();
+						console.log(response);
+					},
+					xhrFields: {withCredentials: true},
+					error:function(){
+						console.log("ERROR");
+					}
+				});
+			});
 		}
 	}
 });
