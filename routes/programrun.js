@@ -7,14 +7,14 @@ router.get('/testjava', function (req ,res) {
 
 	var cp = require('child_process');
 	var compile = cp.exec('cd TestJava && javac *.java', function (err, stdin, stdout) {
-		console.log("HEY");
-		console.log(stdin + stdout);
+		//console.log("HEY");
+		//console.log(stdin + stdout);
 		var ps = cp.spawn('java', ["Test"], {stdio: ['pipe', 'pipe'] , cwd: "TestJava"});
 
 		var arr = ["Test\n", "22\n", "22", "22"];
 		var x = 0;
 		ps.stdout.on('data', function (data) {
-		  console.log('stdout: ' + data);
+		 // console.log('stdout: ' + data);
 		  if (String(data).indexOf("Motherflocka something") != -1) {
 		  	ps.stdin.write("HI\n");
 		  }
@@ -57,17 +57,17 @@ function runProgram (directorydata, rootdirectory, res, req, rundata, runvm) {
 		console.log("STARTED ON THIS PORT" + data);
 		console.log(containernum.trim());
 		console.log("Container Number above");
-		storeFilesInDir("/var/lib/docker/aufs/mnt/" + containernum.trim() + "/", data, directorydata, 0, rootdirectory, res, function (portnum) {
+		storeFilesInDir("/var/lib/docker/aufs/diff/" + containernum.trim() + "/", data, directorydata, 0, rootdirectory, res, function (portnum) {
 			if (runvm == true) {
-				console.log("RUNNING VIRTUAL MACHINE");
+				//console.log("RUNNING VIRTUAL MACHINE");
 				cmd = "docker exec -t " +  containernum.trim() + " bash -c \"export DISPLAY=:1 && xterm -e \'cd FileSystem && " + rundata + ";bash\'\""
-				console.log(cmd);
+				//console.log(cmd);
 				res.send("" + portnum);
 				//docker exec -t -i 25a1cf59aa487a380a29e421528fe6450d48cb2e13376c365326b40bd4ec707f bash -c "export DISPLAY=:1 && xterm"
 				exec(cmd, function(error, stdout, stderr) {
-					console.log(error);
-					console.log(stdout + stderr);
-					console.log(portnum);
+					//console.log(error);
+					//console.log(stdout + stderr);
+					//console.log(portnum);
 					
 										
 				});
@@ -77,15 +77,26 @@ function runProgram (directorydata, rootdirectory, res, req, rundata, runvm) {
 				obj.FileName = runvm.FileName;
 				obj.Commands =  runvm.CompileInput
 				obj.AdvancedInput = runvm.AdvancedInput;
+				console.log("IS THIS TRUE "+ (runvm.AdvancedInput == "true" || runvm.AdvancedInput == true));
+				if (runvm.AdvancedInput == "true" || runvm.AdvancedInput == true) {
+					console.log("ITS TRU");
+					obj.AdvancedInput == true;
+					console.log(obj.AdvancedInput);
+				}
+				else {
+					obj.AdvancedInput == false;
+				}
 				obj.Data = [];
 				for (var x = 0; x < runvm.TextToFind.length; x++) {
-					if (obj.AdvancedInput == true) {
+					console.log(obj.AdvancedInput);
+					if (obj.AdvancedInput == true  || obj.AdvancedInput == "true") {
+						console.log("AND HERE PLZ");
 						var index = false;
 						if (runvm.UseIndexOf[x].trim().toLowerCase() == "true")
 							index = true;
 						obj.Data.push({
 							Text: runvm.TextToFind[x],
-							ReturnText: runvm.TextToReturn[x],
+							ReturnText: runvm.TextToReturn[x].split("\\n").join("\n"),
 							UseIndexOf: index,
 							RepeatHowMany: parseInt(runvm.NumRepeats[x]),
 							HowManyRepeatedSoFar: 0
@@ -102,15 +113,18 @@ function runProgram (directorydata, rootdirectory, res, req, rundata, runvm) {
 					}
 				}
 				var str = JSON.stringify(obj);
-
-				var mypath = path.join("/var/lib/docker/aufs/mnt/" + containernum.trim() + "/jsoninput");
+				console.log(str);
+				var mypath = path.join("/var/lib/docker/aufs/diff/" + containernum.trim() + "/jsoninput");
 				fs.outputFile(mypath, str, function (err) {
 						 console.log(err) // => null
 						 cmd = "docker exec -t " +  containernum.trim() + " node app.js";
-					exec(cmd, [], {timeout: 10000},  function(error, stdout, stderr) {
+					exec(cmd, {timeout: 30000},  function(error, stdout, stderr) {
 						console.log(error);
 						console.log(stdout + stderr);
-						 fs.readFile(path.join("/var/lib/docker/aufs/mnt/" + containernum.trim() + "/outputfile"), 'utf8', function (err, data) {
+						console.log("HEY YA");
+						 fs.readFile(path.join("/var/lib/docker/aufs/diff/" + containernum.trim() + "/outputfile"), 'utf8', function (err, data) {
+						 	console.log(err);
+						 	console.log("COOLZ");
 						    res.send(data); // => hello!
 						  })
 
@@ -174,8 +188,8 @@ function storeFilesInDir(maindir, portnum, directorydata, x, rootdirectory, res,
 				    if(err) {
 				        return console.log(err);
 				    }
-				    console.log("My Path : " + mypath);
-				    console.log("Old Path : " + "StudentFiles/" + rootdirectory + "/" + filename);
+				  //  console.log("My Path : " + mypath);
+				    //console.log("Old Path : " + "StudentFiles/" + rootdirectory + "/" + filename);
 				    storeFilesInDir(maindir, portnum, directorydata, (x+1), rootdirectory, res, rundata);
 
 				});
@@ -188,7 +202,7 @@ function storeFilesInDir(maindir, portnum, directorydata, x, rootdirectory, res,
 	}
 }
 function findOpenPort (exec, port, callback) {
-	var cmd = "docker run -td -p " + port + ":6080 javaapp2";
+	var cmd = "docker run -td -p " + port + ":6080 javaapp4";
 	exec(cmd, function(error, stdout, stderr) {
 	 	if(stderr == "") {
 	 		callback(port, stdout);
