@@ -48,11 +48,7 @@
 
 .loginerror
 {
-	-webkit-animation-name: thumb;
-	-webkit-animation-duration: 200ms;
-	-webkit-transform-origin:50% 50%;
-	-webkit-animation-iteration-count: 2;
-	-webkit-animation-timing-function: linear;
+	background-color:#C0392B;
 }
 
 #directory .mdl-button {

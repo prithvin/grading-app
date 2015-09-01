@@ -5,7 +5,7 @@ $.ajax({
 	url: "http://104.131.135.237:3000/users/insession",
 	data: {},
 	success: function (response) {
-		if (parseInt(response) ==  -1) {
+		if (parseInt(response) ==  -1 || parseInt(response) == 2) {
 			$("#loginbox").show();
 			$(".mainbackground").css("background-image", "url('https://upload.wikimedia.org/wikipedia/commons/1/1a/Code.jpg')");
 			$("#myloginform").on("submit", function (ev) {
@@ -23,8 +23,8 @@ $.ajax({
 						}
 						else {
 							console.log("HEY");
-							$("#loginshakebox").removeClass("loginerror");
-							$("#loginshakebox").addClass("loginerror");
+														$("#loginshakebox").addClass("loginerror").removeClass('loginerror',1000);
+
 						}
 
 					},

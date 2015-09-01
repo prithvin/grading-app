@@ -1,94 +1,207 @@
 <!DOCTYPE html>
 <html >
-  <head>
-    <meta charset="UTF-8">
-  </head>
+     <head>
+          <meta charset="UTF-8">
+          <!-- Material Design Lite -->
+          <title>Teacher Portal</title>
+          <script src="https://storage.googleapis.com/code.getmdl.io/1.0.4/material.min.js"></script>
+          <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.4/material.indigo-pink.min.css">
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+          <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+          <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
 
-  <body>
-  <title>Teacher Portal</title>
-    <html>
-  <head>
-    <!-- Material Design Lite -->
-    <script src="https://storage.googleapis.com/code.getmdl.io/1.0.4/material.min.js"></script>
-    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.4/material.indigo-pink.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="alertboxes.css">
-    <style>
-    .addclasscard.mdl-card {
-  width: 320px;
-  height: 320px;
-}
-.addclasscard > .mdl-card__title {
-  color: #fff;
-  background:
-    url('https://upload.wikimedia.org/wikipedia/commons/0/0f/ClassroomMoveableFurnitureITESMCCM_02.JPG') bottom right 15% no-repeat #46B6AC;
-    background-size:100%;
-}
-</style>
-  </head>
-  <body>
-    <!-- Always shows a header, even in smaller screens. -->
-    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-      <header class="mdl-layout__header">
-        <div class="mdl-layout__header-row">
-          <!-- Title -->
-          <span class="mdl-layout-title">AP Computer Science - 2nd Period - Mr. DeRuiter</span>
-          <!-- Add spacer, to align navigation to the right -->
-          <div class="mdl-layout-spacer"></div>
-          <!-- Navigation. We hide it in small screens. -->
-          <nav class="mdl-navigation ">
-            <a class="mdl-navigation__link" href="">Classroom</a>
-            <a class="mdl-navigation__link" href="">Assignments</a>
-            <a class="mdl-navigation__link" href="">Submissions</a>
-            <a class="mdl-navigation__link" href="">Discussion</a>
-          </nav>
-        </div>
-      </header>
-      <div class="mdl-layout__drawer">
-        <span class="mdl-layout-title">My Classes</span>
-        <nav class="mdl-navigation">
-          <a class="mdl-navigation__link" href="">CSE 11</a>
-          <a class="mdl-navigation__link" href="">AP Computer Science - 2nd Period - Mr. DeRuiter</a>
-          <a class="mdl-navigation__link" href="">Introduction to Java</a>
-          <a class="mdl-navigation__link" href="">Intermediate C++</a>
-          <hr>
-          <a class="mdl-navigation__link"  style="cursor:pointer;" id="openaddclass">Create Class</a>
-        </nav>
-      </div>
-      <main class="mdl-layout__content">
-        <div class="page-content"><!-- Your content goes here --></div>
-      </main>
-    </div>
-  </body>
-  <alertboxes>
-  <div id="findclass" class="bigbox"  style="z-index:100000;">
+          <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+
+          <link rel="stylesheet" href="alertboxes.css">
 
 
-<div class="addclasscard backgroundalert mdl-card mdl-shadow--2dp">
-  <div class="mdl-card__title mdl-card--expand">
-    <h2 class="mdl-card__title-text">Add Class</h2>
-  </div>
-  <div class="mdl-card__supporting-text">
-    Type in the class name below:
-  <div class="mdl-textfield mdl-js-textfield">
-    <input class="mdl-textfield__input" type="text" id="sample1" />
-    <label class="mdl-textfield__label" for="sample1">Class Name</label>
-  </div>
-  </div>
+          <style>
+               .addclasscard.mdl-card {
+                    width: 320px;
+                    height: 320px;
+               }
+               .addclasscard > .mdl-card__title {
+                    color: #fff;
+                    background:
+                    url('https://upload.wikimedia.org/wikipedia/commons/0/0f/ClassroomMoveableFurnitureITESMCCM_02.JPG') bottom right 15% no-repeat #46B6AC;
+                    background-size:100%;
+               }
+               .activebuttonportal {
+                    background-color: rgba(0, 0, 0, 0.19);
+               }
+          </style>
+     </head>
+     <body>
+          <!-- Always shows a header, even in smaller screens. -->
+          <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+               <header class="mdl-layout__header">
+                    <div class="mdl-layout__header-row">
+                         <!-- Title -->
+                         <span id="classroomname" class="mdl-layout-title"></span>
+                         <!-- Add spacer, to align navigation to the right -->
+                         <div class="mdl-layout-spacer"></div>
+                         <!-- Navigation. We hide it in small screens. -->
+                         <nav class="mdl-navigation" style="padding-left:30px;">
+                              <a class="mdl-navigation__link activebuttonportal" href="">Classroom</a>
+                              <a class="mdl-navigation__link" href="">Assignments</a>
+                              <a class="mdl-navigation__link" href="">Submissions</a>
+                              <a class="mdl-navigation__link" href="">Discussion</a>
+                         </nav>
+                    </div>
+               </header>
+               <div class="mdl-layout__drawer">
+                    <span class="mdl-layout-title">My Classes</span>
+                    <nav class="mdl-navigation">
+                         <div id="myclasslist"></div>
+                         <hr>
+                         <a class="mdl-navigation__link"  style="cursor:pointer;" id="openaddclass">Create Class</a>
+                    </nav>
+               </div>
+               <main class="mdl-layout__content">
+                    <div class="page-content">
+                         <div id="showBlockPage" style="display:none;position:absolute;background-color:white;padding-top:50px;text-align:center;height:100%;width:100%;"><p style="font-size:60px;line-height:70px;padding:50px;">Select a Classroom from the dropdown on the left</p></div>
+                         <div class="pure-g">
+                              <div class="pure-u-1-2">
+                                   <div style="padding:20px;">
+                                        <h5 style="width:100%;text-align:center;">Students Who Want To Enroll</h5>
+                                        <table class="pure-table" style="width:100%;">
+                                             <thead>
+                                                  <tr>
+                                                       <th>Name</th>
+                                                       <th>Student ID</th>
+                                                       <th>Email</th>
+                                                       <th>Accept</th>
+                                                       <th>Decline</th>
+                                                  </tr>
+                                             </thead>
+                                             <tbody id="studentswhowantenroll">
+                                                 
+                                             </tbody>
+                                        </table>
+                                   </div>
+                              </div>
+                              <div class="pure-u-1-2">
+                                   <div style="padding:20px;">
+                                        <h5 style="width:100%;text-align:center;">Students Enrolled</h5>
+                                        <table class="pure-table" style="width:100%;">
+                                             <thead>
+                                                  <tr>
+                                                       <th>Name</th>
+                                                       <th>Student ID</th>
+                                                       <th>Email</th>                           
+                                                       <th>Drop</th>
+                                                  </tr>
+                                             </thead>
+                                             <tbody>
+                                                  <tr>
+                                                       <td>Prithvi Narasimhan</td>
+                                                       <td>5112315</td>
+                                                       <td>narasimhan.prithvi@gmail.com</td>
+                                                       <td><a class="pure-button pure-button-primary" style="background-color:#96281B;" href="#"><i class="fa fa-close"></i></a></td>
+                                                  </tr>
+                                             </tbody>
+                                        </table>  
+                                   </div>
+                              </div>
+                         </div>
+                         <hr>
+                         <div class="pure-g">
+                              <div class="pure-u-1-2">
+                                   <div style="padding:20px">
+                                        <h5 style="width:100%;text-align:center;">Daily Bulletin</h5>
+                                        <input type="date">
+                                        <textarea id="dailycalendar"></textarea>
+                                        <button class="pure-button pure-button-primary">Update</button>
+                                   </div>
+                              </div>
+                              <div class="pure-u-1-2">
+                                   <div style="padding:20px">
+                                        <h5 style="width:100%;text-align:center;">Class Locker</h5>
+                                        <button class="pure-button pure-button-primary">Upload File</button>
+                                        <table class="pure-table" style="width:100%;">
+                                             <thead>
+                                                  <tr>
+                                                       <th>File Name</th>
+                                                       <th>Date Uploaded</th>
+                                                       <th>Delete</th>                           
+                                                  </tr>
+                                             </thead>
+                                             <tbody>
+                                                  <tr>
+                                                       <td>Prithvi Narasimhan</td>
+                                                       <td>5112315</td>
+                                                       <td><a class="pure-button pure-button-primary" style="background-color:#96281B;" href="#"><i class="fa fa-close"></i></a></td>
+                                                  </tr>
+                                             </tbody>
+                                        </table>  
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+               </main>
+          </div>
+     </body>
+     <alertboxes>
+          <div id="findclass" class="bigbox"  style="">
+               <div class="addclasscard backgroundalert mdl-card mdl-shadow--2dp">
+                    <div class="mdl-card__title mdl-card--expand"><h2 class="mdl-card__title-text">Add Class</h2></div>
+                    <form id="createnewclass">
+                         <div class="mdl-card__supporting-text">
+                              Type in the class name below:
+                              <div class="mdl-textfield mdl-js-textfield">
+                                   <input class="mdl-textfield__input" type="text" id="classnameinput" />
+                                   <label class="mdl-textfield__label" for="classnameinput">Class Name</label>
+                              </div>
+                         </div>
+                         <div class="mdl-card__actions mdl-card--border">
+                              <button type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Create </button>
 
-  <div class="mdl-card__actions mdl-card--border">
-    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-      Create
-    </a>
-     <a class="cancelbutton mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-      Cancel
-    </a>
-  </div>
-</div>
-    </div>
-  </alertboxes>
+
+                              <a class="cancelbutton mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Cancel</a>
+                         </div>
+                    </form>
+               </div>
+          </div>
+          <div id="loginbox" class="bigbox">
+               <div id="loginshakebox" class="demo-card-square mdl-card mdl-shadow--2dp backgroundalert" >
+                    <div class="mainbackground mdl-card__title mdl-card--expand"><h2 class="mdl-card__title-text" >Teacher Login</h2></div>
+                    <form id="myloginform">
+                         <div class="mdl-card__supporting-text">
+                              <div class="mdl-textfield mdl-js-textfield">
+                                   <input class="mdl-textfield__input" type="text" id="usernamefield" />
+                                   <label class="mdl-textfield__label" for="usernamefield">Username</label>
+                              </div>
+                              <div class="mdl-textfield mdl-js-textfield">
+                                   <input class="mdl-textfield__input" type="password" id="passwordfield" />
+                                   <label class="mdl-textfield__label" for="passwordfield">Password</label>
+                              </div>
+                         </div>
+                         <div class="mdl-card__actions mdl-card--border">
+                              <button id="login" type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Login</button>
+                         </div>
+                    </form>
+               </div>
+          </div>
+          <div id="uploadbox" class="bigbox">
+               <div class="demo-card-square mdl-card mdl-shadow--2dp backgroundalert" >
+                    <div class="mainbackground mdl-card__title mdl-card--expand">
+                         <h2 class="mdl-card__title-text" id="textprompt" ></h2>
+                    </div>
+                    <div class="mdl-card__supporting-text" id="uploadalertboxtext"></div>
+                    <div class="mdl-card__actions mdl-card--border">
+                         <a id="uploadyes" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Yes</a>
+                         <a id="uploadno" class="mdl-button  mdl-js-button mdl-js-ripple-effect">No</a>
+                    </div>
+               </div>
+          </div>
+     </alertboxes>
+     <footer>
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+          <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+          <script src="//cdn.ckeditor.com/4.5.3/standard/ckeditor.js"></script>
+          <script src="teacherdashboard.js"></script>
+          <script> 
+                 CKEDITOR.replace( 'dailycalendar' );
+          </script>
+     </footer>
 </html>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
- <script src="dashboard.js"></script>
-

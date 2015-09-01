@@ -9,6 +9,8 @@ var routes = require('./routes/index');
 var userspage = require('./routes/users');
 var filesys = require('./routes/files')
 var programrun = require('./routes/programrun')
+var teacherspage = require('./routes/teachers')
+
 
 var helmet = require('helmet');
 var lusca = require('lusca');
@@ -24,6 +26,7 @@ var Schema = mongoose.Schema;
 useraccounts = new Schema ({
     Email: String,
     Password: String,
+    Name: String,
     StudentID: Number,
     FileSystemRoot: String,
     Classrooms: [Schema.Types.ObjectId], // Array of the _ids of the classrooms the student is in
@@ -133,7 +136,10 @@ programsschem = mongoose.model('ClassroomPrograms', programs, 'classroomprograms
 teachers = new Schema ({
     Email: String,
     Password: String,
-    Classrooms: [Schema.Types.ObjectId]
+    Classrooms: [{
+        Name: String,
+        Id: Schema.Types.ObjectId
+    }]
 });
 teachermod = mongoose.model('TeacherAccounts', teachers, 'teacheraccounts');
 
@@ -186,6 +192,7 @@ app.use('/', routes);
 app.use('/users', userspage);
 app.use('/files', filesys);
 app.use('/programrun', programrun);
+app.use('/teachers', teacherspage);
 
 
 
