@@ -10,7 +10,7 @@ var userspage = require('./routes/users');
 var filesys = require('./routes/files')
 var programrun = require('./routes/programrun')
 var teacherspage = require('./routes/teachers')
-
+var studentspage = require('./routes/students')
 
 var helmet = require('helmet');
 var lusca = require('lusca');
@@ -109,6 +109,8 @@ programs = new Schema ({
     Name: String,
     Description: String,
     DueDate: Date,
+    Images: [],
+    ClassConnected: Schema.Types.ObjectId,
     Submissions: [
         {
             StudentName: String,
@@ -193,7 +195,7 @@ app.use('/users', userspage);
 app.use('/files', filesys);
 app.use('/programrun', programrun);
 app.use('/teachers', teacherspage);
-
+app.use('/students', studentspage);
 
 
 // catch 404 and forward to error handler

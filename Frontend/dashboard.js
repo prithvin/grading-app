@@ -26,7 +26,7 @@ $("#enrollinclassbutton").on("submit", function (ev) {
 				}, null)
 			}
 			else {
-											$(".addclasscard").addClass("loginerror").removeClass('loginerror',1000);
+				$(".addclasscard").addClass("loginerror").removeClass('loginerror',1000);
 
 				$("#errorenrollclass").css("color", "red").html("Class Id does not exist.")
 			}
@@ -56,12 +56,9 @@ $.ajax({
 						console.log(response);
 						if (response == "Student account") {
 							$("#loginbox").hide();
-							//refreshDirectory();
-						//	updateDirectoryTop();
+							doStuffStartingNow();
 						}
 						else {
-							//console.log("HEY");
-							//$("#loginshakebox").removeClass("loginerror");
 							$("#loginshakebox").addClass("loginerror").removeClass('loginerror',1000);
 						}
 
@@ -74,8 +71,7 @@ $.ajax({
 			});
 		}
 		else {
-			//refreshDirectory();
-			//updateDirectoryTop();
+			doStuffStartingNow();
 		}
 	},
 	xhrFields: {withCredentials: true},
@@ -83,6 +79,97 @@ $.ajax({
 		console.log("ERROR");
 	}
 });
+
+function doStuffStartingNow() {
+	getClassList();
+	getCurrentClass(getQueryVariable("classroomid"));
+}
+
+function getCurrentClass(classid) {
+	if (classid == null)
+		showBlockPage();
+	if (getQueryVariable("name") != null) 
+		$("#classroomname").html(getQueryVariable("name"))
+	if (classid != null) {
+		$.ajax({
+			type: "GET",
+			url: "http://104.131.135.237:3000/students/getclass",
+			data: {ClassRoomId : classid},
+			success: function (response) {
+				if (isJson(response) == false && response.substring(0,4) == "ERR:") {
+					promptBox(response, "An Error Occurred", "Ok", null, "/Images/sad dog.jpg", function () {
+						closePromptBox();
+						showBlockPage();
+					});
+				}
+				else {
+					console.log(response);
+					// DO SOMETHING HERE WITH BULLITEN AND LOCKER
+				}
+			},
+			xhrFields: {withCredentials: true},
+			error:function(){
+				console.log("ERROR");
+			}
+		});
+	}
+	
+}
+function showBlockPage() {
+	$("#showBlockPage").show();
+}
+
+function isJson(str) {
+    try {
+        JSON.parse(JSON.stringify(str))
+    } catch (e) {
+        return false;
+    }
+   	if (String(str) == "[object Object]")
+   		return true;
+   	return false;
+}
+
+function getClassList () {
+	$.ajax({
+		type: "GET",
+		url: "http://104.131.135.237:3000/students/classlist",
+		data: {},
+		success: function (response) {
+			if (isJson(response) == false && response.substring(0,4) == "ERR:") {
+				promptBox(response, "An Error Occurred", "Ok", null, "/Images/sad dog.jpg", function () {
+					closePromptBox();
+				});
+			}
+			else {
+				var myclasslist = $("#myclasslist").html("");
+				for (var x = 0; x < response.length; x++) {
+					console.log(response);
+					$("<a>").addClass("mdl-navigation__link").attr("href", "studentportal.html?classroomid="  + response[x]._id + "&name=" + response[x].Name).attr("data-id", response[x]._id).html(response[x].Name).appendTo(myclasslist);
+				}
+			}
+		},
+		xhrFields: {withCredentials: true},
+		error:function(){
+			console.log("ERROR");
+		}
+	});
+}
+
+
+
+function getQueryVariable(variable) {
+    var query = window.location.search.substring(1);
+    var vars = query.split('&');
+    for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split('=');
+        if (decodeURIComponent(pair[0]) == variable) {
+            return decodeURIComponent(pair[1]);
+        }
+    }
+   	return null;
+}
+
 
 
 function promptBox (errormessage, textprompt, uploadyes, uploadno, bgimage, callbackyes, callbackno) {

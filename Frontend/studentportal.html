@@ -27,6 +27,9 @@
     url('https://upload.wikimedia.org/wikipedia/commons/0/0f/ClassroomMoveableFurnitureITESMCCM_02.JPG') bottom right 15% no-repeat #46B6AC;
     background-size:100%;
 }
+        .activebuttonportal {
+                    background-color: rgba(0, 0, 0, 0.19);
+               }
 </style>
   </head>
   <body>
@@ -35,31 +38,29 @@
       <header class="mdl-layout__header">
         <div class="mdl-layout__header-row">
           <!-- Title -->
-          <span class="mdl-layout-title">AP Computer Science - 2nd Period - Mr. DeRuiter</span>
+          <span class="mdl-layout-title" id="classroomname"></span>
           <!-- Add spacer, to align navigation to the right -->
           <div class="mdl-layout-spacer"></div>
           <!-- Navigation. We hide it in small screens. -->
           <nav class="mdl-navigation ">
-            <a class="mdl-navigation__link" href="">Classroom</a>
+            <a class="mdl-navigation__link activebuttonportal" href="">Classroom</a>
             <a class="mdl-navigation__link" href="">My Files</a>
             <a class="mdl-navigation__link" href="">Assignments</a>
-            <a class="mdl-navigation__link" href="">Discussion</a>
           </nav>
         </div>
       </header>
       <div class="mdl-layout__drawer">
         <span class="mdl-layout-title">My Classes</span>
         <nav class="mdl-navigation">
-          <a class="mdl-navigation__link" href="">CSE 11</a>
-          <a class="mdl-navigation__link" href="">AP Computer Science - 2nd Period - Mr. DeRuiter</a>
-          <a class="mdl-navigation__link" href="">Introduction to Java</a>
-          <a class="mdl-navigation__link" href="">Intermediate C++</a>
-          <hr>
+          <div id="myclasslist"></div>
+           <hr>
           <a class="mdl-navigation__link"  style="cursor:pointer;" id="openaddclass">Add Class</a>
         </nav>
       </div>
       <main class="mdl-layout__content">
-        <div class="page-content"><!-- Your content goes here --></div>
+        <div class="page-content">
+           <div id="showBlockPage" style="display:none;position:absolute;background-color:white;padding-top:50px;text-align:center;height:100%;width:100%;"><p style="font-size:60px;line-height:70px;padding:50px;">Select a Classroom from the dropdown on the left</p></div>
+        </div>
       </main>
     </div>
   </body>

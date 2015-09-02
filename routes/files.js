@@ -2,10 +2,47 @@ var express = require('express');
 var router = express.Router();
 var fs = require('fs-extra');
 
+function isInSession (userid, teacher, callback) {
+	if (userid == null)
+		callback(false);
+	else if (teacher == "YES")
+		callback(false); // Teacher
+	else {
+		users.findOne({_id: userid}, function (err, data) {
+			if (data == null) 
+				callback(false);
+			else if (err != null)
+				callback(false);
+			else 
+				callback(data);
+		});
+	}
+}
+
+
+function isEnrolledInClass(userid, classroomid, callback) {
+	if (classroomid == null)
+		callback("ERR: Classroom does not exist", null);
+	else if (userid == null)
+		callback("ERR: An error has occured. Please refresh the page and login again", null);
+	else {
+		classrooms.findOne({_id: classroomid}, function (err, data) {
+			if (err != null)
+				callback("ERR: Classroom does not exist. Please refresh the page and login again", null);
+			else if (data == null)
+				callback("ERR: No match. Classroom does not exist. Go back to home page.", null);
+			else {
+				if (data.Students.indexOf(userid) == -1) 
+					callback("ERR: You are not enrolled in this class.", false)
+				else 
+					callback(null, data);
+			}
+		});
+	}
+}
+
 router.post('/upload', function (req, res) {
 	// %& not allowed in file name
-
-
 	// Make sure exact same file name (non-case sensitive is not in the folder)
 		// User prompted to rename file if it is
 
@@ -14,26 +51,33 @@ router.post('/upload', function (req, res) {
 	var directory = req.body.Directory;
 	var classroomid = req.body.ClassRoomId;
 
-	if (req.session.UserId == null) {
-		res.send("Error. Please log in to upload file");
-	}
-	else if (file == null || filename == null || directory == null) {
+	if (file == null || filename == null || directory == null) {
 		res.send("Sorry, an error occured. Please refresh the page and try again later :(");
 		// Please send all the required parameters
 	}
 	else {
-		users.findOne({_id: req.session.UserId}, function (err, data) {
-			var rootdirectory = data.FileSystemRoot;
-			if (rootdirectory == null) {
-				rootdirectory = (new Date().getTime()) + "Directory" + data.StudentID;
-				users.update({_id : req.session.UserId}, {$set: {FileSystemRoot: rootdirectory}}, function (err,up) {
-					uploadFile(file, filename, directory, req, data, res, rootdirectory, classroomid);
+		isInSession(req.session.UserId, req.session.Teacher, function (data) {
+			if (data == false) 
+				res.send("Sorry, an error occured. Please refresh the page and try again later :(");
+			else {
+				isEnrolledInClass(req.session.UserId, classroomid, function (err, classroomdata) {
+					if (err != null)
+						res.send(err);
+					else {
+						var rootdirectory = data.FileSystemRoot;
+						if (rootdirectory == null) {
+							rootdirectory = (new Date().getTime()) + "Directory" + data.StudentID;
+							users.update({_id : req.session.UserId}, {$set: {FileSystemRoot: rootdirectory}}, function (err,up) {
+								uploadFile(file, filename, directory, req, data, res, rootdirectory, classroomid);
+							});
+						}
+						else {
+							uploadFile(file, filename, directory, req, data, res, rootdirectory, classroomid);
+						}
+					}
 				});
 			}
-			else {
-				uploadFile(file, filename, directory, req, data, res, rootdirectory, classroomid);
-			}
-		});
+		})
 	}
 });
 
