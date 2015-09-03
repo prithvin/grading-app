@@ -11,6 +11,7 @@ var filesys = require('./routes/files')
 var programrun = require('./routes/programrun')
 var teacherspage = require('./routes/teachers')
 var studentspage = require('./routes/students')
+var submissionpage = require('./routes/submissions');
 
 var helmet = require('helmet');
 var lusca = require('lusca');
@@ -111,22 +112,31 @@ programs = new Schema ({
     DueDate: Date,
     Images: [],
     ClassConnected: Schema.Types.ObjectId,
+    SavedVMCommands: [String],
+    SavedRegCommands: [],
     Submissions: [
         {
             StudentName: String,
             StudentObjectId: Schema.Types.ObjectId,
+            StudentComments: String,
+            Grade: String,
+            TeacherComments: String,
             Entries : [
                 {
                     DateSubmitted: Date,
+                    VMCommand: String,
+                    RegCommand: {},
                     Files: [
                         {
-                            ObjectIDLink: Schema.Types.ObjectId,
-                            DirectoryPosition: String,
-                            RevisionVersion: Number // Number in the array, starts from 0
+                            UnderscoreID: Schema.Types.ObjectId,
+                            DirectoryPosition: [],
+                            RevisionNumber: Number // Number in the array, starts from 0
                         }
-                    ]
+                    ],
                 }
-            ]
+            ],
+            StudentSavedVMCommands: [String], // Teacher cannot see
+            StudentSavedRegCommands: [] // Teacher cannot see
         }
     ]
 });
@@ -196,6 +206,8 @@ app.use('/files', filesys);
 app.use('/programrun', programrun);
 app.use('/teachers', teacherspage);
 app.use('/students', studentspage);
+app.use('/submissions', submissionpage);
+
 
 
 // catch 404 and forward to error handler

@@ -74,7 +74,7 @@ router.get('/getclass', function (req, res) {
 	});
 });
 
-router.get('/getprogramsinclass', function (err, data) {
+router.get('/getprogramsinclass', function (req, res) {
 	var classroomid = req.query.ClassRoomId;
 	isInSession(req.session.UserId, req.session.Teacher, function (data) {
 		if (data == false) 
@@ -84,7 +84,7 @@ router.get('/getprogramsinclass', function (err, data) {
 				if (err != null) 
 					res.send(err);
 				else {
-					programsschem.find({ClassConnected: classroomid}, "Name Description DueDate Images", function (err, programdata) {
+					programsschem.find({ClassConnected: classroomid}, "Name Description DueDate Images _id", function (err, programdata) {
 						res.send(programdata);
 					});
 				}
@@ -92,6 +92,43 @@ router.get('/getprogramsinclass', function (err, data) {
 		}
 	});
 });
+
+router.get('/getprogramsinclassonlynames', function (req, res) {
+	var classroomid = req.query.ClassRoomId;
+	isInSession(req.session.UserId, req.session.Teacher, function (data) {
+		if (data == false) 
+			res.send("ERR: An error has occured. Please refresh the page and login again");
+		else {
+			isEnrolledInClass(req.session.UserId, classroomid, function (err, classroomdata) {
+				if (err != null) 
+					res.send(err);
+				else {
+					programsschem.find({ClassConnected: classroomid}, "Name _id DueDate Submissions", function (err, programdata) {
+						var mydata = [];
+						for (var y = 0; y < programdata.length; y++) {
+							var numsubmissions = 0;
+							for (var x in programdata[y].Submissions) {
+								if (String(programdata[y].Submissions[x].StudentObjectId) == String(req.session.UserId)) {
+									numsubmissions = programdata[y].Submissions[x].Entries.length;
+								}
+							}
+							mydata.push( {
+								Name: programdata[y].Name,
+								_id: programdata[y]._id,
+								DueDate: programdata[y].DueDate,
+								NumSubmissions: numsubmissions
+							});
+						}
+						
+						res.send(mydata);
+					});
+				}
+			});
+		}
+	});
+});
+
+
 
 
 // uploadsubmissiontorpgoram

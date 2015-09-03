@@ -1,0 +1,55 @@
+Test
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Equate Health</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="navmenus.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
+		<script src="menufuncs.js"></script>
+	</head>
+	<body>
+		<div data-role="page">
+			<div data-role="header" data-position="fixed" style="top:-34.6px;height:40px;">
+				<a data-transition="slide" data-direction="reverse" href="eatinghabits.html" class="ui-btn-left greenstyle backbutton">
+					<i class="fa fa-arrow-left"></i> 
+					Back
+				</a>
+				<h1 class="greenstyle titlebar">Plate Method</h1>
+				<a data-transition="slide" style="top:-40px;float:right;" id="history2" onclick="$('.ui-btn.ui-corner-all.greenstyle.nextbutton').click()" class="greenstyle backbutton">
+					Next
+					<i class="fa fa-arrow-right"></i> 
+				</a>
+			</div>
+			<div role="main" class="ui-content leadbar" style="">
+				<p style="text-align:center;">Use Plate Method to Estimate the amount of different classes of foods.<br><img src="plate_habit.jpg"></img><br></p>
+				<p style="text-align:left;">
+				Divide your plate into 3 sections.
+				<br>1. ¼ of the place for a piece of meat, poultry or fish.
+				<br>2. Another ¼ for starch (potato, rice, noodles, corn, or bread).
+				<br>3. The remaining ½ for vegetables.
+				<br>4. Your fruit and beverage are next to your plate.
+				<br>5. If you have more carbohydrate allowed in your meal plan, have milk, yogurt or something from the sweets list.
+				<br>6. Salad vegetables are free but count the dressing.
+				</p>
+				<br><br><br>
+				<a href="regexercise.html" data-transition="slide" class="ui-btn ui-corner-all greenstyle nextbutton" style="background-color:#26A65B;">Next</a>
+			</div>
+			<div data-role="footer" data-position="fixed">
+				<div data-role="navbar">
+					<ul >
+						<li><a href="main.html" data-transition="fade"><i class="fa fa-home nvfa"></i><br>Home</a></li>
+						<li><a href="contact.html"><i class="fa fa-at nvfa"></i><br>Contact Us</a></li>
+						<li><a href="propernutrition.html" data-transition="fade"><i class="fa fa-info-circle nvfa"></i><br>Information</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+					
+			

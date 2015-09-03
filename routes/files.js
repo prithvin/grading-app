@@ -247,27 +247,31 @@ router.get('/myfiles', function (req, res) {
 				res.send("Sorry, an error occured. Please refresh the page and try again later :(");
 			else {
 				isEnrolledInClass(req.session.UserId, classroomid, function (err, classroomdata) {
-					var filestuff = data.FileSystem[classroomid].Data;
-					var dirstuff = data.FileSystem;
-					for (var y = 1; y < directory.length; y++) {
-						if (filestuff[directory[y].replace(".", "%&")] == null) {
-							res.send("The folder you are trying to add a file to does not exist??? What are you doing!")
-							return false;
+					if (err != null)
+						res.send(err);
+					else {
+						var filestuff = data.FileSystem[classroomid].Data;
+						var dirstuff = data.FileSystem;
+						for (var y = 1; y < directory.length; y++) {
+							if (filestuff[directory[y].replace(".", "%&")] == null) {
+								res.send("The folder you are trying to add a file to does not exist??? What are you doing!")
+								return false;
+							}
+							dirstuff = filestuff[directory[y].replace(".", "%&")];
+							filestuff = filestuff[directory[y].replace(".", "%&")].Data;
+							
 						}
-						dirstuff = filestuff[directory[y].replace(".", "%&")];
-						filestuff = filestuff[directory[y].replace(".", "%&")].Data;
-						
+						var ids = [];
+						for (var m in filestuff) {
+							ids.push({
+								AccessName: m,
+								Name: filestuff[m].Name,
+								Type: filestuff[m].Type,
+								UnderscoreId: filestuff[m].File
+							});
+						}
+						getOtherData(ids, res, data, [], 0);
 					}
-					var ids = [];
-					for (var m in filestuff) {
-						ids.push({
-							AccessName: m,
-							Name: filestuff[m].Name,
-							Type: filestuff[m].Type,
-							UnderscoreId: filestuff[m].File
-						});
-					}
-					getOtherData(ids, res, data, [], 0);
 				});
 			}
 		})
@@ -323,24 +327,28 @@ router.post('/deletefile' , function (req, res) {
 				res.send("Sorry, an error occured. Please refresh the page and try again later :(");
 			else {
 				isEnrolledInClass(req.session.UserId, classroomid, function (err, classroomdata) {
-					var filesystem = data.FileSystem;
-					var subsystem = filesystem[classroomid].Data;
-					for (var x = 1; x < directory.length; x++) {
-						if (subsystem[directory[x].replace(".", "%&")] == null) {
-							res.send("The folder you are trying to add a file to does not exist??? What are you doing!")
-							return false;
-						}
-						subsystem = subsystem[directory[x].replace(".", "%&")].Data;
-					}
-					if (subsystem[file.replace(".", "%&")] != null) {
-						delete subsystem[file.replace(".", "%&")];
-						users.update({_id : req.session.UserId}, {$set: {FileSystem: filesystem}}, function (err,up) {
-							res.send("File successfully deleted");
-						});
-
-					}
+					if (err != null)
+						res.send(err);
 					else {
-						res.send("File not find");
+						var filesystem = data.FileSystem;
+						var subsystem = filesystem[classroomid].Data;
+						for (var x = 1; x < directory.length; x++) {
+							if (subsystem[directory[x].replace(".", "%&")] == null) {
+								res.send("The folder you are trying to add a file to does not exist??? What are you doing!")
+								return false;
+							}
+							subsystem = subsystem[directory[x].replace(".", "%&")].Data;
+						}
+						if (subsystem[file.replace(".", "%&")] != null) {
+							delete subsystem[file.replace(".", "%&")];
+							users.update({_id : req.session.UserId}, {$set: {FileSystem: filesystem}}, function (err,up) {
+								res.send("File successfully deleted");
+							});
+
+						}
+						else {
+							res.send("File not find");
+						}
 					}
 				});
 			}
@@ -464,41 +472,44 @@ router.get('/getfilecontents', function (req, res) {
 				res.send("Sorry, an error occured. Please refresh the page and try again later :(");
 			else {
 				isEnrolledInClass(req.session.UserId, classroomid, function (err, classroomdata) {
-					var subsystem = data.FileSystem[classroomid].Data;
-					for (var x = 1; x < directory.length; x++) {
-						if (subsystem[directory[x].replace(".", "%&")] == null) {
-							res.send("The folder you are trying to open a file to does not exist??? What are you doing!")
-							return false;
+					if (err != null)
+						res.send(err);
+					else {
+						var subsystem = data.FileSystem[classroomid].Data;
+						for (var x = 1; x < directory.length; x++) {
+							if (subsystem[directory[x].replace(".", "%&")] == null) {
+								res.send("The folder you are trying to open a file to does not exist??? What are you doing!")
+								return false;
+							}
+							subsystem = subsystem[directory[x].replace(".", "%&")].Data;
 						}
-						subsystem = subsystem[directory[x].replace(".", "%&")].Data;
-					}
-					if (subsystem[filename.replace(".", "%&")] != null) {
-						var file =  subsystem[filename.replace(".", "%&")];
-						if (file.Type == "Folder") {
-							res.send("Cannot open a folder in the editor. Select individual files");
+						if (subsystem[filename.replace(".", "%&")] != null) {
+							var file =  subsystem[filename.replace(".", "%&")];
+							if (file.Type == "Folder") {
+								res.send("Cannot open a folder in the editor. Select individual files");
+							}
+							else {
+								var fileunderscoreid = file.File;
+								filesc.findOne({_id: fileunderscoreid}, function (err, filedata) {
+									if (revisionrequested == null)
+										revisionrequested = filedata.Data.length - 1; // Latets revision
+									var filedata = filedata.Data[revisionrequested];
+									if (filedata == null) {
+										res.send("The revision you requested is not available");
+									}
+									var pathd = "StudentFiles/" + data.FileSystemRoot + "/" + filedata.FileName;
+									fs.readFile(pathd, 'utf8', function (err, data) {
+										res.send({
+											Data: data,
+											FileId: fileunderscoreid
+										});
+									})
+								});
+							}
 						}
 						else {
-							var fileunderscoreid = file.File;
-							filesc.findOne({_id: fileunderscoreid}, function (err, filedata) {
-								if (revisionrequested == null)
-									revisionrequested = filedata.Data.length - 1; // Latets revision
-								var filedata = filedata.Data[revisionrequested];
-								if (filedata == null) {
-									res.send("The revision you requested is not available");
-								}
-								var pathd = "StudentFiles/" + data.FileSystemRoot + "/" + filedata.FileName;
-								fs.readFile(pathd, 'utf8', function (err, data) {
-									res.send({
-										Data: data,
-										FileId: fileunderscoreid
-									});
-								})
-							});
+							res.send("File not found");
 						}
-
-					}
-					else {
-						res.send("File not found");
 					}
 				});
 			}

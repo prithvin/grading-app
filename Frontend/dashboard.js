@@ -8,6 +8,14 @@ $(".cancelbutton").on("click", function () {
 });
 
 
+$(".mdl-navigation__link").on("click", function (ev) {
+	ev.preventDefault();
+	if ($(this).html() == "Classroom") 
+		window.location = "studentportal.html" + window.location.search;
+	if ($(this).html() == "My Files") 
+		window.location = "test.html" + window.location.search;
+	
+});
 
 $("#enrollinclassbutton").on("submit", function (ev) {
 					ev.preventDefault()
@@ -38,58 +46,88 @@ $("#enrollinclassbutton").on("submit", function (ev) {
 		}
 	});
 });
-$.ajax({
-	type: "GET",
-	url: "http://104.131.135.237:3000/users/insession",
-	data: {},
-	success: function (response) {
-		if (parseInt(response) ==  -1 || parseInt(response) == 2) {
-			$("#loginbox").show();
-			$(".mainbackground").css("background-image", "url('https://upload.wikimedia.org/wikipedia/commons/1/1a/Code.jpg')");
-			$("#myloginform").on("submit", function (ev) {
-				ev.preventDefault()
-				$.ajax({
-					type: "POST",
-					url: "http://104.131.135.237:3000/users/login",
-					data: {Email: $("#usernamefield").val(), Password: $("#passwordfield").val()},
-					success: function (response) {
-						console.log(response);
-						if (response == "Student account") {
-							$("#loginbox").hide();
-							doStuffStartingNow();
-						}
-						else {
-							$("#loginshakebox").addClass("loginerror").removeClass('loginerror',1000);
-						}
+$( document ).ready(function() {
+	$.ajax({
+		type: "GET",
+		url: "http://104.131.135.237:3000/users/insession",
+		data: {},
+		success: function (response) {
+			if (parseInt(response) ==  -1 || parseInt(response) == 2) {
+				$("#loginbox").show();
+				$(".mainbackground").css("background-image", "url('https://upload.wikimedia.org/wikipedia/commons/1/1a/Code.jpg')");
+				$("#myloginform").on("submit", function (ev) {
+					ev.preventDefault()
+					$.ajax({
+						type: "POST",
+						url: "http://104.131.135.237:3000/users/login",
+						data: {Email: $("#usernamefield").val(), Password: $("#passwordfield").val()},
+						success: function (response) {
+							console.log(response);
+							if (response == "Student account") {
+								$("#loginbox").hide();
+								doStuffStartingNow();
+							}
+							else {
+								$("#loginshakebox").addClass("loginerror").removeClass('loginerror',1000);
+							}
 
-					},
-					xhrFields: {withCredentials: true},
-					error:function(){
-						console.log("ERROR");
-					}
+						},
+						xhrFields: {withCredentials: true},
+						error:function(){
+							console.log("ERROR");
+						}
+					});
 				});
-			});
+			}
+			else {
+				doStuffStartingNow();
+			}
+		},
+		xhrFields: {withCredentials: true},
+		error:function(){
+			console.log("ERROR");
 		}
-		else {
-			doStuffStartingNow();
-		}
-	},
-	xhrFields: {withCredentials: true},
-	error:function(){
-		console.log("ERROR");
-	}
+	});
 });
 
 function doStuffStartingNow() {
-	getClassList();
-	getCurrentClass(getQueryVariable("classroomid"));
-}
-
-function getCurrentClass(classid) {
-	if (classid == null)
+	if (getQueryVariable("classroomid") == null)
 		showBlockPage();
 	if (getQueryVariable("name") != null) 
 		$("#classroomname").html(getQueryVariable("name"))
+
+			getClassList();
+	if ($(".activebuttonportal").html() == "Classroom") {
+		getCurrentClass(getQueryVariable("classroomid"));
+	}
+	else if ($(".activebuttonportal").html() == "My Files") {
+		refreshDirectory();
+		updateDirectoryTop();
+	}
+
+
+			
+}
+
+function sadBoxError(response, callback) {
+	if (isJson(response) == false) {
+		if (response.substring(0,4) == "ERR:") {
+			promptBox(response, "An Error Occurred", "Ok", null, "/Images/sad dog.jpg", function () {
+				closePromptBox();
+				showBlockPage();
+			});
+		}
+		else if(callback != null){
+			callback();
+		}
+	}
+	else if(callback != null) {
+		callback();
+	}
+}
+
+function getCurrentClass(classid) {
+
 	if (classid != null) {
 		$.ajax({
 			type: "GET",
@@ -120,14 +158,13 @@ function showBlockPage() {
 }
 
 function isJson(str) {
-    try {
-        JSON.parse(JSON.stringify(str))
-    } catch (e) {
-        return false;
-    }
-   	if (String(str) == "[object Object]")
-   		return true;
-   	return false;
+    if (Object.prototype.toString.call(str)) {
+    	if (typeof str == "object")
+    		return true;
+    	return false;
+    } 
+    	
+    return true;
 }
 
 function getClassList () {
@@ -177,28 +214,28 @@ function promptBox (errormessage, textprompt, uploadyes, uploadno, bgimage, call
 	$("#uploadalertboxtext").html(errormessage); // The smaller text
 
 
-	$("#textprompt").html(textprompt); // The bigger, (less length) text
-	$("#uploadyes").html(uploadyes);
+	$("#errorbox").find("#textprompt").html(textprompt); // The bigger, (less length) text
+	$("#errorbox").find("#uploadyes").html(uploadyes);
 	if (uploadno == null)
-		$("#uploadno").hide();
+		$("#errorbox").find("#uploadno").hide();
 	else 
-		$("#uploadno").html(uploadno);
+		$("#errorbox").find("#uploadno").html(uploadno);
 
 	$(".mainbackground").css("background-image", "url('" + bgimage + "')");
 
-	$("#uploadyes").on("click", function (ev) {
-		$('#uploadyes').off('click');
-		$('#uploadno').off('click');
+	$("#errorbox").find("#uploadyes").on("click", function (ev) {
+		$("#errorbox").find('#uploadyes').off('click');
+		$("#errorbox").find('#uploadno').off('click');
 		callbackyes();
 	});
-	$("#uploadno").on("click", function (ev) {
-		$('#uploadyes').off('click');
-		$('#uploadno').off('click');
+	$("#errorbox").find("#uploadno").on("click", function (ev) {
+		$("#errorbox").find('#uploadyes').off('click');
+		$("#errorbox").find('#uploadno').off('click');
 		callbackno();
 	});
-	$("#uploadbox").show();
+	$("#errorbox").show();
 }
 
 function closePromptBox () {
-	$("#uploadbox").hide();
+	$("#errorbox").hide();
 }

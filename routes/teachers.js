@@ -333,7 +333,9 @@ router.post('/updateprogram', function (req, res) {
 						DueDate: duedate,  // Make sure to remove students from here once they are accepted
 						Images: images,
 						ClassConnected: classid,
-						Submissions: []
+						Submissions: [],
+					 	SavedVMCommands: [],
+						SavedRegCommands: []
 					});
 					newprogram.pre("save", function (next) {
 						next();

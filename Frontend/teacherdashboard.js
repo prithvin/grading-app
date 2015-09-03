@@ -8,10 +8,12 @@ $(".cancelbutton").on("click", function () {
 
 $(".mdl-navigation__link").on("click", function (ev) {
 	ev.preventDefault();
-	if ($(this).html() == "Classroom") 
+	if ($(this).html() == "Classroom")
 		window.location = "teacherportal.html" + window.location.search;
-	if ($(this).html() == "Assignments") 
+	if ($(this).html() == "Assignments")
 		window.location = "teacherprograms.html" + window.location.search;
+	if ($(this).html() == "Submissions")
+		window.location = "teacherviewsubmission.html" + window.location.search;
 	
 });
 
@@ -149,6 +151,9 @@ function getClassroomData(classroomid) {
 			}
 			else if (response == "YES" &&  $(".activebuttonportal").html() == "Assignments") {
 				getPrograms(classroomid);
+			}
+			else if (response == "YES" &&  $(".activebuttonportal").html() == "Submissions") {
+				
 			}
 			else {
 				console.log("HERE?");

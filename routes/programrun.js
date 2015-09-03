@@ -71,6 +71,16 @@ function runProgram (directorydata, rootdirectory, res, req, rundata, runvm) {
 					
 										
 				});
+				setTimeout(function () {
+					var cmd = "docker stop " + containernum.trim() + " && " + "docker rm "  + containernum.trim();
+					exec(cmd, function(error, stdout, stderr) {
+					 	console.log(stdout);
+					 	req.session["" + data] = null;
+						req.session.save(function () {
+							console.log("Session saved");
+						}); 
+					});
+				}, 300000)
 			}
 			else {
 				var obj = {};
@@ -126,6 +136,14 @@ function runProgram (directorydata, rootdirectory, res, req, rundata, runvm) {
 						 	console.log(err);
 						 	console.log("COOLZ");
 						    res.send(data); // => hello!
+							var cmd = "docker stop " + containernum.trim() + " && " + "docker rm "  + containernum.trim();
+							exec(cmd, function(error, stdout, stderr) {
+							 	console.log(stdout);
+							 	req.session["" + data] = null;
+								req.session.save(function () {
+									console.log("Session saved");
+								}); 
+							});
 						  })
 
 						// res.send the results file	
@@ -144,16 +162,7 @@ function runProgram (directorydata, rootdirectory, res, req, rundata, runvm) {
 		}); 
 
 
-		setTimeout(function () {
-			var cmd = "docker stop " + containernum.trim() + " && " + "docker rm "  + containernum.trim();
-			exec(cmd, function(error, stdout, stderr) {
-			 	console.log(stdout);
-			 	req.session["" + data] = null;
-				req.session.save(function () {
-					console.log("Session saved");
-				}); 
-			});
-		}, 300000)
+		
 		//UnderscoreID: $($(".tabnotactive")[x]).attr("data-underscoreid"),
 			//RevisionNumber
 			//Directory
@@ -215,6 +224,44 @@ function findOpenPort (exec, port, callback) {
 }
 
 
+function isInSession (userid, teacher, callback) {
+	if (userid == null)
+		callback(false);
+	else if (teacher == "YES")
+		callback(false); // Teacher
+	else {
+		users.findOne({_id: userid}, function (err, data) {
+			if (data == null) 
+				callback(false);
+			else if (err != null)
+				callback(false);
+			else 
+				callback(data);
+		});
+	}
+}
+
+
+function isEnrolledInClass(userid, classroomid, callback) {
+	if (classroomid == null)
+		callback("ERR: Classroom does not exist", null);
+	else if (userid == null)
+		callback("ERR: An error has occured. Please refresh the page and login again", null);
+	else {
+		classrooms.findOne({_id: classroomid}, function (err, data) {
+			if (err != null)
+				callback("ERR: Classroom does not exist. Please refresh the page and login again", null);
+			else if (data == null)
+				callback("ERR: No match. Classroom does not exist. Go back to home page.", null);
+			else {
+				if (data.Students.indexOf(userid) == -1) 
+					callback("ERR: You are not enrolled in this class.", false)
+				else 
+					callback(null, data);
+			}
+		});
+	}
+}
 router.post('/openvmemulator' , function (req, res) {
 	var directorydata = req.body.DirectoryData;
 	var rundata = req.body.RunData;
@@ -223,21 +270,24 @@ router.post('/openvmemulator' , function (req, res) {
 	if (directorydata == null) {
 		res.send("Please send all required parameters");
 	}
-	else if (req.session.UserId == null) {
-		res.send("Please login to continue");
-	}
 	else {
-		users.findOne({_id : req.session.UserId}, function (err, data) {
-			if (err) {
-				console.log(err);
+		isInSession(req.session.UserId, req.session.Teacher, function (data) {
+			if (data == false) 
+				res.send("Sorry, an error occured. Please refresh the page and try again later :(");
+			else {
+				isEnrolledInClass(req.session.UserId, classroomid, function (err, classroomdata) {
+					if (err != null)
+						res.send(err);
+					else {
+						var flatty = flattifyFileSystem(data.FileSystem[classroomid].Data, ["FileSystem"]);
+						for (var x = 0;x < directorydata.length; x++) {
+							directorydata[x].Directory = flatty[directorydata[x].UnderscoreID];
+						}
+						runProgram(directorydata, data.FileSystemRoot, res, req, rundata, true);
+					}
+				});
 			}
-			
-			var flatty = flattifyFileSystem(data.FileSystem[classroomid].Data, ["FileSystem"]);
-			for (var x = 0;x < directorydata.length; x++) {
-				directorydata[x].Directory = flatty[directorydata[x].UnderscoreID];
-			}
-			runProgram(directorydata, data.FileSystemRoot, res, req, rundata, true);
-		});
+		})
 	}
 });
 
@@ -261,21 +311,24 @@ router.post('/openregemulator' , function (req, res) {
 	else if (directorydata == null) {
 		res.send("Please send all required parameters");
 	}
-	else if (req.session.UserId == null) {
-		res.send("Please login to continue");
-	}
 	else {
-		users.findOne({_id : req.session.UserId}, function (err, data) {
-			if (err) {
-				console.log(err);
+		isInSession(req.session.UserId, req.session.Teacher, function (data) {
+			if (data == false) 
+				res.send("Sorry, an error occured. Please refresh the page and try again later :(");
+			else {
+				isEnrolledInClass(req.session.UserId, classroomid, function (err, classroomdata) {
+					if (err != null)
+						res.send(err);
+					else {
+						var flatty = flattifyFileSystem(data.FileSystem[classroomid].Data, ["FileSystem"]);
+						for (var x = 0;x < directorydata.length; x++) {
+							directorydata[x].Directory = flatty[directorydata[x].UnderscoreID];
+						}
+						runProgram(directorydata, data.FileSystemRoot, res, req, null, jsondata);
+					}
+				});
 			}
-			
-			var flatty = flattifyFileSystem(data.FileSystem[classroomid].Data, ["FileSystem"]);
-			for (var x = 0;x < directorydata.length; x++) {
-				directorydata[x].Directory = flatty[directorydata[x].UnderscoreID];
-			}
-			runProgram(directorydata, data.FileSystemRoot, res, req, null, jsondata);
-		});
+		})
 	}
 });
 

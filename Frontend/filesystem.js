@@ -1,5 +1,5 @@
 
-
+/*
 $.ajax({
 	type: "GET",
 	url: "http://104.131.135.237:3000/users/insession",
@@ -45,7 +45,7 @@ $.ajax({
 		console.log("ERROR");
 	}
 });
-
+*/
 
 
 
@@ -78,6 +78,9 @@ $("#openineditor").on("click", function (ev) {
 });
 
 $("#compile").on("click", function (ev) {
+	$("#runvmhere").hide();
+	$("#datadisplayhere").hide();
+
 	if ($("ul li.redbottom").length != 0) {
 		badBox("Please save (or close and reopen) all files before compiling!", null, "Don't forget!", "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Hand_Stop_Sign_1724.jpg/1280px-Hand_Stop_Sign_1724.jpg");
 	}
@@ -94,15 +97,18 @@ $("#compile").on("click", function (ev) {
 			badBox("Make sure to open a few files that you want to compile before compiling!", null, "Hold up there!", "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Hand_Stop_Sign_1724.jpg/1280px-Hand_Stop_Sign_1724.jpg");
 		else {
 			$("#newprogrambox").show();
+			$("#runvirtualmachine").off("click");
 			$("#runvirtualmachine").on("click", function (ev) {
 				$("#loadingbox").show();
 				$.ajax({
 					type: "POST",
 					url: "http://104.131.135.237:3000/programrun/openvmemulator",
-					data: {DirectoryData: obj, RunData: $("#inputvmtext").val().split("\n").join(" && "), ClassRoomId: "666f6f2d6261722d71757578"},
+					data: {DirectoryData: obj, RunData: $("#inputvmtext").val().split("\n").join(" && "), ClassRoomId: getQueryVariable("classroomid")},
 					success: function (response) {
+						sadBoxError(response);
 						$("#loadingbox").hide();
 						console.log(response);
+						$("#runvmhere").show();
 						$("#runvmhere").attr("href", "http://104.131.135.237/novnc.html?port=" + response).html("Click here to run VM").attr("target", "_blank");
 					},
 					xhrFields: {withCredentials: true},
@@ -111,6 +117,7 @@ $("#compile").on("click", function (ev) {
 					}
 				});
 			})
+			$("#testforinput").off("click");
 			$("#testforinput").on("click", function () {
 				$("#loadingbox").show();
 				var advinput = false;
@@ -128,10 +135,12 @@ $("#compile").on("click", function (ev) {
 				$.ajax({
 					type: "POST",
 					url: "http://104.131.135.237:3000/programrun/openregemulator",
-					data: {DirectoryData: obj, JsonData: objinputdata, ClassRoomId: "666f6f2d6261722d71757578"},
+					data: {DirectoryData: obj, JsonData: objinputdata, ClassRoomId: getQueryVariable("classroomid")},
 					success: function (response) {
+						sadBoxError(response);
 						$("#loadingbox").hide();
-						console.log(response);
+						$("#datadisplayhere").show().html(response);
+
 					},
 					xhrFields: {withCredentials: true},
 					error:function(){
@@ -139,9 +148,105 @@ $("#compile").on("click", function (ev) {
 					}
 				});
 			});
+			$("#continuetosubmission").one("click", function () {
+				var advinput = false;
+				if($( "#selectinputtype option:selected" ).text() == "Advanced Input") 
+					advinput = true;
+				var objinputdata = {
+					CompileInput: $("#inputspecinputcomptext").val().split("\n").join(" && ").trim(),
+					FileName: $("#inputspecinputfilename").val().trim(),
+					AdvancedInput: advinput,
+					TextToFind:  $('.texttofind').map(function(){return $.trim($(this).val());}).get(),
+					TextToReturn: $('.texttoreturn').map(function(){return $.trim($(this).val());}).get(),
+					UseIndexOf: $('.useindexof').map(function(){return $.trim($(this).is(':checked'));}).get(),
+					NumRepeats:  $('.numrepeats').map(function(){return $.trim($(this).val());}).get()
+				};
+				createJSONOfSubmission(obj, objinputdata, $("#inputvmtext").val().split("\n").join(" && "),getQueryVariable("classroomid"));
+			});
 		}
 	}
 });
+
+
+$(document).on("click", ".submissionbuttonhere" , function () {
+	$(".submissionbuttonhere").removeClass("activebuttonprogramselect")
+	$(this).addClass("activebuttonprogramselect");
+});
+
+$(document).on("click", "#submitprogram", function () {
+	if ($(".activebuttonprogramselect") == [])  {
+		promptBox("Please select a program to submit to.", "Uh Oh", "Ok", null, "/Images/sad dog.jpg", function () {
+			closePromptBox();
+		});
+	}
+	else if ($("#submissionbox").attr("data-submission-json") == "") {
+		promptBox("Please reload the page and try again.", "Uh Oh", "Ok", null, "/Images/sad dog.jpg", function () {
+			closePromptBox();
+		});
+	}
+	else {
+		var programdid = $(".activebuttonprogramselect").attr("data-id");
+		var classroomid = getQueryVariable("classroomid");
+		var studentcomments = $("#submissionstudentcomments").val();
+		var submission = JSON.parse($("#submissionbox").attr("data-submission-json"));
+		$("#loadingbox").show();
+		$.ajax({
+			type: "POST",
+			url: "http://104.131.135.237:3000/submissions/submitprogram",
+			data: {ProgramId: programdid, ClassRoomId: classroomid, Submission: submission, StudentComments: studentcomments},
+			success: function (response) {
+				console.log(response);
+				sadBoxError(response, function () {
+					promptBox("Program Submitted!", "Success", "Ok", null, "/Images/sad dog.jpg", function () {
+						$("#submissionbox").hide();
+						closePromptBox();
+					});
+				});
+				$("#loadingbox").hide();
+			},
+			xhrFields: {withCredentials: true},
+			error:function(){
+				console.log("ERROR");
+			}
+		});
+
+	}
+});
+
+function createJSONOfSubmission (fileswithoutdirectoryposition, regcommand, vmcommand, classroomid) {
+	files = fileswithoutdirectoryposition.slice();
+	for (var x =0; x < files.length; x++) {
+		files[x]["DirectoryPosition"] = [];
+	}
+	var entry = {
+		DateSubmitted: new Date(),
+		VMCommand: vmcommand,
+		RegCommand: regcommand,
+		Files: files
+	};
+	$("#loadingbox").show();
+	$.ajax({
+		type: "GET",
+		url: "http://104.131.135.237:3000/students/getprogramsinclassonlynames",
+		data: {ClassRoomId: classroomid},
+		success: function (response) {
+			sadBoxError(response, function () {
+				$("#submissionbox").attr("data-submission-json", JSON.stringify(entry));
+				var maindiv = $("#showprogramshereinsubmission");
+				for (var x =0;x <response.length; x++)  {
+					$("<button>").addClass("pure-button pure-button-primary submissionbuttonhere").css("margin", "10px").html(response[x].Name + "<br>" + new Date(response[x].DueDate) +  "<br>Previous Submissions: " + response[x].NumSubmissions).attr("data-id", response[x]._id).appendTo(maindiv);
+				}
+				$("#submissionbox").show();
+			});
+			$("#loadingbox").hide();
+		},
+		xhrFields: {withCredentials: true},
+		error:function(){
+			console.log("ERROR");
+		}
+	});
+	console.log(entry);
+}
 
 
 function startRecursiveEditorOpen (selectedPoints, x) {
@@ -149,9 +254,9 @@ function startRecursiveEditorOpen (selectedPoints, x) {
 		$.ajax({
 			type: "GET",
 			url: "http://104.131.135.237:3000/files/getfilecontents",
-			data: {Directory: directory, FileName: selectedPoints[x], ClassRoomId: "666f6f2d6261722d71757578"},
+			data: {Directory: directory, FileName: selectedPoints[x], ClassRoomId: getQueryVariable("classroomid")},
 			success: function (response) {
-
+				sadBoxError(response);
 	          if (response["Data"] == null) {
 	          	badBox(response, function () {
 					startRecursiveEditorOpen(selectedPoints, (x+1));
@@ -230,8 +335,9 @@ function getRevisionHistory (fileid) {
 	$.ajax({
 		type: "GET",
 		url: "http://104.131.135.237:3000/files/getrevisions",
-		data: {FileId: fileid, ClassRoomId: "666f6f2d6261722d71757578"},
+		data: {FileId: fileid, ClassRoomId: getQueryVariable("classroomid")},
 		success: function (revhist) {
+			sadBoxError(revhist);
 			var maindiv = $("#getrevisions").html("");
 			for (var x = 0; x < revhist.length; x++) {
 				var li = $("<li>").addClass("mdl-menu__item").html("Revision " + x + " - " + (new Date(revhist[x].DatePosted).toLocaleDateString() + " "  +formatAMPM(new Date(revhist[x].DatePosted)))).appendTo(maindiv);
@@ -242,8 +348,9 @@ function getRevisionHistory (fileid) {
 						$.ajax({
 							type: "GET",
 							url: "http://104.131.135.237:3000/files/getfilecontentsbyid",
-							data: {FileId: $(div).attr("data-id"), RevisionNumber: $(div).attr("data-filenum"), ClassRoomId: "666f6f2d6261722d71757578"},
+							data: {FileId: $(div).attr("data-id"), RevisionNumber: $(div).attr("data-filenum"), ClassRoomId: getQueryVariable("classroomid")},
 							success: function (response) {
+								sadBoxError(response);
 								$("#loadingbox").hide();
 								$("#revisionnumber").html("You are editing " + $(div).html());
 								$(".active").attr("data-revision", "You are editing " + $(div).html());
@@ -335,8 +442,9 @@ function deleteFile(filename, callback) {
 	$.ajax({
 		type: "POST",
 		url: "http://104.131.135.237:3000/files/deletefile",
-		data: {Directory: directory, FileName: filename, ClassRoomId: "666f6f2d6261722d71757578"},
+		data: {Directory: directory, FileName: filename, ClassRoomId: getQueryVariable("classroomid")},
 		success: function (data) {
+			sadBoxError(data);
            callback(data);
         },
 		xhrFields: {withCredentials: true},
@@ -354,6 +462,7 @@ $("#savefile").click(function() {
 				url: "http://104.131.135.237:3000/files/saverevision",
 				data: {FileUnderscoreID: $("ul > li.active").attr("data-underscoreid"), UpdatedFile: editor.getValue()},
 				success: function (data) {
+					sadBoxError(data);
 					if (data != "Complete") {
 						badBox(data);
 					}
@@ -452,8 +561,9 @@ function uploadFolder(text) {
 		$.ajax({
 			type: "POST",
 			url: "http://104.131.135.237:3000/files/newfolder",
-			data: {Directory: dir,ClassRoomId: "666f6f2d6261722d71757578"},
+			data: {Directory: dir,ClassRoomId: getQueryVariable("classroomid")},
 			success: function (data) {
+				sadBoxError(data);
 					$("#uploadalertboxtext").show();
 					$("#textview").hide();
 		       if (data != "New folder created")
@@ -483,9 +593,10 @@ function uploadNewFile(text) {
 				Files : "// New file created on " + new Date() + " using the Java Grading Application",
 				Name: text,
 				Directory: getDir(),
-				ClassRoomId: "666f6f2d6261722d71757578"
+				ClassRoomId: getQueryVariable("classroomid")
 			},
 			success: function (data) {
+				sadBoxError(data);
 				   $("#loadingbox").hide();
 				   				$("#uploadalertboxtext").show();
 					$("#textview").hide();
@@ -546,8 +657,9 @@ function refreshDirectory () {
 	$.ajax({
 		type: "GET",
 		url: "http://104.131.135.237:3000/files/myfiles",
-		data: {Directory: getDir(),ClassRoomId: "666f6f2d6261722d71757578"},
+		data: {Directory: getDir(),ClassRoomId: getQueryVariable("classroomid")},
 		success: function (data) {
+			sadBoxError(data);
 	       createFiles(data);
 	    },
 		xhrFields: {withCredentials: true},
@@ -642,9 +754,10 @@ function sendFile(file) {
 				Files : data.target.result,
 				Name: file.name,
 				Directory: getDir(),
-				ClassRoomId: "666f6f2d6261722d71757578"
+				ClassRoomId: getQueryVariable("classroomid")
 			},
 			success: function (data) {
+				sadBoxError(data);
 				   $("#loadingbox").hide();
 
 				if (data != "File uploaded") {
