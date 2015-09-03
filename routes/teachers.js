@@ -315,6 +315,20 @@ router.get('/dailybulletin', function (req, res) {
  	});
  });
 
+ router.get('/getprogramsbynameandid', function (req, res) {
+ 	var classid = req.query.ClassId;
+ 	isTeacherOwnerOfClassroom(classid, req.session.UserId, function (isowner) {
+ 		if (isowner) { 
+ 			programsschem.find({ClassConnected: classid}, "Name _id", function (err, data) {
+ 				res.send(data);
+ 			});
+ 		}
+ 		else {
+ 			res.send("ERROR. Refresh the page and login again")
+ 		}
+ 	});
+ });
+
 router.post('/updateprogram', function (req, res) {
 	var name = req.body.Name;
 	var description = req.body.Description;
@@ -349,7 +363,6 @@ router.post('/updateprogram', function (req, res) {
 				}
 				else {
 					programsschem.update({_id: programid}, {$set: {Name: name, Description: description, DueDate: duedate, Images: images}}, function (err, up) {
-						console.log(err);
 						res.send("DONE" + String(programid));
 					});
 				}

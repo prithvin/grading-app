@@ -153,7 +153,7 @@ function getClassroomData(classroomid) {
 				getPrograms(classroomid);
 			}
 			else if (response == "YES" &&  $(".activebuttonportal").html() == "Submissions") {
-				
+				teacherViewSubmissionGetProgram();
 			}
 			else {
 				console.log("HERE?");
@@ -380,36 +380,55 @@ function getQueryVariable(variable) {
 }
 
 
+
 function promptBox (errormessage, textprompt, uploadyes, uploadno, bgimage, callbackyes, callbackno) {
 
 	$("#uploadalertboxtext").html(errormessage); // The smaller text
 
 
-	$("#textprompt").html(textprompt); // The bigger, (less length) text
-	$("#uploadyes").html(uploadyes);
+	$("#errorbox").find("#textprompt").html(textprompt); // The bigger, (less length) text
+	$("#errorbox").find("#uploadyes").html(uploadyes);
 	if (uploadno == null)
-		$("#uploadno").hide();
+		$("#errorbox").find("#uploadno").hide();
 	else  {
-		$("#uploadno").html(uploadno);
-			$("#uploadno").show();
+		$("#errorbox").find("#uploadno").show();
+		$("#errorbox").find("#uploadno").html(uploadno);
 	}
 
 	$(".mainbackground").css("background-image", "url('" + bgimage + "')");
 
-	$("#uploadyes").on("click", function (ev) {
-		$('#uploadyes').off('click');
-		$('#uploadno').off('click');
+	$("#errorbox").find("#uploadyes").on("click", function (ev) {
+		$("#errorbox").find('#uploadyes').off('click');
+		$("#errorbox").find('#uploadno').off('click');
 		callbackyes();
 	});
-	$("#uploadno").on("click", function (ev) {
-		$('#uploadyes').off('click');
-		$('#uploadno').off('click');
+	$("#errorbox").find("#uploadno").on("click", function (ev) {
+		$("#errorbox").find('#uploadyes').off('click');
+		$("#errorbox").find('#uploadno').off('click');
 		callbackno();
 	});
-	$("#uploadbox").show();
+	$("#errorbox").show();
 }
 
 function closePromptBox () {
-	$("#uploadbox").hide();
+	$("#errorbox").hide();
+}
+
+
+function sadBoxError(response, callback) {
+	if (isJson(response) == false) {
+		if (response.substring(0,4) == "ERR:") {
+			promptBox(response, "An Error Occurred", "Ok", null, "/Images/sad dog.jpg", function () {
+				closePromptBox();
+				showBlockPage();
+			});
+		}
+		else if(callback != null){
+			callback();
+		}
+	}
+	else if(callback != null) {
+		callback();
+	}
 }
 

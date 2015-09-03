@@ -204,7 +204,15 @@ router.post('/newfolder', function (req, res) {
 						res.send(err);
 					else {
 						var filestuff = data.FileSystem;
+						if (filestuff[classroomid] == null) {
+							filestuff[classroomid] = {
+								Data: {},
+								Type: "Folder",
+								Name: ""
+							};
+						}
 						var currentsys = filestuff[classroomid].Data;
+						console.log(currentsys);
 						for (var y = 1; y < directory.length -1; y++) {
 							if (currentsys[directory[y].replace(".", "%&")] == null) {
 								res.send("The folder you are trying to add a file to does not exist??? What are you doing!")
@@ -224,7 +232,10 @@ router.post('/newfolder', function (req, res) {
 		                    Type: "Folder",
 		                    Data: {}
 						};
+						console.log(filestuff[classroomid].Data);
 						users.update({_id : req.session.UserId}, {$set: {FileSystem: filestuff}}, function (err,up) {
+							console.log(err);
+							console.log(up);
 							res.send("New folder created");
 						});
 					}
@@ -250,8 +261,16 @@ router.get('/myfiles', function (req, res) {
 					if (err != null)
 						res.send(err);
 					else {
+						if (data.FileSystem[classroomid] == null) {
+							data.FileSystem[classroomid] = {
+								Data: {},
+								Type: "Folder",
+								Name: ""
+							}
+						}
 						var filestuff = data.FileSystem[classroomid].Data;
-						var dirstuff = data.FileSystem;
+
+						var dirstuff = data.FileSystem[classroomid];
 						for (var y = 1; y < directory.length; y++) {
 							if (filestuff[directory[y].replace(".", "%&")] == null) {
 								res.send("The folder you are trying to add a file to does not exist??? What are you doing!")
@@ -331,6 +350,13 @@ router.post('/deletefile' , function (req, res) {
 						res.send(err);
 					else {
 						var filesystem = data.FileSystem;
+						if (data.FileSystem[classroomid] == null) {
+							data.FileSystem[classroomid] = {
+								Data: {},
+								Type: "Folder",
+								Name: ""
+							}
+						}
 						var subsystem = filesystem[classroomid].Data;
 						for (var x = 1; x < directory.length; x++) {
 							if (subsystem[directory[x].replace(".", "%&")] == null) {
@@ -475,6 +501,13 @@ router.get('/getfilecontents', function (req, res) {
 					if (err != null)
 						res.send(err);
 					else {
+						if (data.FileSystem[classroomid] == null) {
+							data.FileSystem[classroomid] = {
+								Data: {},
+								Type: "Folder",
+								Name: ""
+							}
+						}
 						var subsystem = data.FileSystem[classroomid].Data;
 						for (var x = 1; x < directory.length; x++) {
 							if (subsystem[directory[x].replace(".", "%&")] == null) {

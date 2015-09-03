@@ -275,17 +275,15 @@ router.post('/openvmemulator' , function (req, res) {
 			if (data == false) 
 				res.send("Sorry, an error occured. Please refresh the page and try again later :(");
 			else {
-				isEnrolledInClass(req.session.UserId, classroomid, function (err, classroomdata) {
-					if (err != null)
-						res.send(err);
-					else {
-						var flatty = flattifyFileSystem(data.FileSystem[classroomid].Data, ["FileSystem"]);
-						for (var x = 0;x < directorydata.length; x++) {
-							directorydata[x].Directory = flatty[directorydata[x].UnderscoreID];
-						}
-						runProgram(directorydata, data.FileSystemRoot, res, req, rundata, true);
+				if (err != null)
+					res.send(err);
+				else {
+					var flatty = flattifyFileSystem(data.FileSystem[classroomid].Data, ["FileSystem"]);
+					for (var x = 0;x < directorydata.length; x++) {
+						directorydata[x].Directory = flatty[directorydata[x].UnderscoreID];
 					}
-				});
+					runProgram(directorydata, data.FileSystemRoot, res, req, rundata, true);
+				}
 			}
 		})
 	}
@@ -316,17 +314,15 @@ router.post('/openregemulator' , function (req, res) {
 			if (data == false) 
 				res.send("Sorry, an error occured. Please refresh the page and try again later :(");
 			else {
-				isEnrolledInClass(req.session.UserId, classroomid, function (err, classroomdata) {
-					if (err != null)
-						res.send(err);
-					else {
-						var flatty = flattifyFileSystem(data.FileSystem[classroomid].Data, ["FileSystem"]);
-						for (var x = 0;x < directorydata.length; x++) {
-							directorydata[x].Directory = flatty[directorydata[x].UnderscoreID];
-						}
-						runProgram(directorydata, data.FileSystemRoot, res, req, null, jsondata);
+				if (err != null)
+					res.send(err);
+				else {
+					var flatty = flattifyFileSystem(data.FileSystem[classroomid].Data, ["FileSystem"]);
+					for (var x = 0;x < directorydata.length; x++) {
+						directorydata[x].Directory = flatty[directorydata[x].UnderscoreID];
 					}
-				});
+					runProgram(directorydata, data.FileSystemRoot, res, req, null, jsondata);
+				}
 			}
 		})
 	}

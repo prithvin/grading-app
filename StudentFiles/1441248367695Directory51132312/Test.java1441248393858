@@ -1,0 +1,13 @@
+public class Test  {
+	public static void main (String [] args) {
+
+		System.out.println(Prompt.getString("someway:"));
+		System.out.println(Prompt.getInt("noway"));
+		System.out.println(Prompt.getString("noway:"));
+		System.out.println(Prompt.getString("noway:"));
+		System.out.println(Prompt.getString("noway:"));
+
+	}
+}
+
+

@@ -25,8 +25,6 @@ $("#enrollinclassbutton").on("submit", function (ev) {
 		url: "http://104.131.135.237:3000/users/requestclass",
 		data: {ClassroomId: $("#classidinptu").val()},
 		success: function (response) {
-
-			console.log(response);
 			if (response == "Success") {
 				$("#findclass").hide();
 				promptBox("You will be automatically added to the class once the instructor accepts you.", "Enrollment Requested", "Ok", null, "https://upload.wikimedia.org/wikipedia/en/2/2f/Happy_face_high_res.JPG", function () {
@@ -62,7 +60,6 @@ $( document ).ready(function() {
 						url: "http://104.131.135.237:3000/users/login",
 						data: {Email: $("#usernamefield").val(), Password: $("#passwordfield").val()},
 						success: function (response) {
-							console.log(response);
 							if (response == "Student account") {
 								$("#loginbox").hide();
 								doStuffStartingNow();
@@ -181,7 +178,6 @@ function getClassList () {
 			else {
 				var myclasslist = $("#myclasslist").html("");
 				for (var x = 0; x < response.length; x++) {
-					console.log(response);
 					$("<a>").addClass("mdl-navigation__link").attr("href", "studentportal.html?classroomid="  + response[x]._id + "&name=" + response[x].Name).attr("data-id", response[x]._id).html(response[x].Name).appendTo(myclasslist);
 				}
 			}
@@ -219,6 +215,7 @@ function promptBox (errormessage, textprompt, uploadyes, uploadno, bgimage, call
 	if (uploadno == null)
 		$("#errorbox").find("#uploadno").hide();
 	else 
+		$("#errorbox").find("#uploadno").show();
 		$("#errorbox").find("#uploadno").html(uploadno);
 
 	$(".mainbackground").css("background-image", "url('" + bgimage + "')");

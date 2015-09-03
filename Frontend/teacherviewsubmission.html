@@ -29,9 +29,12 @@
                .activebuttonportal {
                     background-color: rgba(0, 0, 0, 0.19);
                }
+               .mdl-layout__drawer-button {
+                    position:relative;
+               }
           </style>
      </head>
-     <body>
+     <body style="height:100%;">
           <!-- Always shows a header, even in smaller screens. -->
           <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
                <header class="mdl-layout__header">
@@ -56,43 +59,70 @@
                          <a class="mdl-navigation__link"  style="cursor:pointer;" id="openaddclass">Create Class</a>
                     </nav>
                </div>
-               <main class="mdl-layout__content">
-                    <div class="page-content">
+               <main  style="overflow:visible! IMPORTANT;height:100%; !IMPORTANT" class="mdl-layout__content">
+                    <div  style="height:100%; !IMPORTANT" class="page-content">
                          <div id="showBlockPage" style="display:none;position:absolute;background-color:white;padding-top:50px;text-align:center;height:100%;width:100%;"><p style="font-size:60px;line-height:70px;padding:50px;">Select a Classroom from the dropdown on the left</p></div>
-                         <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer">
-                           <div class="mdl-layout__drawer" style="overflow: visible;">
-                             <span class="mdl-layout-title">Dice.JAVA</span>
-                             <nav class="mdl-navigation">
-                               <a class="mdl-navigation__link" href="">Student 1<br>12/12/2015 5:30 PM
-                                   <button id="demo-menu-lower-left" class="mdl-button mdl-js-button mdl-button--icon">
-                                        <i class="material-icons">more_vert</i>
-                                   </button>
 
-                                   <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
-                                       for="demo-menu-lower-left">
-                                     <li class="mdl-menu__item">Submission 1 - 12/12/2015 5:30 PM</li>
-                                     <li class="mdl-menu__item">Submission 2 - 12/12/2015 5:30 PM</li>
-                                     <li disabled class="mdl-menu__item">Submission 3 - 12/12/2015 5:30 PM</li>
-                                     <li class="mdl-menu__item">Submission 4 - 12/12/2015 5:30 PM</li>
-                                   </ul>
-                              </a>
-                               <a class="mdl-navigation__link" href="">Student 2</a>
-                               <a class="mdl-navigation__link" href="">Student 4</a>
-                               <a class="mdl-navigation__link" href="">Student 3</a>
-                             </nav>
-                           </div>
-                           <main class="mdl-layout__content">
-                             <div class="page-content">
-                                 <a class="pure-button pure-button-primary"> View Program </a>
-                                  <a class="pure-button pure-button-primary"> Run Program  As</a>
-                                   <a class="pure-button pure-button-primary"> View Submission Schema </a>
-                                  <a class="pure-button pure-button-primary">Add Submission Schema </a>
-                             </div>
-                           </main>
+                         <div class="mdl-layout  mdl-layout--fixed-drawer" style="display:inline-block">
+                              <div class="mdl-layout__drawer mdl-layout--fixed-drawer" style="overflow: visible;max-height:none;height:initial;min-height:100%;">
+                                   <span class="mdl-layout-title">
+                                        <button id="selectprogrammenu" class="mdl-button mdl-js-button">Select Program</button>
+                                        <ul id="getprogramselectlist" class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"for="selectprogrammenu">
+                                        </ul>
+                                   </span>
+                                   <nav class="mdl-navigation"style="overflow-y:scroll;" id="submissionsforprogram"></nav>
+                              </div>
+                              <main style="height:100% !IMPORTANT;overflow:visible !IMPORTANT;padding:10px;width: calc(100% - 270px) !IMPORTANT;" class="mdl-layout__content" >
+                              <div style="width:100%;">
+                                   <button id="programchooser" class="mdl-button mdl-js-button mdl-button--primary" disabled>Choose File</button>
+                                   <ul id="programfilechooser" class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="programchooser"></ul>
+                                   <button id="revisionchooser" class="mdl-button mdl-js-button mdl-button--primary" disabled>View Revision</button>
+                                   <ul id="revisionfilechooser" class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="revisionchooser"></ul>
+                                   <b> File Name: </b><span id="filename" style="padding-right:10px"></span>
+                                   <b>  Directory:</b> <span id="directory" style="padding-right:10px"></span>
+                                   <b> Default Revision: </b><span id="defaultrevision" style="padding-right:10px"></span>
+                                   <b> Current Revision:</b> <span id="currentrevision" style="padding-right:10px"></span>
+                              </div>
+                              <div id="editor" style="height:40%;"></div>
+                              <br>
+                              
+                               <div id="newprogrambox" class="mdl-card__supporting-text pure-form">        
+                                   <h4 style="margin-bottom:0px !IMPORTANT;">Virtual Machine</h4>
+                                   Enter the code that you would like to run before compilation...<br>Assume that the command line starts on the FileSystem directory
+                                   <textarea style="font-size:12px;width:100%;border-radius:10px 10px 0px 0px;" placeholder="javac test.java && java test" type="text" rows= "3" id="inputvmtext" ></textarea>
+                                   <button id="runvirtualmachine" style="border-radius:0px 0px 10px 10px;width:100%;" class="pure-button pure-button-primary">Run Virtual Machine Test</button>
+                                   <a id="runvmhere"></a>
+
+                                   <br><br>
+
+                                   <h4 style="margin-bottom:0px !IMPORTANT;">Custom Input</h4>
+                                   Enter any commands that you need to compile all required files (assuming starting directory is one layer above FileSystem folder (must do cd FileSystem)) and go into the directory of the .java file you would like to run.
+                                   <textarea style="font-size:12px;width:100%;border-radius:10px 10px 0px 0px;" placeholder="cd FileSystem" type="text" rows= "3" id="inputspecinputcomptext" ></textarea>
+                                   <input  style="width:100%;border-radius:0px" id="inputspecinputfilename" placeholder=".Java File Name (Don't include .java)" style="font-size:12px;">
+                                   <select class="inputcompstyle" id="selectinputtype">
+                                        <option>Advanced Input</option>
+                                        <option>Basic Input</option>
+                                   </select>
+                                   <table style="width:100%;font-size:12px;" class="pure-table" >
+                                        <thead>
+                                             <tr>
+                                                  <th>Text to Find</th>
+                                                  <th>Text to Return</th>
+                                                  <th>Use Index Of</th>
+                                                  <th># Times Repeat</th>
+                                             </tr>
+                                        </thead>
+                                        <tbody id="tabledataspinput"></tbody>
+                                   </table>
+                                   <button id="addfieldforcompileinput" style="border-radius:0px;width:100%;background-color:#26A65B;" class="pure-button pure-button-primary">Add Field</button>
+                                   <button id="testforinput" style="background-color:#663399;border-radius:0px 0px 10px 10px;width:100%;" class="pure-button pure-button-primary">Test For Input</button>
+                                   <pre id="datadisplayhere"></pre>
+                              </div>
                          </div>
                     </div>
                </main>
           </div>
+          <div id="buriedfilesdiv"></div>
      </body>
      <alertboxes>
           <div id="findclass" class="bigbox"  style="">
@@ -147,13 +177,326 @@
                     </div>
                </div>
           </div>
+          <div id="errorbox" class="bigbox">
+               <div class="demo-card-square mdl-card mdl-shadow--2dp backgroundalert" >
+                    <div class="mainbackground mdl-card__title mdl-card--expand"><h2 class="mdl-card__title-text" id="textprompt" ></h2></div>
+                    <div class="mdl-card__supporting-text" id="uploadalertboxtext"></div>
+                    <div class="mdl-card__actions mdl-card--border">
+                         <a id="uploadyes" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Yes</a>
+                         <a id="uploadno" class="mdl-button  mdl-js-button mdl-js-ripple-effect">No</a>
+                    </div>
+               </div>
+          </div>
      </alertboxes>
      <footer>
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
           <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-          <script src="//cdn.ckeditor.com/4.5.3/standard/ckeditor.js"></script>
+          <script src="//cdn.jsdelivr.net/ace/1.2.0/min/ace.js"></script>
+          <script src="//cdn.jsdelivr.net/ace/1.2.0/min/mode-java.js"></script>
+          <script src="//cdn.jsdelivr.net/ace/1.2.0/min/theme-xcode.js"></script>
           <script src="teacherdashboard.js"></script>
-          <script> 
+          <script src="specialcompile.js"></script>
+          <script>
+
+
+
+          
+              
+
+               function teacherViewSubmissionGetProgram() {
+                     editor = ace.edit("editor");
+               editor.setTheme("ace/theme/xcode");
+               editor.getSession().setMode("ace/mode/java");
+               editor.setReadOnly(true);
+                    $("#getprogramselectlist").html("");
+                    $.ajax({
+                         type: "GET",
+                         url: "http://104.131.135.237:3000/teachers/getprogramsbynameandid",
+                         data: {ClassId: getQueryVariable("classroomid")},
+                         success: function (response) {
+                              sadBoxError(response, function () {
+                                   var maindiv = $("#getprogramselectlist");
+                                   for (var x = 0; x < response.length; x++) {
+                                        var li = $("<li>").addClass("mdl-menu__item").html(response[x].Name).appendTo(maindiv);
+                                        $(li).attr("data-id", response[x]._id);
+                                        $(li).on("click", function (ev) {
+                                          $("#selectprogrammenu").html($(this).html()).attr("data-id", $(this).attr("data-id"))
+                                             forteachersgetstudentsubmissions($(this).attr("data-id"));
+                                        });
+                                   }
+                              });
+                         },
+                         xhrFields: {withCredentials: true},
+                         error:function(){
+                         console.log("ERROR");
+                         }
+                    });
+               } 
+
+
+               function forteachersgetstudentsubmissions (programid) {
+                    $.ajax({
+                         type: "GET",
+                         url: "http://104.131.135.237:3000/submissions/forteachersgetstudentsubmissions",
+                         data: {ClassId: getQueryVariable("classroomid"), ProgramId: programid},
+                         success: function (resp) {
+                              sadBoxError(resp, function () {
+                                   var response = [];
+                                   for (m in resp) {
+                                        response.push({
+                                             Name: resp[m].Name,
+                                             StudentUnderscoreId: m,
+                                             Entries: resp[m].Entries
+                                        })
+                                   }
+
+                                   response.sort(function(a, b){
+                                        if (a.Name < b.Name)
+                                             return -1;
+                                        else if (a.Name > b.Name)
+                                             return  1;
+                                        else
+                                             return 0;
+                                   });
+                                     var maindiv =   $("#submissionsforprogram").html("");
+                                   for (var x =0; x < response.length; x++) {
+                                        if (response[x].Entries == null) {
+                                             $("<a>").addClass("mdl-navigation__link").html(response[x].Name + "<br>" + "No Submission").appendTo(maindiv).css("padding", "16px 20px 16px 40px");
+                                        }
+                                        else {
+                                             response[x].Entries.sort(function(a,b) { 
+                                                 return new Date(b).getTime() - new Date(a).getTime() 
+                                             });
+                                             var item = $("<a>").addClass("mdl-navigation__link studentprogram ").attr("data-StudentUnderscoreId", response[x].StudentUnderscoreId).html(response[x].Name + "<br>" + getFormattedDate(new Date(response[x].Entries[0]))).appendTo(maindiv).css("cursor", "pointer").css("padding", "16px 20px 16px 40px").attr("data-date", response[x].Entries[0]);
+                                             var button = $("<button>").addClass("mdl-button mdl-js-button mdl-button--icon").attr("id", response[x].StudentUnderscoreId).html("<i class='material-icons'>more_vert</i>").appendTo(item);
+
+                                             var ul = $("<ul>").addClass("mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect").attr("for", response[x].StudentUnderscoreId).appendTo(item).attr("id", response[x].StudentUnderscoreId + "bob");
+                                                
+
+                                                  for (var y = 0; y < response[x].Entries.length; y++)  {
+
+                                                       var li = $("<li>").addClass("mdl-menu__item studentprogramviewsubmission").html("Submission " + (y+1) + "-" + getFormattedDate(new Date(response[x].Entries[y]))).attr("data-date", response[x].Entries[y]).appendTo(ul).attr("data-StudentUnderscoreId", response[x].StudentUnderscoreId);
+                                                  }
+
+
+                                        }
+
+                                        
+
+                                   }
+                                     componentHandler.upgradeAllRegistered();
+                              });
+                         },
+                         xhrFields: {withCredentials: true},
+                         error:function(){
+                         console.log("ERROR");
+                         }
+                    });
+               }
+               $(document).on("click", ".studentprogramviewsubmission", function () {
+                      
+                    var StudentUnderscoreId = $(this).attr("data-StudentUnderscoreId");
+                    var ClassId = getQueryVariable("classroomid");
+                    var ProgramId =  $("#selectprogrammenu").attr("data-id");
+                    var DateOfSubmission = $(this).attr("data-date");
+                    $.ajax({
+                         type: "GET",
+                         url: "http://104.131.135.237:3000/submissions/getstudentsubmission",
+                         data: {
+                              StudentUnderscoreId: StudentUnderscoreId,
+                              ClassId: ClassId,
+                              ProgramId: ProgramId,
+                              DateOfSubmission: DateOfSubmission
+                         },
+                         success: function (response) {
+                              sadBoxError(response, function () {
+                                   $("#buriedfilesdiv").attr("data", JSON.stringify(response.Entries.Files));
+                                   var files = response.Entries.Files;
+                                   var maindiv = $("#programfilechooser").html("");
+                                    editor.setValue("", -1)
+                                    $("#filename").html("");
+                                   $("#directory").html("");
+                                   $("#defaultrevision").html("");
+                                   $("#currentrevision").html("");
+                                   for (var x = 0;x < files.length; x++) {
+                                        $("#programchooser").prop("disabled", false).attr("data-student-id", StudentUnderscoreId)
+                                        $("#revisionchooser").prop("disabled", true);
+                                        var li = $("<li>").addClass("mdl-menu__item liprogramname").html(files[x].Name).appendTo(maindiv);
+                                        $(li).attr("data-id", files[x].UnderscoreID);
+                                        $(li).attr("data-directory", JSON.stringify(files[x].DirectoryPosition));
+                                        $(li).attr("data-default-revision", files[x].RevisionNumber);
+                                        
+                                   }
+                                   
+                              });
+                         },
+                         xhrFields: {withCredentials: true},
+                         error:function(){
+                         console.log("ERROR");
+                         }
+                    });
+
+               });
+
+               $(document).on("click",".liprogramname" ,function (ev) {
+                    var currentitem = this;
+                    $.ajax({
+                         type: "GET",
+                         url: "http://104.131.135.237:3000/submissions/getfile",
+                         data: {FileId: $(this).attr("data-id"), RevisionRequested: $(this).attr("data-default-revision"), StudentUnderscoreId: $("#programchooser").attr("data-student-id"), ClassId: getQueryVariable("classroomid") },
+                         success: function (response) {
+                              sadBoxError(response, function () {
+                                   $("#filename").html($(currentitem).html());
+                                   $("#directory").html(JSON.parse($(currentitem).attr("data-directory")).join("/"));
+                                   var revision = parseInt($(currentitem).attr("data-default-revision"));
+                                   if (revision == -1)
+                                        revision = "Latest";
+                                   $("#defaultrevision").html("Revision " + revision);
+                                   $("#currentrevision").html("Revision " + revision);
+                                   editor.setValue(response.Data, -1)
+                                    $("#revisionchooser").prop("disabled", false);
+                                   var maindiv =  $("#revisionfilechooser").html("");
+                                   $.ajax({
+                                        type: "GET",
+                                        url: "http://104.131.135.237:3000/submissions/getrevisions",
+                                        data: {FileId: $(currentitem).attr("data-id"), StudentUnderscoreId: $("#programchooser").attr("data-student-id"), ClassId: getQueryVariable("classroomid") },
+                                        success: function (response) {
+                                             sadBoxError(response, function () {
+                                                  for (var x = 0;x < response.length; x++) {
+                                                        var li = $("<li>").addClass("mdl-menu__item lirevisionselect").html("Revision "  + x + " - " + new Date(response[x].DatePosted) + " - " + response[x].IPAddress).appendTo(maindiv);
+                                                        $(li).attr("data-id", $(currentitem).attr("data-id"));
+                                                        $(li).attr("data-revision", x);
+                                                  }
+                              
+                                             })
+                                        },
+                                        xhrFields: {withCredentials: true},
+                                        error:function(){
+                                        console.log("ERROR");
+                                        }
+                                   });
+                                    //getrevisions
+                              })
+                           
+                         },
+                         xhrFields: {withCredentials: true},
+                         error:function(){
+                         console.log("ERROR");
+                         }
+                    });
+               });
+
+               $(document).on("click", ".lirevisionselect", function (ev) {
+                    var currentitem = this;
+                    $.ajax({
+                         type: "GET",
+                         url: "http://104.131.135.237:3000/submissions/getfile",
+                         data: {FileId: $(this).attr("data-id"), RevisionRequested: $(this).attr("data-revision"), StudentUnderscoreId: $("#programchooser").attr("data-student-id"), ClassId: getQueryVariable("classroomid") },
+                         success: function (response) {
+                              sadBoxError(response, function () {
+                                   $("#currentrevision").html("Revision " + $(currentitem).attr("data-revision"));
+                                   editor.setValue(response.Data, -1)
+                              })
+                           
+                         },
+                         xhrFields: {withCredentials: true},
+                         error:function(){
+                         console.log("ERROR");
+                         }
+                    });
+               });
+
+   
+
+
+
+               Number.prototype.padLeft = function(base,chr){
+                    var  len = (String(base || 10).length - String(this).length)+1;
+                    return len > 0? new Array(len).join(chr || '0')+this : this;
+               }
+               function getFormattedDate (d) {
+                     return [(d.getMonth()+1).padLeft(),d.getDate().padLeft(),d.getFullYear()].join('/') + ' ' + formatAMPM(d);
+               }
+               function formatAMPM(date) {
+                    var hours = date.getHours();
+                    var minutes = date.getMinutes();
+                    var ampm = hours >= 12 ? 'pm' : 'am';
+                    hours = hours % 12;
+                    hours = hours ? hours : 12; // the hour '0' should be '12'
+                    minutes = minutes < 10 ? '0'+minutes : minutes;
+                    var strTime = hours + ':' + minutes + ':' + date.getSeconds() + " " + ampm;
+                    return strTime;
+               }
+/*
+                <a class="mdl-navigation__link" href="">Student 1<br>12/12/2015 5:30 PM
+                    <button id="demo-menu-lower-left" class="mdl-button mdl-js-button mdl-button--icon">
+                         <i class="material-icons">more_vert</i>
+                    </button>
+
+                    <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
+                        for="demo-menu-lower-left" >
+                      <li class="mdl-menu__item">Submission 1 - 12/12/2015 5:30 PM</li>
+                      <li class="mdl-menu__item">Submission 2 - 12/12/2015 5:30 PM</li>
+                      <li disabled class="mdl-menu__item">Submission 3 - 12/12/2015 5:30 PM</li>
+                      <li class="mdl-menu__item">Submission 4 - 12/12/2015 5:30 PM</li>
+                    </ul>
+               </a>*/
+
+               
+
+
+          $("#newprogrambox").show();
+               $("#runvirtualmachine").off("click");
+               $("#runvirtualmachine").on("click", function (ev) {
+                    $("#loadingbox").show();
+                    $.ajax({
+                         type: "POST",
+                         url: "http://104.131.135.237:3000/programrun/openvmemulator",
+                         data: {DirectoryData: obj, RunData: $("#inputvmtext").val().split("\n").join(" && "), ClassRoomId: getQueryVariable("classroomid")},
+                         success: function (response) {
+                              sadBoxError(response);
+                              $("#loadingbox").hide();
+                              console.log(response);
+                              $("#runvmhere").show();
+                              $("#runvmhere").attr("href", "http://104.131.135.237/novnc.html?port=" + response).html("Click here to run VM").attr("target", "_blank");
+                         },
+                         xhrFields: {withCredentials: true},
+                         error:function(){
+                              console.log("ERROR");
+                         }
+                    });
+               })
+               $("#testforinput").off("click");
+               $("#testforinput").on("click", function () {
+                    $("#loadingbox").show();
+                    var advinput = false;
+                    if($( "#selectinputtype option:selected" ).text() == "Advanced Input") 
+                         advinput = true;
+                    var objinputdata = {
+                         CompileInput: $("#inputspecinputcomptext").val().split("\n").join(" && ").trim(),
+                         FileName: $("#inputspecinputfilename").val().trim(),
+                         AdvancedInput: advinput,
+                         TextToFind:  $('.texttofind').map(function(){return $.trim($(this).val());}).get(),
+                         TextToReturn: $('.texttoreturn').map(function(){return $.trim($(this).val());}).get(),
+                         UseIndexOf: $('.useindexof').map(function(){return $.trim($(this).is(':checked'));}).get(),
+                         NumRepeats:  $('.numrepeats').map(function(){return $.trim($(this).val());}).get()
+                    };
+                    $.ajax({
+                         type: "POST",
+                         url: "http://104.131.135.237:3000/programrun/openregemulator",
+                         data: {DirectoryData: obj, JsonData: objinputdata, ClassRoomId: getQueryVariable("classroomid")},
+                         success: function (response) {
+                              sadBoxError(response);
+                              $("#loadingbox").hide();
+                              $("#datadisplayhere").show().html(response);
+
+                         },
+                         xhrFields: {withCredentials: true},
+                         error:function(){
+                              console.log("ERROR");
+                         }
+                    });
+               });
 
           </script>
      </footer>
