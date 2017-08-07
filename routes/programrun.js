@@ -95,9 +95,10 @@ function runProgram (directorydata, rootdirectory, res, req, rundata, runvm) {
 				}
 				else {
 					obj.AdvancedInput == false;
+					obj.BasicCounter = 0;
 				}
 				obj.Data = [];
-				for (var x = 0; x < runvm.TextToFind.length; x++) {
+				for (var x = 0; x < runvm.TextToReturn.length; x++) {
 					console.log(obj.AdvancedInput);
 					if (obj.AdvancedInput == true  || obj.AdvancedInput == "true") {
 						console.log("AND HERE PLZ");
@@ -114,8 +115,8 @@ function runProgram (directorydata, rootdirectory, res, req, rundata, runvm) {
 					}
 					else {
 						obj.Data.push({
-							Text: runvm.TextToFind[x],
-							ReturnText: null,
+							Text: null,
+							ReturnText: runvm.TextToReturn[x].split("\\n").join("\n"),
 							UseIndexOf: null,
 							RepeatHowMany: null,
 							HowManyRepeatedSoFar: null
@@ -262,31 +263,64 @@ function isEnrolledInClass(userid, classroomid, callback) {
 		});
 	}
 }
+
+function newStuffForTeachers(studentid, sessionid, classroomid, callback) {
+	if (studentid != null) {
+		teachermod.findOne({_id: sessionid}, function (err, data) {
+			if (data == null || err != null) {
+				callback(false);
+			}
+			else {
+				for (var x = 0;x < data.Classrooms.length; x++) {
+					if (data.Classrooms[x].Id == classroomid) {
+						callback(true);
+					}
+				}
+			}
+		});
+	}
+	else {
+		callback(false);
+	}
+}
 router.post('/openvmemulator' , function (req, res) {
 	var directorydata = req.body.DirectoryData;
 	var rundata = req.body.RunData;
 	var classroomid = req.body.ClassRoomId;
 	rundata = rundata.split("\n").join(" && ");
-	if (directorydata == null) {
-		res.send("Please send all required parameters");
-	}
-	else {
-		isInSession(req.session.UserId, req.session.Teacher, function (data) {
-			if (data == false) 
-				res.send("Sorry, an error occured. Please refresh the page and try again later :(");
-			else {
-				if (err != null)
-					res.send(err);
+
+	var studentid = req.session.UserId;
+	var teacher = req.session.Teacher;
+	newStuffForTeachers(req.body.StudentId, req.session.UserId, classroomid, function (isgood) {
+		if (isgood) {
+			studentid = req.body.StudentId;
+			teacher = "NO";
+		}
+
+
+		if (directorydata == null) {
+			res.send("ERR: Please send all required parameters");
+		}
+		else {
+			isInSession(studentid, teacher, function (data) {
+				if (data == false) 
+					res.send("ERR: Sorry, an error occured. Please refresh the page and try again later :(");
 				else {
-					var flatty = flattifyFileSystem(data.FileSystem[classroomid].Data, ["FileSystem"]);
-					for (var x = 0;x < directorydata.length; x++) {
-						directorydata[x].Directory = flatty[directorydata[x].UnderscoreID];
-					}
-					runProgram(directorydata, data.FileSystemRoot, res, req, rundata, true);
+					isEnrolledInClass(studentid, classroomid, function (err, classroomdata) {
+						if (err != null)
+							res.send(err);
+						else {
+							var flatty = flattifyFileSystem(data.FileSystem[classroomid].Data, ["FileSystem"]);
+							for (var x = 0;x < directorydata.length; x++) {
+								directorydata[x].Directory = flatty[directorydata[x].UnderscoreID];
+							}
+							runProgram(directorydata, data.FileSystemRoot, res, req, rundata, true);
+						}
+					});
 				}
-			}
-		})
-	}
+			})
+		}
+	});
 });
 
 
@@ -296,36 +330,48 @@ router.post('/openregemulator' , function (req, res) {
 	var classroomid = req.body.ClassRoomId;
 	var jsondata = req.body.JsonData;
 
-
-	if (jsondata.AdvancedInput == null) {
-		res.send("Error, please send all required parameters");
-	}
-	else if (jsondata.AdvancedInput == true) {
-		if (jsondata.TextToFind.length != jsondata.TextToReturn.length || jsondata.TextToReturn.length != jsondata.UseIndexOf.length || jsondata.UseIndexOf.length != jsondata.NumRepeats.length) {
-			res.send("Error. Some paramters not inputted correctly");
+	var studentid = req.session.UserId;
+	var teacher = req.session.Teacher;
+	newStuffForTeachers(req.body.StudentId, req.session.UserId,classroomid, function (isgood) {
+		if (isgood) {
+			studentid = req.body.StudentId;
+			teacher = "NO";
 		}
-	}
-	
-	else if (directorydata == null) {
-		res.send("Please send all required parameters");
-	}
-	else {
-		isInSession(req.session.UserId, req.session.Teacher, function (data) {
-			if (data == false) 
-				res.send("Sorry, an error occured. Please refresh the page and try again later :(");
-			else {
-				if (err != null)
-					res.send(err);
-				else {
-					var flatty = flattifyFileSystem(data.FileSystem[classroomid].Data, ["FileSystem"]);
-					for (var x = 0;x < directorydata.length; x++) {
-						directorydata[x].Directory = flatty[directorydata[x].UnderscoreID];
-					}
-					runProgram(directorydata, data.FileSystemRoot, res, req, null, jsondata);
-				}
+
+
+		if (jsondata.AdvancedInput == null) {
+			res.send("ERR: Error, please send all required parameters");
+		}
+		else if (jsondata.AdvancedInput == true) {
+			if (jsondata.TextToFind.length != jsondata.TextToReturn.length || jsondata.TextToReturn.length != jsondata.UseIndexOf.length || jsondata.UseIndexOf.length != jsondata.NumRepeats.length) {
+				res.send("ERR: Error. Some paramters not inputted correctly");
 			}
-		})
-	}
+		}
+		else if (directorydata == null) {
+			res.send("ERR: Please send all required parameters");
+		}
+		else {
+			isInSession(studentid, teacher, function (data) {
+				if (data == false) 
+					res.send("ERR: Sorry, an error occured. Please refresh the page and try again later :(");
+				else {
+					isEnrolledInClass(studentid, classroomid, function (err, classroomdata) {
+						if (err != null)
+							res.send(err);
+						else {
+							var flatty = flattifyFileSystem(data.FileSystem[classroomid].Data, ["FileSystem"]);
+							for (var x = 0;x < directorydata.length; x++) {
+								directorydata[x].Directory = flatty[directorydata[x].UnderscoreID];
+							}
+							runProgram(directorydata, data.FileSystemRoot, res, req, null, jsondata);
+						}
+					});
+				}
+			})
+		}
+	});
+
+	
 });
 
 

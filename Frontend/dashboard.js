@@ -14,6 +14,8 @@ $(".mdl-navigation__link").on("click", function (ev) {
 		window.location = "studentportal.html" + window.location.search;
 	if ($(this).html() == "My Files") 
 		window.location = "test.html" + window.location.search;
+	if ($(this).html() == "Assignments") 
+		window.location = "studentviewsubmission.html" + window.location.search;
 	
 });
 
@@ -97,6 +99,9 @@ function doStuffStartingNow() {
 	if ($(".activebuttonportal").html() == "Classroom") {
 		getCurrentClass(getQueryVariable("classroomid"));
 	}
+	else if ($(".activebuttonportal").html() == "Assignments") {
+		getAssignments();
+	}
 	else if ($(".activebuttonportal").html() == "My Files") {
 		refreshDirectory();
 		updateDirectoryTop();
@@ -123,6 +128,15 @@ function sadBoxError(response, callback) {
 	}
 }
 
+  function getFormattedDate (d) {
+                     return [(d.getMonth()+1).padLeft(),d.getDate().padLeft(),d.getFullYear()].join('/') ;
+               }
+
+               	 Number.prototype.padLeft = function(base,chr){
+                    var  len = (String(base || 10).length - String(this).length)+1;
+                    return len > 0? new Array(len).join(chr || '0')+this : this;
+               }
+
 function getCurrentClass(classid) {
 
 	if (classid != null) {
@@ -139,8 +153,51 @@ function getCurrentClass(classid) {
 				}
 				else {
 					console.log(response);
+					var maindiv = $("#contentgoeshere");
+					for (var x = 0;x < response.Bulletin.length; x++){ 
+						var div1 = $("<div>").addClass("mdl-card mdl-shadow--2dp").css("min-height", "0px").css("margin", "50px").appendTo(maindiv);
+
+						var title = $("<div>").appendTo(div1).addClass("mdl-card__supporting-text").css("padding-bottom", "0px").html("<h4 class='mld-card_title-text'>" + getFormattedDate(new Date(response.Bulletin[x].DateOf)) + "</h4><hr>")
+						var content = $("<div>").appendTo(div1).addClass("mdl-card__supporting-text").css("padding-bottom", "30px").html(response.Bulletin[x].TextDesc);
+
+					}
+	
+
+
 					// DO SOMETHING HERE WITH BULLITEN AND LOCKER
 				}
+			},
+			xhrFields: {withCredentials: true},
+			error:function(){
+				console.log("ERROR");
+			}
+		});
+	}
+	
+}
+
+function createNewAccount(teacher, email, password, studentid, name) {
+	if (teacher == false) {
+		$.ajax({
+			type: "POST",
+			url: "http://104.131.135.237:3000/users/createaccount",
+			data: {Email: email, Password:  password, StudentID: studentid, Name: name},
+			success: function (response) {
+				console.log(response);
+			},
+			xhrFields: {withCredentials: true},
+			error:function(){
+				console.log("ERROR");
+			}
+		});
+	}
+	else {
+		$.ajax({
+			type: "POST",
+			url: "http://104.131.135.237:3000/teachers/createaccount",
+			data: {Email: email, Password: password},
+			success: function (response) {
+				console.log(response);
 			},
 			xhrFields: {withCredentials: true},
 			error:function(){
@@ -207,7 +264,7 @@ function getQueryVariable(variable) {
 
 function promptBox (errormessage, textprompt, uploadyes, uploadno, bgimage, callbackyes, callbackno) {
 
-	$("#uploadalertboxtext").html(errormessage); // The smaller text
+	$("#errorbox").find("#uploadalertboxtext").html(errormessage); // The smaller text
 
 
 	$("#errorbox").find("#textprompt").html(textprompt); // The bigger, (less length) text

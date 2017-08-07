@@ -1,0 +1,50 @@
+#!/bin/sh
+
+# This is a random comment
+
+# On line one, adding -xv does same as 
+# calling sh -x script (adds debugging output)
+
+arr=(1 2 3 BOB LOL)
+echo ${arr[*]}
+echo $arr
+
+arr[0]='OMG LOL WTF'
+echo ${arr[1]}
+echo ${arr[0]}
+
+bob = 55
+asdasdasd
+echo $bob
+
+echo {-n} "Who am I talking to?"
+read user_name
+echo 'Hello $user_name \n\n\n\n'
+
+
+directory=`pwd`
+echo Hey whats up
+echo The date is `date`
+echo The directory is $directory
+
+varm=5
+echo "This should display the value of m = $varm"
+echo 'This should not display the value of m = $varm'
+echo 'Wow `ls`' # should print literal strign
+echo "Wow `ls | wc`" # should print ls??
+
+read var1 var2
+
+echo "$var1 is $var2"
+
+
+# GLOBAL ENV/ CONFIG Variable captialized 
+# SUCH AS HOME, PATH, SHELL, USERNAME, PWD
+
+# Special variablse (like positonal parameters $1 $2 
+# refer to first, second string after name of script file
+# like echo $1 $2 $3 
+
+echo $HOME
+
+echo $SHELL

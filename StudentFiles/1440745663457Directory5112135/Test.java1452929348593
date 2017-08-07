@@ -1,0 +1,13 @@
+public class Test  {
+	public static void main (String [] args) {
+
+		System.out.println(Prompt.getString("Manohar:"));
+		System.out.println(Prompt.getInt("Zavala"));
+		System.out.println(Prompt.getString("Manohar BJP:"));
+		System.out.println(Prompt.getString("Manohar LOL:"));
+		System.out.println(Prompt.getString("VS:"));
+
+	}
+}
+
+

@@ -20,8 +20,9 @@ $("#addfieldforcompileinput").on("click", function (){
 function addBasicInput () {
 	var tbodymain = $("#tabledataspinput");
 		var tbody = $("<tr>").appendTo(tbodymain);
+		var td0 = $("<td>").appendTo(tbody);
 	var td1 = $("<td>").appendTo(tbody);
-		$("<input>").addClass("texttofind").appendTo(td1);
+		$("<input>").addClass("texttoreturn").appendTo(td1);
 }
 function addAdvancedInput() {
 	var tbodymain = $("#tabledataspinput");

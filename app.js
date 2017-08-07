@@ -112,7 +112,7 @@ programs = new Schema ({
     DueDate: Date,
     Images: [],
     ClassConnected: Schema.Types.ObjectId,
-    SavedVMCommands: [String],
+    SavedVMCommands: [],
     SavedRegCommands: [],
     Submissions: [
         {

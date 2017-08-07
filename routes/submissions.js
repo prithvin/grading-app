@@ -69,6 +69,147 @@ function isTeacherOwnerOfClassroom (classid, teacherid, callback) {
 	});
 }
 
+router.get('/getprogramsbynameandid', function (req, res) {
+	var classid = req.query.ClassId;
+	isInSession(req.session.UserId, req.session.Teacher, function (isgood) {
+		if (isgood == false) {
+			res.send("ERR: User not in sesssion. Refresh page and try again");
+		}
+		else {
+			isEnrolledInClass(req.session.UserId, classid, function (err, classroomdata) {
+				if (err != null)
+					res.send(err);
+				else {
+					programsschem.find({ClassConnected: classid}, "Name _id DueDate", function (err, data) {
+ 						res.send(data);
+ 					});
+				}
+			});
+		}
+	});
+ 
+ 			
+ 
+ });
+
+router.post('/savecommand' , function (req, res) {
+	var isvm = req.body.isvm;
+	var classroomid = req.body.ClassId;
+	var programid = req.body.ProgramId;
+	var datatopush = req.body.Data; //  {Data: data, Name: name} :)
+
+	if (isvm == null || classroomid == null || programid == null || datatopush == null) {
+		res.send("ERR: Not all inputs sent");
+	}
+	else  {
+		console.log("SO FAR");
+		isTeacherOwnerOfClassroom(classroomid, req.session.UserId, function (isgood) {
+			if (isgood == false) {
+				res.send("ERR: You do not own this classroom");
+			}
+			else {
+				console.log("SO FAR");
+				programsschem.findOne({_id : programid}, function (err, programdata) {
+					if (programid == null || err != null || programdata == null)
+						res.send("ERR: This program does not exist");
+					else if (String(programdata.ClassConnected) != String(classroomid)) {
+						res.send("ERR: You do not have access to this program");
+					}
+					else {
+						console.log("SO FAR");
+						if (isvm == "YES") {
+							console.log("SO FAR");
+							programsschem.update({_id: programid}, { $push: { SavedVMCommands:  datatopush} }, function (err, up) {
+								res.send("DONE");
+							});
+						}
+						else {
+							programsschem.update({_id: programid}, { $push: { SavedRegCommands:  datatopush} }, function (err, up) {
+								res.send("DONE");
+							});
+						}
+					}
+				});
+			}
+		});
+	}
+});
+
+router.post('/publishgrade', function (req ,res) {
+	var programid = req.body.ProgramId;
+	var classroomid = req.body.ClassId;
+	var studentid = req.body.StudentUnderscoreId;
+	var teachercomments = req.body.TeacherComments;
+	var teachergrades = req.body.TeacherGrades;
+	if (classroomid == null || programid == null || studentid == null || teachercomments == null || teachergrades == null) {
+		res.send("ERR: Not all inputs sent");
+	}
+	else  {
+		isTeacherOwnerOfClassroom(classroomid, req.session.UserId, function (isgood) {
+			if (isgood == false) {
+				res.send("ERR: You do not own this classroom");
+			}
+			else {
+				console.log("SO FAR");
+				programsschem.findOne({_id : programid}, function (err, programdata) {
+					if (programid == null || err != null || programdata == null)
+						res.send("ERR: This program does not exist");
+					else if (String(programdata.ClassConnected) != String(classroomid)) {
+						res.send("ERR: You do not have access to this program");
+					}
+					else {
+						var obj = {};
+						for (var x = 0; x < programdata.Submissions.length; x++) {
+							if (programdata.Submissions[x].StudentObjectId == studentid) {
+								obj = programdata.Submissions[x];
+							}
+						}
+						if (obj != {}) {
+							programsschem.update({_id: programid}, {$pull :{ Submissions : {StudentObjectId : studentid}}}, function (err, up) {
+								obj["TeacherComments"] = teachercomments;
+								obj["Grade"] = teachergrades;
+								programsschem.update({_id: programid}, {$push :{ Submissions : obj}}, function (err, up) {
+									res.send("DONE");
+								});
+							});
+						}
+					}
+				});
+			}
+		});
+	}
+});
+router.get('/mycommands' , function (req, res) {
+	var classroomid = req.query.ClassId;
+	var programid = req.query.ProgramId;
+
+	if (classroomid == null || programid == null) {
+		res.send("ERR: Not all inputs sent");
+	}
+	else  {
+		isTeacherOwnerOfClassroom(classroomid, req.session.UserId, function (isgood) {
+			if (isgood == false) {
+				res.send("ERR: You do not own this classroom");
+			}
+			else {
+				console.log("SO FAR");
+				programsschem.findOne({_id : programid}, function (err, programdata) {
+					if (programid == null || err != null || programdata == null)
+						res.send("ERR: This program does not exist");
+					else if (String(programdata.ClassConnected) != String(classroomid)) {
+						res.send("ERR: You do not have access to this program");
+					}
+					else {
+						res.send({
+							VM: programdata.SavedVMCommands,
+							Reg: programdata.SavedRegCommands
+						});
+					}
+				});
+			}
+		});
+	}
+});
 
 router.post('/submitprogram', function (req, res) {
 	var programid = req.body.ProgramId;
@@ -225,6 +366,45 @@ router.get('/getstudentsubmission', function (req, res) {
 
 
 
+router.get('/studentsubmissionsforprogram', function (req, res) {
+	var classid = req.query.ClassId;
+	var programid = req.query.ProgramId;
+	isInSession(req.session.UserId, req.session.Teacher, function (isgood) {
+		if (isgood == false) {
+			res.send("ERR: User not in sesssion. Refresh page and try again");
+		}
+		else {
+			isEnrolledInClass(req.session.UserId, classid, function (err, classroomdata) {
+				if (err != null)
+					res.send(err);
+				else {
+					programsschem.findOne({_id : programid}, function (err, data) {
+						if (data == null || err != null)
+							res.send("ERR: This program does not exist");
+						else if (String(classid) != String(data.ClassConnected)) 
+							res.send("ERR: This program is part of a different class");
+						else {
+							var results = {};
+							for (var x= 0 ;x < data.Submissions.length; x++) {
+
+								if (String(data.Submissions[x].StudentObjectId) == String(req.session.UserId)) {
+									console.log("BE HERE");;
+									results = {
+										StudentComments: data.Submissions[x].StudentComments,
+										Grade: data.Submissions[x].Grade,
+										TeacherComments: data.Submissions[x].TeacherComments,
+										Entries: data.Submissions[x].Entries
+									};
+								}
+							}
+							res.send(results);
+						}
+ 					});
+				}
+			});
+		}
+	});
+})
  router.get('/forteachersgetstudentsubmissions', function (req, res) {
  	var classid = req.query.ClassId;
  	var programid = req.query.ProgramId;

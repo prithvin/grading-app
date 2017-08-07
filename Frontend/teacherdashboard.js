@@ -58,11 +58,12 @@ function getClassList () {
 }
 
 function isJson(str) {
-    try {
-        JSON.parse(JSON.stringify(str))
-    } catch (e) {
-        return false;
-    }
+    if (Object.prototype.toString.call(str)) {
+    	if (typeof str == "object")
+    		return true;
+    	return false;
+    } 
+    	
     return true;
 }
 
@@ -383,7 +384,7 @@ function getQueryVariable(variable) {
 
 function promptBox (errormessage, textprompt, uploadyes, uploadno, bgimage, callbackyes, callbackno) {
 
-	$("#uploadalertboxtext").html(errormessage); // The smaller text
+	$("#errorbox").find("#uploadalertboxtext").html(errormessage); // The smaller text
 
 
 	$("#errorbox").find("#textprompt").html(textprompt); // The bigger, (less length) text

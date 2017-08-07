@@ -85,44 +85,63 @@
                               </div>
                               <div id="editor" style="height:40%;"></div>
                               <br>
-                              
-                               <div id="newprogrambox" class="mdl-card__supporting-text pure-form">        
-                                   <h4 style="margin-bottom:0px !IMPORTANT;">Virtual Machine</h4>
-                                   Enter the code that you would like to run before compilation...<br>Assume that the command line starts on the FileSystem directory
-                                   <textarea style="font-size:12px;width:100%;border-radius:10px 10px 0px 0px;" placeholder="javac test.java && java test" type="text" rows= "3" id="inputvmtext" ></textarea>
-                                   <button id="runvirtualmachine" style="border-radius:0px 0px 10px 10px;width:100%;" class="pure-button pure-button-primary">Run Virtual Machine Test</button>
-                                   <a id="runvmhere"></a>
+                             Student Comments: <span id="studentcommentshere"></span><br>
+                              <button id="runnergetter" class="mdl-button mdl-js-button mdl-button--primary" disabled>View Compilers</button>
+                              <ul id="runnergettermenu" class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="runnergetter"></ul>
+                             
+                               <div id="newprogrambox" class="mdl-card__supporting-text pure-form">     
+                                   <div id="loadingbox"  style="display:none;" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"> Loading....  </div>
+
+                                   <div id="virtualmachinediv" style="display:none;">
+                                        <h4 style="margin-bottom:0px !IMPORTANT;">Virtual Machine</h4>
+                                        Enter the code that you would like to run before compilation...<br>Assume that the command line starts on the FileSystem directory
+                                        <textarea style="font-size:12px;width:100%;border-radius:10px 10px 0px 0px;" placeholder="javac test.java && java test" type="text" rows= "3" id="inputvmtext" ></textarea>
+                                        <button id="runvirtualmachine" style="border-radius:0px 0px 10px 10px;width:100%;" class="pure-button pure-button-primary">Run Virtual Machine Test</button>
+                                        <button id="savevirtualmachine" style="width:100%;margin-top:5px;border-radius:10px;background-color:#019875" class="pure-button pure-button-primary">Save Test As...</button>
+                                        <iframe id="runvmhere" style="width:100%;height:700px;"></iframe>
+                                   </div>
 
                                    <br><br>
-
-                                   <h4 style="margin-bottom:0px !IMPORTANT;">Custom Input</h4>
-                                   Enter any commands that you need to compile all required files (assuming starting directory is one layer above FileSystem folder (must do cd FileSystem)) and go into the directory of the .java file you would like to run.
-                                   <textarea style="font-size:12px;width:100%;border-radius:10px 10px 0px 0px;" placeholder="cd FileSystem" type="text" rows= "3" id="inputspecinputcomptext" ></textarea>
-                                   <input  style="width:100%;border-radius:0px" id="inputspecinputfilename" placeholder=".Java File Name (Don't include .java)" style="font-size:12px;">
-                                   <select class="inputcompstyle" id="selectinputtype">
-                                        <option>Advanced Input</option>
-                                        <option>Basic Input</option>
-                                   </select>
-                                   <table style="width:100%;font-size:12px;" class="pure-table" >
-                                        <thead>
-                                             <tr>
-                                                  <th>Text to Find</th>
-                                                  <th>Text to Return</th>
-                                                  <th>Use Index Of</th>
-                                                  <th># Times Repeat</th>
-                                             </tr>
-                                        </thead>
-                                        <tbody id="tabledataspinput"></tbody>
-                                   </table>
-                                   <button id="addfieldforcompileinput" style="border-radius:0px;width:100%;background-color:#26A65B;" class="pure-button pure-button-primary">Add Field</button>
-                                   <button id="testforinput" style="background-color:#663399;border-radius:0px 0px 10px 10px;width:100%;" class="pure-button pure-button-primary">Test For Input</button>
-                                   <pre id="datadisplayhere"></pre>
+                                   <div id="regcompilediv" style="display:none;">
+                                        <h4 style="margin-bottom:0px !IMPORTANT;">Custom Input</h4>
+                                        Enter any commands that you need to compile all required files (assuming starting directory is one layer above FileSystem folder (must do cd FileSystem)) and go into the directory of the .java file you would like to run.
+                                        <textarea style="font-size:12px;width:100%;border-radius:10px 10px 0px 0px;" placeholder="cd FileSystem" type="text" rows= "3" id="inputspecinputcomptext" ></textarea>
+                                        <input  style="width:100%;border-radius:0px" id="inputspecinputfilename" placeholder=".Java File Name (Don't include .java)" style="font-size:12px;">
+                                        <select class="inputcompstyle" id="selectinputtype">
+                                             <option>Advanced Input</option>
+                                             <option>Basic Input</option>
+                                        </select>
+                                        <table style="width:100%;font-size:12px;" class="pure-table" >
+                                             <thead>
+                                                  <tr>
+                                                       <th>Text to Find</th>
+                                                       <th>Text to Return</th>
+                                                       <th>Use Index Of</th>
+                                                       <th># Times Repeat</th>
+                                                  </tr>
+                                             </thead>
+                                             <tbody id="tabledataspinput"></tbody>
+                                        </table>
+                                        <button id="addfieldforcompileinput" style="border-radius:0px;width:100%;background-color:#4183D7;" class="pure-button pure-button-primary">Add Field</button>
+                                        <button id="testforinput" style="background-color:#2C3E50;border-radius:0px 0px 10px 10px;width:100%;" class="pure-button pure-button-primary">Test For Input</button>
+                                        <button id="savecompileinput" style="width:100%;margin-top:5px;border-radius:10px;background-color:#019875" class="pure-button pure-button-primary">Save Test As...</button>
+                                        <pre id="datadisplayhere"></pre>
+                                   </div>
+                              </div>
+                               <div style="width:100%;" class="pure-form">
+                                   <hr style="margin-top:0;">
+                                   Teacher Comments: <textarea style="width:100%;" id="teachercomments"></textarea><br>
+                                   Grade: <input id="teachergrade"><br>
+                                   <span id="isdraft">Draft currently saved</span>
+                                   <a  id="publishdraft" class="pure-button pure-button-primary">Save Draft</a>
+                                    <a id="publishgrade" class="pure-button pure-button-primary">Publish Grade</a>
                               </div>
                          </div>
                     </div>
                </main>
           </div>
           <div id="buriedfilesdiv"></div>
+          <div id="buriedstudentid"></div>
      </body>
      <alertboxes>
           <div id="findclass" class="bigbox"  style="">
@@ -177,8 +196,25 @@
                     </div>
                </div>
           </div>
-          <div id="errorbox" class="bigbox">
+          <div id="savesomething" class="bigbox">
                <div class="demo-card-square mdl-card mdl-shadow--2dp backgroundalert" >
+                    <div class="mainbackground mdl-card__title mdl-card--expand">
+                         <h2 class="mdl-card__title-text" >Save Schema</h2>
+                    </div>
+                    <div class="mdl-card__supporting-text">
+                         Please provide a name for the new schema:
+                         <div class="mdl-textfield mdl-js-textfield">
+                              <input class="mdl-textfield__input" type="text" id="schemaname" />
+                              <label class="mdl-textfield__label" for="schemaname">Schema NAme</label>
+                         </div>
+                    </div>
+                    <div class="mdl-card__actions mdl-card--border">
+                         <a id="pickschemaname" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Ok</a>
+                    </div>
+               </div>
+          </div>
+          <div id="errorbox" class="bigbox">
+               <div style="z-index:5000;"class="demo-card-square mdl-card mdl-shadow--2dp backgroundalert" >
                     <div class="mainbackground mdl-card__title mdl-card--expand"><h2 class="mdl-card__title-text" id="textprompt" ></h2></div>
                     <div class="mdl-card__supporting-text" id="uploadalertboxtext"></div>
                     <div class="mdl-card__actions mdl-card--border">
@@ -208,13 +244,14 @@
                editor.setTheme("ace/theme/xcode");
                editor.getSession().setMode("ace/mode/java");
                editor.setReadOnly(true);
-                    $("#getprogramselectlist").html("");
+                    $("#getprogramselectlist").html("Loading...");
                     $.ajax({
                          type: "GET",
                          url: "http://104.131.135.237:3000/teachers/getprogramsbynameandid",
                          data: {ClassId: getQueryVariable("classroomid")},
                          success: function (response) {
                               sadBoxError(response, function () {
+                                   $("#getprogramselectlist").html("");
                                    var maindiv = $("#getprogramselectlist");
                                    for (var x = 0; x < response.length; x++) {
                                         var li = $("<li>").addClass("mdl-menu__item").html(response[x].Name).appendTo(maindiv);
@@ -235,12 +272,14 @@
 
 
                function forteachersgetstudentsubmissions (programid) {
+                     var maindiv =   $("#submissionsforprogram").html("Loading...");
                     $.ajax({
                          type: "GET",
                          url: "http://104.131.135.237:3000/submissions/forteachersgetstudentsubmissions",
                          data: {ClassId: getQueryVariable("classroomid"), ProgramId: programid},
                          success: function (resp) {
                               sadBoxError(resp, function () {
+                                   $("#submissionsforprogram").html("");
                                    var response = [];
                                    for (m in resp) {
                                         response.push({
@@ -258,7 +297,7 @@
                                         else
                                              return 0;
                                    });
-                                     var maindiv =   $("#submissionsforprogram").html("");
+                                    
                                    for (var x =0; x < response.length; x++) {
                                         if (response[x].Entries == null) {
                                              $("<a>").addClass("mdl-navigation__link").html(response[x].Name + "<br>" + "No Submission").appendTo(maindiv).css("padding", "16px 20px 16px 40px");
@@ -293,12 +332,49 @@
                          }
                     });
                }
+               $("#publishdraft").on("click", function () {
+                    var teachercomments = "DRAFT:" + $("#teachercomments").val();
+                    var grade = "DRAFT:" + $("#teachergrade").val();
+                    $.ajax({
+                         type: "POST",
+                         url: "http://104.131.135.237:3000/submissions/publishgrade",
+                         data: {ProgramId: $("#selectprogrammenu").attr("data-id"), ClassId: getQueryVariable("classroomid"), StudentUnderscoreId: $("#teachercomments").attr("data-student-id"), TeacherComments: teachercomments,TeacherGrades: grade},
+                         success: function (response) {
+                               sadBoxError(response, function () {
+                                   alert("Saved")
+                              });
+                         },
+                         xhrFields: {withCredentials: true},
+                         error:function(){
+                              console.log("ERROR");
+                         }
+                    });
+               });
+                $("#publishgrade").on("click", function () {
+                    var teachercomments = $("#teachercomments").val();
+                    var grade = $("#teachergrade").val();
+                    $.ajax({
+                         type: "POST",
+                         url: "http://104.131.135.237:3000/submissions/publishgrade",
+                         data: {ProgramId: $("#selectprogrammenu").attr("data-id"), ClassId: getQueryVariable("classroomid"), StudentUnderscoreId: $("#teachercomments").attr("data-student-id"), TeacherComments: teachercomments,TeacherGrades: grade},
+                         success: function (response) {
+                               sadBoxError(response, function () {
+                                   alert("Saved")
+                              });
+                         },
+                         xhrFields: {withCredentials: true},
+                         error:function(){
+                              console.log("ERROR");
+                         }
+                    });
+               });
                $(document).on("click", ".studentprogramviewsubmission", function () {
                       
                     var StudentUnderscoreId = $(this).attr("data-StudentUnderscoreId");
                     var ClassId = getQueryVariable("classroomid");
                     var ProgramId =  $("#selectprogrammenu").attr("data-id");
                     var DateOfSubmission = $(this).attr("data-date");
+                    var maindiv = $("#programfilechooser").html("Loading...");
                     $.ajax({
                          type: "GET",
                          url: "http://104.131.135.237:3000/submissions/getstudentsubmission",
@@ -310,9 +386,35 @@
                          },
                          success: function (response) {
                               sadBoxError(response, function () {
+                                   $("#studentcommentshere").html(response.StudentComments);
+                                   $("#teachercomments").attr("data-student-id", StudentUnderscoreId);
+                                   console.log(response);
+                                   if (response.TeacherComments.substring(0,6) == "DRAFT:") {
+                                        $("#teachercomments").val(response.TeacherComments.substring(6));
+                                        $("#teachergrade").val(response.Grade.substring(6));
+                                        $("#isdraft").show();
+                                   }
+                                   else {
+                                        $("#teachercomments").val(response.TeacherComments);
+                                        $("#teachergrade").val(response.Grade);
+                                        $("#isdraft").hide();
+                                   }
+/*
+
+  Teacher Comments: <textarea style="width:100%;" id="teachercomments"></textarea><br>
+                                   Grade: <input id="teachergrade"><br>
+                                   <span id="isdraft">Draft currently saved</span>
+                                   <a  id="publishdraft" class="pure-button pure-button-primary">Save Draft</a>
+                                    <a id="publishgrade" class="pure-button pure-button-primary">Publish Grade</a>
+*/
+
+                                   getMenuForCompilers(response);
+
+                                    $("#programfilechooser").html("");
                                    $("#buriedfilesdiv").attr("data", JSON.stringify(response.Entries.Files));
+                                   $("#buriedstudentid").attr("data", StudentUnderscoreId);
                                    var files = response.Entries.Files;
-                                   var maindiv = $("#programfilechooser").html("");
+                                   
                                     editor.setValue("", -1)
                                     $("#filename").html("");
                                    $("#directory").html("");
@@ -338,6 +440,92 @@
 
                });
 
+               function getMenuForCompilers (response) {
+                    console.log("HEYHEYHEY");
+                     var biggerdiv = $("#runnergettermenu").html("");
+                     $("#runnergetter").prop("disabled", false);
+                    var li = $("<li>").addClass("mdl-menu__item runnergettermenu").html("User Submitted VM").appendTo(biggerdiv);
+                    $(li).attr("data-type", "VM");
+                    $(li).attr("data", response.Entries.VMCommand);
+                    var li = $("<li>").addClass("mdl-menu__item runnergettermenu").html("User Submitted Regular Command").appendTo(biggerdiv);
+                    $(li).attr("data-type", "REG");
+                    $(li).attr("data", JSON.stringify(response.Entries.RegCommand));
+
+                    $.ajax({
+                         type: "GET",
+                         url: "http://104.131.135.237:3000/submissions/mycommands",
+                         data: {ClassId: getQueryVariable("classroomid"), ProgramId: $("#selectprogrammenu").attr("data-id")},
+                         success: function (response) {
+                              sadBoxError(response, function () {
+                                   for (var x = 0; x < response.VM.length; x++) {
+                                         var li = $("<li>").addClass("mdl-menu__item runnergettermenu").html(response.VM[x].Name + "VM").appendTo(biggerdiv);
+                                        $(li).attr("data-type",  "VM");
+                                         $(li).attr("data", response.VM[x].Data);
+                                   }
+                                   for (var x = 0; x < response.Reg.length; x++) {
+                                         var li = $("<li>").addClass("mdl-menu__item runnergettermenu").html(response.Reg[x].Name + "Reg").appendTo(biggerdiv);
+                                        $(li).attr("data-type", "REG");
+                                         $(li).attr("data", JSON.stringify(response.Reg[x].Data));
+                                   }
+
+                              });
+                         },
+                         xhrFields: {withCredentials: true},
+                         error:function(){
+                         console.log("ERROR");
+                         }
+                    });
+               }
+               $(document).on("click", ".runnergettermenu", function (ev) {
+                    $("#virtualmachinediv").hide();
+                    $("#regcompilediv").hide();
+                    if ($(this).attr("data-type") == "VM") {
+                         $("#inputvmtext").val($(this).attr("data"));
+                         $("#virtualmachinediv").show();
+                    }
+                    else if ($(this).attr("data-type") == "REG") {
+                         $("#tabledataspinput").html("");
+                         var json = JSON.parse($(this).attr("data"));
+                         $("#inputspecinputcomptext").val(json.CompileInput);
+
+                         $("#inputspecinputfilename").val(json.FileName);
+
+                         if (json.AdvancedInput == true || json.AdvancedInput == "true")  {
+                              $("#selectinputtype option").filter(function() {return this.text == "Advanced Input"; }).attr('selected', true);
+                              for (var x = $(".texttofind").length; x < json.TextToFind.length; x++) {
+                                   addAdvancedInput();
+                              }
+                               for (var x = 0;x < json.TextToFind.length; x++) {
+                              $($(".texttofind").get(x)).val(json.TextToFind[x]);
+                              }
+                              for (var x = 0;x < json.TextToReturn.length; x++) {
+                              $($(".texttoreturn").get(x)).val(json.TextToReturn[x]);
+                              }
+                              for (var x = 0;x < json.UseIndexOf.length; x++) {
+                              if (json.UseIndexOf[x] == "true")
+                                   $($(".useindexof").get(x)).prop('checked', true);
+                              else
+                                   $($(".useindexof").get(x)).prop('checked', false);
+                              }
+                              for (var x = 0;x < json.TextToReturn.length; x++) {
+                              $($(".numrepeats").get(x)).val(parseInt(json.NumRepeats[x]));
+                              }
+                         }
+                         else  {
+                              $("#selectinputtype option").filter(function() {return this.text == "Basic Input"; }).attr('selected', true);
+                              for (var x = $(".texttoreturn").length; x < json.TextToReturn.length; x++) {
+                                   addBasicInput();
+                              }
+                              for (var x = 0;x < json.TextToReturn.length; x++) {
+                              $($(".texttoreturn").get(x)).val(json.TextToReturn[x]);
+                              }
+                         }
+                         
+                        
+                         $("#regcompilediv").show();
+                    }
+               });
+
                $(document).on("click",".liprogramname" ,function (ev) {
                     var currentitem = this;
                     $.ajax({
@@ -355,13 +543,14 @@
                                    $("#currentrevision").html("Revision " + revision);
                                    editor.setValue(response.Data, -1)
                                     $("#revisionchooser").prop("disabled", false);
-                                   var maindiv =  $("#revisionfilechooser").html("");
+                                   var maindiv =  $("#revisionfilechooser").html("Loading...");
                                    $.ajax({
                                         type: "GET",
                                         url: "http://104.131.135.237:3000/submissions/getrevisions",
                                         data: {FileId: $(currentitem).attr("data-id"), StudentUnderscoreId: $("#programchooser").attr("data-student-id"), ClassId: getQueryVariable("classroomid") },
                                         success: function (response) {
                                              sadBoxError(response, function () {
+                                                  $("#revisionfilechooser").html("");
                                                   for (var x = 0;x < response.length; x++) {
                                                         var li = $("<li>").addClass("mdl-menu__item lirevisionselect").html("Revision "  + x + " - " + new Date(response[x].DatePosted) + " - " + response[x].IPAddress).appendTo(maindiv);
                                                         $(li).attr("data-id", $(currentitem).attr("data-id"));
@@ -445,58 +634,165 @@
                
 
 
-          $("#newprogrambox").show();
-               $("#runvirtualmachine").off("click");
-               $("#runvirtualmachine").on("click", function (ev) {
-                    $("#loadingbox").show();
-                    $.ajax({
-                         type: "POST",
-                         url: "http://104.131.135.237:3000/programrun/openvmemulator",
-                         data: {DirectoryData: obj, RunData: $("#inputvmtext").val().split("\n").join(" && "), ClassRoomId: getQueryVariable("classroomid")},
-                         success: function (response) {
-                              sadBoxError(response);
-                              $("#loadingbox").hide();
-                              console.log(response);
-                              $("#runvmhere").show();
-                              $("#runvmhere").attr("href", "http://104.131.135.237/novnc.html?port=" + response).html("Click here to run VM").attr("target", "_blank");
-                         },
-                         xhrFields: {withCredentials: true},
-                         error:function(){
-                              console.log("ERROR");
-                         }
-                    });
-               })
-               $("#testforinput").off("click");
-               $("#testforinput").on("click", function () {
-                    $("#loadingbox").show();
-                    var advinput = false;
-                    if($( "#selectinputtype option:selected" ).text() == "Advanced Input") 
-                         advinput = true;
-                    var objinputdata = {
-                         CompileInput: $("#inputspecinputcomptext").val().split("\n").join(" && ").trim(),
-                         FileName: $("#inputspecinputfilename").val().trim(),
-                         AdvancedInput: advinput,
-                         TextToFind:  $('.texttofind').map(function(){return $.trim($(this).val());}).get(),
-                         TextToReturn: $('.texttoreturn').map(function(){return $.trim($(this).val());}).get(),
-                         UseIndexOf: $('.useindexof').map(function(){return $.trim($(this).is(':checked'));}).get(),
-                         NumRepeats:  $('.numrepeats').map(function(){return $.trim($(this).val());}).get()
-                    };
-                    $.ajax({
-                         type: "POST",
-                         url: "http://104.131.135.237:3000/programrun/openregemulator",
-                         data: {DirectoryData: obj, JsonData: objinputdata, ClassRoomId: getQueryVariable("classroomid")},
-                         success: function (response) {
-                              sadBoxError(response);
-                              $("#loadingbox").hide();
-                              $("#datadisplayhere").show().html(response);
 
-                         },
-                         xhrFields: {withCredentials: true},
-                         error:function(){
-                              console.log("ERROR");
+               singleClickVirtualMachine();
+               singleClickTestForInput();
+               function singleClickVirtualMachine () {
+                    $("#runvirtualmachine").one("click", function (ev) {
+                         $("#loadingbox").show();
+                         $.ajax({
+                              type: "POST",
+                              url: "http://104.131.135.237:3000/programrun/openvmemulator",
+                              data: {DirectoryData: JSON.parse($("#buriedfilesdiv").attr("data")), RunData: $("#inputvmtext").val().split("\n").join(" && "), ClassRoomId: getQueryVariable("classroomid"), StudentId: $("#buriedstudentid").attr("data")},
+                              success: function (response) {
+                                   sadBoxError(response);
+                                   $("#loadingbox").hide();
+                                   singleClickVirtualMachine();
+                                   console.log(response);
+                                   $("#runvmhere").show();
+                                   $("#runvmhere").attr("src", "http://104.131.135.237/novnc.html?port=" + response);
+                              },
+                              xhrFields: {withCredentials: true},
+                              error:function(){
+                                   console.log("ERROR");
+                              }
+                         });
+                    })
+               }
+
+               function singleClickTestForInput() {
+                    $("#testforinput").one("click", function () {
+                         $("#loadingbox").show();
+                         var advinput = false;
+                         if($( "#selectinputtype option:selected" ).text() == "Advanced Input") 
+                              advinput = true;
+                         var objinputdata = {
+                              CompileInput: $("#inputspecinputcomptext").val().split("\n").join(" && ").trim(),
+                              FileName: $("#inputspecinputfilename").val().trim(),
+                              AdvancedInput: advinput,
+                              TextToFind:  $('.texttofind').map(function(){return $.trim($(this).val());}).get(),
+                              TextToReturn: $('.texttoreturn').map(function(){return $.trim($(this).val());}).get(),
+                              UseIndexOf: $('.useindexof').map(function(){return $.trim($(this).is(':checked'));}).get(),
+                              NumRepeats:  $('.numrepeats').map(function(){return $.trim($(this).val());}).get()
+                         };
+                         $.ajax({
+                              type: "POST",
+                              url: "http://104.131.135.237:3000/programrun/openregemulator",
+                              data: {DirectoryData: JSON.parse($("#buriedfilesdiv").attr("data")), JsonData: objinputdata, ClassRoomId: getQueryVariable("classroomid"), StudentId: $("#buriedstudentid").attr("data")},
+                              success: function (response) {
+                                   sadBoxError(response);
+                                   $("#loadingbox").hide();
+                                   singleClickTestForInput();
+                                   $("#datadisplayhere").show().html(response);
+
+                              },
+                              xhrFields: {withCredentials: true},
+                              error:function(){
+                                   console.log("ERROR");
+                              }
+                         });
+                    });
+               }
+               $("#savevirtualmachine").on("click", function () {
+                    $("#savesomething").show();
+                    $("#pickschemaname").one("click", function () {
+                         if ($("#schemaname").val() == "") {
+                               sadBoxError("ERR: Please fill out a name");
+                              $("#savevirtualmachine").click();
+                         }
+                         else {
+                              var datatopush = {
+                                   Name: $("#schemaname").val(),
+                                   Data: $("#inputvmtext").val().split("\n").join(" && ")
+                              };
+                              var isvm = "YES";
+                              var programid = $("#selectprogrammenu").attr("data-id");
+                              var classroomid = getQueryVariable("classroomid");
+                              $.ajax({
+                                   type: "POST",
+                                   url: "http://104.131.135.237:3000/submissions/savecommand",
+                                   data: {
+                                        Data: datatopush,
+                                        isvm: isvm,
+                                        ProgramId: programid,
+                                        ClassId: classroomid
+                                   },
+                                   success: function (response) {
+                                        sadBoxError(response, function () {
+                                              $("#savesomething").hide();
+                                              promptBox("Schema Created", "Status", "Ok", null, "https://upload.wikimedia.org/wikipedia/en/2/2f/Happy_face_high_res.JPG", function () {
+                                                  closePromptBox();
+                                             });
+                                        });
+                                   },
+                                   xhrFields: {withCredentials: true},
+                                   error:function(){
+                                        console.log("ERROR");
+                                   }
+                              });
                          }
                     });
                });
+
+                $("#savecompileinput").on("click", function () {
+                    $("#savesomething").show();
+                    $("#pickschemaname").one("click", function () {
+                         if ($("#schemaname").val() == "") {
+                               sadBoxError("ERR: Please fill out a name");
+                              $("#savecompileinput").click();
+                         }
+                         else {
+                              
+                              var isvm = "NO";
+                              var programid = $("#selectprogrammenu").attr("data-id");
+                              var classroomid = getQueryVariable("classroomid");
+
+                              var advinput = false;
+                              if($( "#selectinputtype option:selected" ).text() == "Advanced Input") 
+                                   advinput = true;
+                              var objinputdata = {
+                                   CompileInput: $("#inputspecinputcomptext").val().split("\n").join(" && ").trim(),
+                                   FileName: $("#inputspecinputfilename").val().trim(),
+                                   AdvancedInput: advinput,
+                                   TextToFind:  $('.texttofind').map(function(){return $.trim($(this).val());}).get(),
+                                   TextToReturn: $('.texttoreturn').map(function(){return $.trim($(this).val());}).get(),
+                                   UseIndexOf: $('.useindexof').map(function(){return $.trim($(this).is(':checked'));}).get(),
+                                   NumRepeats:  $('.numrepeats').map(function(){return $.trim($(this).val());}).get()
+                              };
+
+                              var datatopush = {
+                                   Name: $("#schemaname").val(),
+                                   Data: objinputdata
+                              };
+
+                              $.ajax({
+                                   type: "POST",
+                                   url: "http://104.131.135.237:3000/submissions/savecommand",
+                                   data: {
+                                        Data: datatopush,
+                                        isvm: isvm,
+                                        ProgramId: programid,
+                                        ClassId: classroomid
+                                   },
+                                   success: function (response) {
+                                        console.log(response);
+                                        sadBoxError(response, function () {
+                                              $("#savesomething").hide();
+                                              promptBox("Schema Created", "Status", "Ok", null, "https://upload.wikimedia.org/wikipedia/en/2/2f/Happy_face_high_res.JPG", function () {
+                                                  closePromptBox();
+                                             });
+                                        });
+                                   },
+                                   xhrFields: {withCredentials: true},
+                                   error:function(){
+                                        console.log("ERROR");
+                                   }
+                              });
+                         }
+                    });
+               });
+
+          
 
           </script>
      </footer>
